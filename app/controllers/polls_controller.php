@@ -11,18 +11,17 @@ class PollsController extends AppController
 
                 $this->Session->write(
                     'answer', 
-                    array('poll' => $id, 'answers' => array())
+                    array('poll' => $id)
                 );
 
                 if (!$this->Poll->field('public')) {
-                    
                     $this->Session->write('answer.hash', $hash);
                 }
 
                 $this->redirect(
                     array(
                         'controller' => 'answers', 
-                        'action' => 'view'
+                        'action' => 'answer'
                     )
                 );
             }

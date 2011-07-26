@@ -14,7 +14,7 @@ $highText = $question['Question']['high_text'];
     <input type="radio" name="data[Answer][answer]" value="Kyllä"/>Kyllä
     <input type="radio" name="data[Answer][answer]" value="Ei"/>Ei
     <input type="radio" name="data[Answer][answer]" value="En osaa sanoa"/>En osaa sanoa
-<?php elseif ($type == 2): ?>
+<?php elseif ($type == 3): ?>
     <?php echo $lowText; ?>
     <input type="radio" name="data[Answer][answer]" value="1"/>
     <input type="radio" name="data[Answer][answer]" value="2"/>
@@ -23,7 +23,7 @@ $highText = $question['Question']['high_text'];
     <input type="radio" name="data[Answer][answer]" value="5"/>
     <?php echo $highText; ?>
     <input type="radio" name="data[Answer][answer]" value="En osaa sanoa"/>En osaa sanoa
-<?php elseif ($type == 3): ?>
+<?php elseif ($type == 4): ?>
     <?php echo $lowText; ?>
     <input type="radio" name="data[Answer][answer]" value="1"/>
     <input type="radio" name="data[Answer][answer]" value="2"/>

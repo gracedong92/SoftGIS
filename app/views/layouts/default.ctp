@@ -12,17 +12,19 @@
         echo $this->Html->css('cake.generic');
         echo $this->Html->css('poll');
         echo $this->Html->css('jquery-ui-1.8.14.custom');
+        echo $this->Html->css('jquery.meow');
         
         echo $this->Html->script('http://maps.google.com/maps/api/js?libraries=geometry&sensor=false');
         echo $this->Html->script('jquery-1.5.1.min');
         echo $this->Html->script('jquery-ui-1.8.14.custom.min');
         echo $this->Html->script('jquery.tmpl.min');
-        // echo $this->Html->script('jquery.locationpicker');
+        echo $this->Html->script('jquery.meow');
 
         echo $scripts_for_layout;
     ?>
 </head>
 <body>
+    <div id="meows"></div>
     <div id="container">
         <div id="header">
             <h1>Soft-GIS</h1>

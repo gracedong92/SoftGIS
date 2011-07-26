@@ -98,9 +98,13 @@ class AppSchema extends CakeSchema
 
     var $answers = array(
         'id' => array(
-            'type'=>'integer', 
+            'type' => 'integer', 
             'null' => false, 
             'key' => 'primary'
+        ),
+        'hash' => array(
+            'type' => 'string',
+            'null' => false
         ),
         'question_id' => array(
             'type' => 'integer', 
