@@ -30,6 +30,11 @@ class AppSchema extends CakeSchema
             'null' => true,
             'default' => null
         ),
+        'answers' => array(
+            'type' => 'integer',
+            'null' => false,
+            'default' => 0
+        ),
         'description' => array(
             'type' => 'text',
             'null' => true,

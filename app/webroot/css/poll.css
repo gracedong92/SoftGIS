@@ -81,9 +81,8 @@ div.input {
   margin-bottom: 1em; }
   div.input > label {
     font-weight: bold;
-    display: block;
     font-size: 1.2em;
-    margin-bottom: 0.3em; }
+    padding: 0 0 0 0.3em; }
   div.input input[type="text"], div.input input[type="password"], div.input textarea {
     font-family: 'lucida grande',verdana,helvetica,arial,sans-serif;
     line-height: 20px;

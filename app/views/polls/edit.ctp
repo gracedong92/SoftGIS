@@ -1,9 +1,8 @@
 <?php echo $this->Html->script('locationpicker'); ?>
 <?php echo $this->Html->script('create_poll'); ?>
 
-<h1>Luo uusi kysely</h1>
 
-
+<h1>Kysely</h1>
 
 <!-- Form -->
 <?php echo $this->Form->create('Poll'); ?>
@@ -19,6 +18,11 @@
 <?php echo $this->Form->input(
     'description',
     array('label' => 'Kuvaus')
+); ?>
+
+<?php echo $this->Form->input(
+    'public',
+    array('label' => 'Kaikille avoin')
 ); ?>
 
 <div class="input">
@@ -39,7 +43,7 @@
     </ul>
     <button type="button" id="create-question">Luo uusi kysymys</button>
 </div>
-<?php echo $this->Form->end('Luo'); ?>
+<?php echo $this->Form->end('Tallenna'); ?>
 
 <script>
 

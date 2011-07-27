@@ -2,14 +2,63 @@
 
 class AnswersController extends AppController
 {
+    public function beforeFilter()
+    {
+        parent::beforeFilter();
+        error_reporting(E_ALL);
+        $this->Auth->allow('*');
+    }
+
+    public function index($pollId = null, $hash = null)
+    {
+        $this->redirect(array('action' => 'poll', $pollId, $hash));
+    }
+
+    public function poll($pollId = null, $hash = null)
+    {
+        $this->loadModel('Poll');
+    
+        if ($pollId != null) {
+            $this->Poll->id = $pollId;
+            if ($this->Poll->exists()) {
+
+                if (!$this->Poll->field('public')) {
+                    // Validate hash if poll is not public
+                    if (!$this->Answer->validHash($pollId, $hash)) {
+                        $this->cakeError('invalidHash');
+                    }
+                } else {
+                    //generate custom hash if public
+                    $hash = $this->Answer->generateHash();
+                    
+                }
+
+                $this->Session->write(
+                    'answer', 
+                    array(
+                        'poll' => $pollId,
+                        'hash' => $hash
+                    )
+                );
+
+                $this->redirect(
+                    array(
+                        'action' => 'answer'
+                    )
+                );
+            }
+        }
+        $this->cakeError('pollNotFound');
+    }
+
+
     public function answer()
     {
-        error_reporting(E_ALL);
         $answerSession = $this->Session->read('answer');
 
         if (empty($answerSession['poll'])) {
             // No poll set
-            throw new Exception('Kyselyä ei löytynyt');
+            $this->cakeError('pollNotFound');
         }
 
         $pollId = $answerSession['poll'];
@@ -60,7 +109,7 @@ class AnswersController extends AppController
 
         $this->Session->write('answer', $answerSession);
 
-        debug($answerSession);
+        // debug($answerSession);
 
         if (empty($question)) {
             // Just answered to last question
@@ -89,9 +138,28 @@ class AnswersController extends AppController
     
     }
 
+
+    /**
+     * Saves answers and clears session data
+     */
     protected function _finishAnswering()
     {
-        $pollId = $this->Session->read('answer.poll');
-        throw new Exception('Kesken');
+        $answerSession = $this->Session->read('answer');
+        foreach ($answerSession['answers'] as $answer) {
+            $answer['hash'] = $answerSession['hash'];
+            $this->Answer->create(array('Answer' => $answer));
+            $this->Answer->save();
+        }
+
+        $this->loadModel('Poll');
+        $this->Poll->id = $answerSession['poll'];
+        $answers = $this->Poll->field('answers');
+        $answers++;
+        $this->Poll->saveField('answers', $answers);
+
+
+        $this->Session->write('answer', array());
+
+        $this->render('finish');
     }
 }
