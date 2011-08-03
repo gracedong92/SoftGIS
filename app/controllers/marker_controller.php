@@ -2,6 +2,13 @@
 
 class ObjectsController extends AppController
 {
+    public function beforeFilter()
+    {
+        parent::beforeFilter();
+        $this->layout = 'author';
+    }
+
+
     public function create()
     {
         $authorId = $this->Auth->user('id');
@@ -14,10 +21,5 @@ class ObjectsController extends AppController
                 // debug($this->Entry->invalidFields());die;
             }
         }
-    }
-
-    public function create_marker()
-    {
-        $authorId = $this->Auth->user('id');
     }
 }

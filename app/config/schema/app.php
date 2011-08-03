@@ -148,7 +148,6 @@ class AppSchema extends CakeSchema
         )
     );
 
-
     var $objects = array(
         'id' => array(
             'type'=>'integer', 
@@ -177,6 +176,47 @@ class AppSchema extends CakeSchema
             'type' => 'text',
             'null' => false,
             'default' => null
+        )
+    );
+
+    var $polls_paths = array(
+        'id' => array(
+            'type'=>'integer', 
+            'null' => false, 
+            'key' => 'primary'
+        ),
+        'poll_id' => array(
+            'type'=>'integer', 
+            'null' => false
+        ),
+        'path_id' => array(
+            'type'=>'integer', 
+            'null' => false
+        )
+    );
+
+    var $paths = array(
+        'id' => array(
+            'type'=>'integer', 
+            'null' => false, 
+            'key' => 'primary'
+        ),
+        'name' => array(
+            'type' => 'string',
+            'length' => '50',
+            'null' => false
+        ),
+        'content' => array(
+            'type' => 'text'
+        ),
+        'color' => array(
+            'type' => 'string',
+            'length' => '6',
+            'null' => true
+        ),
+        'polyline' => array(
+            'type' => 'text',
+            'null' => false
         )
     );
 

@@ -9,6 +9,12 @@ class Poll extends AppModel
         )
     );
 
+    public $hasAndBelongsToMany = array(
+        'Path' => array(
+            'joinTable' => 'polls_paths'
+        )
+    );
+
     public $validate = array(
         'name' => array(
             'rule' => 'notEmpty',

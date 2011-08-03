@@ -75,9 +75,9 @@ $( document ).ready(function() {
     });
 
 
-    for ( var i in questionDatas ) {
-        createQuestion( questionDatas[i] );
-    }
+    // for ( var i in questionDatas ) {
+    //     createQuestion( questionDatas[i] );
+    // }
 
 
     function createQuestion(data) {

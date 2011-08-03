@@ -11,7 +11,8 @@ class AppController extends Controller
                 'action' => 'login'
             )
         ),
-        'Session'
+        'Session',
+        'RequestHandler'
     );
 
     public $helpers = array(

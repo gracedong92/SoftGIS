@@ -1,9 +1,24 @@
 <?php echo $this->Html->script('locationpicker'); ?>
 <?php echo $this->Html->script('create_poll'); ?>
 
+<script>
+
+<?php if (!empty($this->data['Path'])): ?>
+    var paths = <?php echo json_encode($this->data['Path']); ?>
+<?php else: ?>
+    var paths = null;
+<?php endif; ?>
+
+$( document ).ready(function() {
+    $( "#PollPaths" ).tokenInput("/paths/search.json", {
+        prePopulate: paths
+    });
+});
+
+</script>
+
 
 <h1>Kysely</h1>
-
 <!-- Form -->
 <?php echo $this->Form->create('Poll'); ?>
 
@@ -23,6 +38,11 @@
 <?php echo $this->Form->input(
     'public',
     array('label' => 'Kaikille avoin')
+); ?>
+
+<?php echo $this->Form->input(
+    'paths',
+    array('label' => 'Reitit')
 ); ?>
 
 <div class="input">

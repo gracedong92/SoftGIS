@@ -27,7 +27,9 @@ h1, h2, h3, h4 {
   background: #fff;
   clear: both;
   padding: 2em;
-  overflow: auto; }
+  overflow: auto;
+  max-width: 860px;
+  margin: 0 auto; }
 
 #footer {
   clear: both;
@@ -81,14 +83,15 @@ div.input {
   margin-bottom: 1em; }
   div.input > label {
     font-weight: bold;
-    font-size: 1.2em;
-    padding: 0 0 0 0.3em; }
+    color: #333;
+    padding: 0 0 0.3em 0.3em;
+    letter-spacing: 1px; }
   div.input input[type="text"], div.input input[type="password"], div.input textarea {
-    font-family: 'lucida grande',verdana,helvetica,arial,sans-serif;
-    line-height: 20px;
-    font-size: 16px;
-    border: 1px solid #c9c9c9;
-    border-radius: 3px;
+    font-family: Verdana;
+    line-height: 16px;
+    font-size: 12px;
+    display: block;
+    border: 1px solid #999999;
     padding: 0.3em;
     box-sizing: border-box;
     width: 100%; }
@@ -100,10 +103,9 @@ div.input {
       width: 19em; }
   div.input select {
     line-height: 20px;
-    font-size: 16px;
-    border: 1px solid #c9c9c9;
-    border-radius: 3px;
-    padding: 0.3em;
+    font-size: 12px;
+    border: 1px solid #999999;
+    display: block;
     box-sizing: border-box; }
 
 div.map-container div.map {
@@ -130,30 +132,42 @@ div.map-container div.coords {
   #questions li.question {
     margin: 0;
     padding: 0;
-    max-width: 800px;
     background: -webkit-gradient(linear, left top, left bottom, from(#f3f3f3), to(#e4e4e4));
     background: -moz-linear-gradient(#f3f3f3, #e4e4e4);
-    border-radius: 4px;
-    border: 1px solid #c9c9c9;
-    margin-bottom: 3px; }
+    border: 1px solid #999999;
+    margin-bottom: 1px; }
     #questions li.question table.header {
-      width: 100%; }
+      width: 100%;
+      border-collapse: collapse; }
       #questions li.question table.header td {
+        height: 24px;
         padding: 0; }
         #questions li.question table.header td.num {
           width: 1.5em;
-          font-size: 1.5em;
-          padding-left: 0.8em; }
+          padding-left: 0.4em;
+          font-weight: bold; }
         #questions li.question table.header td.text {
-          min-width: 100%; }
+          min-width: 100%;
+          height: 24px;
+          line-height: 24px;
+          overflow: hidden;
+          font-size: 123px;
+          whitespace: nowrap; }
         #questions li.question table.header td.button {
-          width: 1.5em; }
-    #questions li.question table.details {
-      border-top: 1px solid #c9c9c9;
-      width: 100%; }
-      #questions li.question table.details td {
+          width: 1.4em; }
+          #questions li.question table.header td.button div {
+            line-height: 24px;
+            background-color: #82bee8;
+            cursor: pointer;
+            height: 100%;
+            padding: 0 1em; }
+    #questions li.question .details {
+      font-size: 0.8em;
+      padding: 1em;
+      border-top: 1px solid #999999; }
+      #questions li.question .details td {
         padding: 0.3em; }
-      #questions li.question table.details th {
+      #questions li.question .details th {
         text-align: right;
         padding: 0.3em;
         font-weight: bold; }

@@ -2,6 +2,12 @@
 
 class PollsController extends AppController
 {
+    public function beforeFilter()
+    {
+        parent::beforeFilter();
+        $this->layout = 'author';
+    }
+
     public function index()
     {
         $authorId = $this->Auth->user('id');
@@ -30,10 +36,14 @@ class PollsController extends AppController
                 $this->redirect(array('action' => 'index'));
             }
         }
-        
 
         if (!empty($this->data)) {
+
             $this->data['Poll']['author_id'] = $authorId;
+
+            // Parse Path IDs
+            $this->data['Path'] = explode(',', $this->data['Poll']['paths']);
+            unset($this->data['Poll']['paths']);
 
             if ($this->Poll->saveAll($this->data, array('validate'=>'first'))){
 
@@ -55,12 +65,36 @@ class PollsController extends AppController
                         }
                     );
                 }
+
+                // Get path names
+                $paths = $this->Poll->Path->find(
+                    'list',
+                    array(
+                        'conditions' => array(
+                            'Path.id' => $this->data['Path']
+                        )
+                    )
+                );
+                $this->data['Path'] = array();
+                foreach ($paths as $id => $name) {
+                    $this->data['Path'][] = array(
+                        'id' => $id,
+                        'name' => $name
+                    );
+                }
             }
 
         }
 
         if (empty($this->data) && !empty($poll)) {
             $this->data = $poll;
+            $this->data['Path'] = array();
+            foreach ($poll['Path'] as $p) {
+                $this->data['Path'][] = array(
+                    'id' => $p['id'],
+                    'name' => $p['name']
+                );
+            }
         }
     }
 
