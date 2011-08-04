@@ -6,7 +6,8 @@ $cancel: #FE2E2E;
 
 $notice: #c73e14;
 
-$button: #82BEE8;
+// $button: #82BEE8;
+$button: #D0EFA0;
 
 $border: #999;
 
@@ -54,6 +55,30 @@ h1, h2, h3, h4 {
     clear: both;
     padding: 6px 10px;
     text-align: right;
+}
+
+#navbar {
+    max-width: 860px;
+    margin: 0 auto;
+    ul {
+        margin: 0;
+        li {
+            display: inline-block;
+            margin: 0;
+            background-color: $button;
+            border-top: 1px solid;
+            border-left: 1px solid;
+            border-right: 1px solid;
+            border-color: darken($button, 20%);
+            a {
+                color: #000;
+                // font-weight: bold;
+                display: inline-block;
+                padding: 5px 10px;
+                text-decoration: none;
+            }
+        }
+    }
 }
 
 
@@ -111,7 +136,8 @@ div.input {
         font-weight: bold;
         color: #333;
         // font-size: 1em;
-        padding: 0 0 0.3em 0.3em;
+        display: inline-block;
+        padding: 0 0 0.2em 0.3em;
         letter-spacing: 1px;
     }
 
@@ -151,7 +177,10 @@ div.input {
 
 div.map-container {
     div.map {
-        width: 800px;
+        // width: 800px;
+        width: 100%;
+        box-sizing: border-box;
+        border: 1px solid $border;
         height: 400px;
         display: inline-block;
     }
@@ -256,13 +285,13 @@ div.map-container {
 
 
 button {
-    font-size: 1.1em;
-    // font-weight: bold;
+    // font-size: 1.1em;
+    font-weight: bold;
     padding: 0.3em 0.6em;
     border: 1px solid;
-    border-radius: 6px;
+    // border-radius: 6px;
     border-color: #c9c9c9;
-    margin: 0.3em;
+    margin: 0.3em 0;
     cursor: pointer;
     border-color: darken($button, 20%);
     background: -webkit-gradient(linear, left top, left bottom, from(lighten($button, 10%)), to($button));

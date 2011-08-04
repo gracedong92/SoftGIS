@@ -38,7 +38,7 @@
             <ul>
                 <li>
                     <?php echo $this->Html->link(
-                        'Kyselyt',
+                        'Oma kyselyt',
                         array('controller' => 'polls', 'action' => 'index')
                     );?>
                 </li>
@@ -51,7 +51,7 @@
                 <li>
                     <?php echo $this->Html->link(
                         'Luo karttamerkki',
-                        array('controller' => 'objects', 'action' => 'create_marker')
+                        array('controller' => 'markers', 'action' => 'add')
                     );?>
                 </li>
                 <li>

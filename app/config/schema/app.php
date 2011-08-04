@@ -148,36 +148,36 @@ class AppSchema extends CakeSchema
         )
     );
 
-    var $objects = array(
-        'id' => array(
-            'type'=>'integer', 
-            'null' => false, 
-            'key' => 'primary'
-        ),
-        'name' => array(
-            'type' => 'string',
-            'length' => '50',
-            'null' => false
-        ),
-        'content' => array(
-            'type' => 'text'
-        ),
-        'type' => array(
-            'type' => 'string',
-            'length' => '50',
-            'null' => false
-        ),
-        'modifiers' => array(
-            'type' => 'string',
-            'length' => '50',
-            'null' => true
-        ),
-        'latlngs' => array(
-            'type' => 'text',
-            'null' => false,
-            'default' => null
-        )
-    );
+    // var $objects = array(
+    //     'id' => array(
+    //         'type'=>'integer', 
+    //         'null' => false, 
+    //         'key' => 'primary'
+    //     ),
+    //     'name' => array(
+    //         'type' => 'string',
+    //         'length' => '50',
+    //         'null' => false
+    //     ),
+    //     'content' => array(
+    //         'type' => 'text'
+    //     ),
+    //     'type' => array(
+    //         'type' => 'string',
+    //         'length' => '50',
+    //         'null' => false
+    //     ),
+    //     'modifiers' => array(
+    //         'type' => 'string',
+    //         'length' => '50',
+    //         'null' => true
+    //     ),
+    //     'latlngs' => array(
+    //         'type' => 'text',
+    //         'null' => false,
+    //         'default' => null
+    //     )
+    // );
 
     var $polls_paths = array(
         'id' => array(
@@ -218,6 +218,35 @@ class AppSchema extends CakeSchema
             'type' => 'text',
             'null' => false
         )
+    );
+
+    var $markers = array(
+        'id' => array(
+            'type'=>'integer', 
+            'null' => false, 
+            'key' => 'primary'
+        ),
+        'name' => array(
+            'type' => 'string',
+            'length' => '50',
+            'null' => false
+        ),
+        'content' => array(
+            'type' => 'text'
+        ),
+        'icon' => array(
+            'type' => 'string',
+            'length' => '50',
+            'null' => true
+        ),
+        'lat' => array(
+            'type' => 'float',
+            'null' => false
+        ),
+        'lng' => array(
+            'type' => 'float',
+            'null' => false
+        ),
     );
 
 }

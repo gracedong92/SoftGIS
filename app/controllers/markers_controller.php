@@ -1,6 +1,6 @@
 <?php
 
-class ObjectsController extends AppController
+class MarkersController extends AppController
 {
     public function beforeFilter()
     {
@@ -8,6 +8,17 @@ class ObjectsController extends AppController
         $this->layout = 'author';
     }
 
+    public function add()
+    {
+        if (!empty($this->data)) {
+            if ($this->Marker->save($this->data)) {
+                $this->Session->setFlash('Karttamerkki tallennettu');
+                $this->redirect(
+                    array('controller' => 'polls', 'action' => 'index')
+                );
+            }
+        }
+    }
 
     public function create()
     {

@@ -98,12 +98,12 @@ $types = array(
             <label>Yleiset vastaukset</label>
         </div>
         <div class="input checkbox">
-            <label>Vastausten kommentointi</label>
             <input type="checkbox"
                 name="data[Question][<?php echo $i; ?>][comments]"
                 <?php if (!empty($comments)): ?>
                     checked="checked" 
                 <?php endif; ?> />
+            <label>Vastausten kommentointi</label>
         </div>
     </div>
 </li>
