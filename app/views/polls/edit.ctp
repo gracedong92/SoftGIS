@@ -30,9 +30,15 @@ $( document ).ready(function() {
     'name',
     array('label' => 'Nimi')
 ); ?>
+
 <?php echo $this->Form->input(
-    'description',
-    array('label' => 'Kuvaus')
+    'welcome_text',
+    array('label' => 'Tervetuloateksti')
+); ?>
+
+<?php echo $this->Form->input(
+    'thanks_text',
+    array('label' => 'Kiitosteksti')
 ); ?>
 
 <?php echo $this->Form->input(

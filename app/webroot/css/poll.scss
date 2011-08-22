@@ -283,7 +283,6 @@ div.map-container {
     }
 }
 
-
 button {
     // font-size: 1.1em;
     font-weight: bold;
@@ -329,18 +328,29 @@ button {
 
 table.list {
     border-collapse: collapse;
+    width: 100%;
     th {
         padding: 0.3em 3em;
         border-bottom: 2px solid #c9c9c9;
     }
     tbody {
-        tr:nth-child(even) {
-            background-color: #f0f0f0;
+        tr {
+            &.red {
+                background-color: lighen($cancel, 40%);
+                color: $cancel;
+            }
+            &.green {
+                background-color: lighen($proceed, 40%);
+                color: $proceed;
+            }
+            &:nth-child(even) {
+                background-color: #f0f0f0;
+            }
         }
 
         td {
             text-align: center;
-            padding: 0.3em;
+            padding: 0.3em 0.5em;
             margin: 0;
             border-left: 1px solid #c9c9c9;
 

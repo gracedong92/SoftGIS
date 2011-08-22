@@ -1,3 +1,13 @@
+
+
+var viewModel = {
+    questions: ko.observableArray([]),
+
+}
+
+
+
+
 $( document ).ready(function() {
 
     var questionList = $( "#questions" ); // Questions list

@@ -35,11 +35,39 @@ class AppSchema extends CakeSchema
             'null' => false,
             'default' => 0
         ),
-        'description' => array(
+        'welcome_text' => array(
             'type' => 'text',
             'null' => true,
             'default' => ''
-        )
+        ),
+        'thanks_text' => array(
+            'type' => 'text',
+            'null' => true,
+            'default' => ''
+        ),
+    );
+
+    var $hashes = array(
+        'id' => array(
+            'type' => 'integer', 
+            'null' => false, 
+            'key' => 'primary'
+        ),
+        'poll_id' => array(
+            'type' => 'integer',
+            'null' => false,
+            'default' => null
+        ),
+        'hash' => array(
+            'type' => 'string',
+            'null' => false,
+            'length' => '255'
+        ),
+        'used' => array(
+            'type' => 'boolean',
+            'null' => false,
+            'default' => 0
+        ),
     );
 
     var $questions = array(
@@ -148,36 +176,6 @@ class AppSchema extends CakeSchema
         )
     );
 
-    // var $objects = array(
-    //     'id' => array(
-    //         'type'=>'integer', 
-    //         'null' => false, 
-    //         'key' => 'primary'
-    //     ),
-    //     'name' => array(
-    //         'type' => 'string',
-    //         'length' => '50',
-    //         'null' => false
-    //     ),
-    //     'content' => array(
-    //         'type' => 'text'
-    //     ),
-    //     'type' => array(
-    //         'type' => 'string',
-    //         'length' => '50',
-    //         'null' => false
-    //     ),
-    //     'modifiers' => array(
-    //         'type' => 'string',
-    //         'length' => '50',
-    //         'null' => true
-    //     ),
-    //     'latlngs' => array(
-    //         'type' => 'text',
-    //         'null' => false,
-    //         'default' => null
-    //     )
-    // );
 
     var $polls_paths = array(
         'id' => array(
@@ -190,6 +188,22 @@ class AppSchema extends CakeSchema
             'null' => false
         ),
         'path_id' => array(
+            'type'=>'integer', 
+            'null' => false
+        )
+    );
+
+    var $polls_markers = array(
+        'id' => array(
+            'type'=>'integer', 
+            'null' => false, 
+            'key' => 'primary'
+        ),
+        'poll_id' => array(
+            'type'=>'integer', 
+            'null' => false
+        ),
+        'marker_id' => array(
             'type'=>'integer', 
             'null' => false
         )
@@ -237,7 +251,8 @@ class AppSchema extends CakeSchema
         'icon' => array(
             'type' => 'string',
             'length' => '50',
-            'null' => true
+            'null' => true,
+            'default' => NULL
         ),
         'lat' => array(
             'type' => 'float',

@@ -1,5 +1,42 @@
 <script>
 
+var map;
+var questionMarker;
+
+function createMarker(data) {
+    var marker = new google.maps.Marker({
+        map: map,
+        title: data.name,
+        position: new google.maps.LatLng(
+            data.lat,
+            data.lng
+        )
+    });
+    var infoWindow = new google.maps.InfoWindow({
+        content: data.content
+    });
+    google.maps.event.addListener(marker, "click", function() {
+        infoWindow.open(map, marker);
+    });
+}
+
+function createPath(data) {
+    var infoWindow = new google.maps.InfoWindow({
+        content: data.content
+    });
+    var encodedPaths = data.polyline.split( " " );
+    for (var i in encodedPaths) {
+        var decodedPath = google.maps.geometry.encoding.decodePath(
+            encodedPaths[i]
+        );
+        var path = new google.maps.Polyline({
+            map: map,
+            strokeColor: "#333",
+            path: decodedPath
+        });
+    }
+}
+
 $( document ).ready(function() {
 
 <?php if ($question['Question']['lat']): ?>
@@ -9,7 +46,7 @@ $( document ).ready(function() {
         "<?php echo $question['Question']['lng']; ?>"
     );
 
-    var map = new google.maps.Map(
+    map = new google.maps.Map(
         $( "#map" ).get()[0],
         {
             zoom: 12,
@@ -17,11 +54,21 @@ $( document ).ready(function() {
             mapTypeId: google.maps.MapTypeId.ROADMAP
         }
     );
-
-    var questionMarker = new google.maps.Marker({
+    questionMarker = new google.maps.Marker({
         map: map,
         position: questionLatLng
     });
+
+    <?php /* Create Markers */ ?>
+    <?php foreach ($question['Poll']['Marker'] as $marker): ?>
+        createMarker(<?php echo json_encode($marker); ?>);
+    <?php endforeach; ?>
+
+    <?php /* Create Paths */ ?>
+    <?php foreach ($question['Poll']['Path'] as $path): ?>
+        createPath(<?php echo json_encode($path); ?>);
+    <?php endforeach; ?>
+
 
     <?php if ($question['Question']['answer_location']): ?>
     // Create answer marker on first map click
@@ -111,7 +158,7 @@ $( document ).ready(function() {
 <?php endif; ?>
 
 
-        <button type="submit" class="proceed">Seuraava kysymys</button>
+        <button type="submit">Seuraava kysymys</button>
     </form>
 
 <?php /* Question has position */ ?>

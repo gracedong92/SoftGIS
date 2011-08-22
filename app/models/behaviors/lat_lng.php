@@ -34,16 +34,12 @@ class LatLngBehavior extends ModelBehavior
     {
         $newResults = array();
         $settings = $this->settings[$model->alias];
-
         foreach ($results as $result) {
             if (!empty($result[$model->alias][$settings['lat']])) {
                 $latlng = $result[$model->alias][$settings['lat']] . ',' .
                     $result[$model->alias][$settings['lng']];
-            } else {
-                $latlng = '';
+                $result[$model->alias][$settings['field']] = $latlng;
             }
-
-            $result[$model->alias][$settings['field']] = $latlng;
             $newResults[] = $result;
         }
         return $newResults;

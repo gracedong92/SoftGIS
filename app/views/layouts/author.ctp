@@ -20,6 +20,9 @@
         echo $this->Html->script('jquery-1.5.1.min');
         echo $this->Html->script('jquery-ui-1.8.14.custom.min');
         echo $this->Html->script('jquery.tmpl.min');
+        echo $this->Html->script('knockout-1.2.1.debug');
+        // echo $this->Html->script('knockout-1.2.1');
+        echo $this->Html->script('knockout.mapping');
         echo $this->Html->script('jquery.meow');
         echo $this->Html->script('smoke');
         echo $this->Html->script('jquery.tokeninput');
@@ -38,14 +41,14 @@
             <ul>
                 <li>
                     <?php echo $this->Html->link(
-                        'Oma kyselyt',
+                        'Omat kyselyt',
                         array('controller' => 'polls', 'action' => 'index')
                     );?>
                 </li>
                 <li>
                     <?php echo $this->Html->link(
                         'Luo uusi kysely',
-                        array('controller' => 'polls', 'action' => 'edit')
+                        array('controller' => 'polls', 'action' => 'modify')
                     );?>
                 </li>
                 <li>

@@ -5,3 +5,4 @@
 /plugins
 /vendors
 /.sass-cache/*
+*.DS_Store

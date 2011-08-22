@@ -33,4 +33,23 @@ class MarkersController extends AppController
             }
         }
     }
+
+    public function search()
+    {
+        if (!empty($this->params['url']['q'])) {
+            $q = $this->params['url']['q'];
+            $markers = $this->Marker->find(
+                'list',
+                array(
+                    'conditions' => array(
+                        'Marker.name LIKE' => '%' . $q . '%'
+                    )
+                )
+            );
+        } else {
+            $markers = array();
+        }
+
+        $this->set('markers', $markers);
+    }
 }

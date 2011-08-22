@@ -19,6 +19,8 @@
         echo $this->Html->script('jquery-1.5.1.min');
         echo $this->Html->script('jquery-ui-1.8.14.custom.min');
         echo $this->Html->script('jquery.tmpl.min');
+        echo $this->Html->script('knockout-1.2.1.debug');
+        // echo $this->Html->script('knockout-1.2.1');
         echo $this->Html->script('jquery.meow');
         echo $this->Html->script('smoke');
 

@@ -9,9 +9,18 @@ class Poll extends AppModel
         )
     );
 
+    public $hasOne = array(
+        'Hash'
+    );
+
     public $hasAndBelongsToMany = array(
         'Path' => array(
-            'joinTable' => 'polls_paths'
+            'joinTable' => 'polls_paths',
+            'unique' => true
+        ),
+        'Marker' => array(
+            'joinTable' => 'polls_markers',
+            'unique' => true
         )
     );
 
@@ -21,4 +30,43 @@ class Poll extends AppModel
             'message' => 'Anna kyselylle nimi'
         )
     );
+
+
+    public function validHash($hashStr)
+    {
+        App::import('Model', 'Hash');
+        $hashModel = new Hash();
+
+        $hash = $hashModel->find(
+            'first',
+            array(
+                'conditions' => array(
+                    'Hash.hash' => $hashStr,
+                    'Hash.poll_id' => $this->id,
+                    'Hash.used' => '0'
+                )
+            )
+        );
+        return !empty($hash);
+    }
+
+    public function generateHashes($count)
+    {
+        App::import('Model', 'Hash');
+
+        $hash = new Hash();
+
+        for ($i = 0; $i < $count; $i++) {
+            $str = md5(uniqid(rand(), true));
+            $hash->create(
+                array(
+                    'poll_id' => $this->id,
+                    'hash' => $str,
+                    'used' => 0
+                )
+            );
+            $hash->save();
+        }
+
+    }
 }

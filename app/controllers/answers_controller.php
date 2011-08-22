@@ -2,6 +2,8 @@
 
 class AnswersController extends AppController
 {
+    public $uses = array('Answer', 'Poll');
+
     public function beforeFilter()
     {
         parent::beforeFilter();
@@ -14,22 +16,30 @@ class AnswersController extends AppController
         $this->redirect(array('action' => 'poll', $pollId, $hash));
     }
 
+    /**
+     * Starts answering process
+     */
     public function poll($pollId = null, $hash = null)
     {
-        $this->loadModel('Poll');
+        $this->Session->write('answer', array()); // Clear session
     
         if ($pollId != null) {
             $this->Poll->id = $pollId;
             if ($this->Poll->exists()) {
 
+                // Make sure poll is already published
+                if (!$this->Poll->field('published')) {
+                    $this->cakeError('pollNotPublished');
+                }
+
                 if (!$this->Poll->field('public')) {
                     // Validate hash if poll is not public
-                    if (!$this->Answer->validHash($pollId, $hash)) {
+                    if (!$this->Poll->validHash($hash)) {
                         $this->cakeError('invalidHash');
                     }
                 } else {
-                    //generate custom hash if public
-                    $hash = $this->Answer->generateHash();
+                    // Use micro timestamp when public poll
+                    $hash = microtime();
                     
                 }
 
@@ -43,7 +53,7 @@ class AnswersController extends AppController
 
                 $this->redirect(
                     array(
-                        'action' => 'answer'
+                        'action' => 'welcome'
                     )
                 );
             }
@@ -51,6 +61,17 @@ class AnswersController extends AppController
         $this->cakeError('pollNotFound');
     }
 
+    public function welcome()
+    {
+        $answerSession = $this->Session->read('answer');
+        if (empty($answerSession['poll'])) {
+            $this->cakeError('pollNotFound');
+        }
+
+        $this->Poll->recursive = -1;
+        $poll = $this->Poll->findById($answerSession['poll']);
+        $this->set('poll', $poll);
+    }
 
     public function answer()
     {
@@ -81,6 +102,12 @@ class AnswersController extends AppController
                 'conditions' => array(
                     'Question.poll_id' => $answerSession['poll'],
                     'Question.num' => $answerSession['questionNum']
+                ),
+                'contain' => array(
+                    'Poll' => array(
+                        'Marker',
+                        'Path'
+                    )
                 )
             )
         );
@@ -106,10 +133,10 @@ class AnswersController extends AppController
                 )
             );
         }
+        // debug($question);die;
 
         $this->Session->write('answer', $answerSession);
 
-        // debug($answerSession);
 
         if (empty($question)) {
             // Just answered to last question

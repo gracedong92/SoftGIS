@@ -34,7 +34,7 @@ $( document ).ready(function() {
                         $poll['Poll']['name'],
                         array(
                             'controller' => 'polls', 
-                            'action' => 'edit',
+                            'action' => 'modify',
                             $poll['Poll']['id']
                         )
                     ); ?>
@@ -53,7 +53,17 @@ $( document ).ready(function() {
                         );
                     }; ?>
                 </td>
-                <td><?php echo $poll['Poll']['public'] ? 'Kyllä' : 'Ei'; ?></td>
+                <td>
+                    <?php if ($poll['Poll']['public']) {
+                        echo 'Kyllä';
+                    } else {
+                        echo 'Ei, ';
+                        echo $this->Html->link(
+                            'hashit',
+                            array('action' => 'hashes', $poll['Poll']['id'])
+                        ); 
+                    } ?>
+                </td>
                 <td><?php echo $poll['Poll']['answers']; ?></td>
             </tr>
         <?php endforeach; ?>

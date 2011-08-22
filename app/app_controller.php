@@ -9,6 +9,10 @@ class AppController extends Controller
             'loginAction' => array(
                 'controller' => 'authors',
                 'action' => 'login'
+            ),
+            'loginRedirect' => array(
+                'controller' => 'polls',
+                'action' => 'index'
             )
         ),
         'Session',
