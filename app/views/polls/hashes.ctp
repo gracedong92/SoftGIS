@@ -1,6 +1,9 @@
 <h1>Hashit</h1>
 <h2>Luo uusia</h2>
-<form method="POST" action="/polls/generatehashes/<?php echo $pollId; ?>">
+<form method="POST" 
+    action="<?php echo $this->Html->url(
+            array('action' => 'generatehashes', $pollId)
+        ); ?>">
     <input type="text" value="2" name="data[count]"/>
     <button type="submit">Luo</button>
 </form>
