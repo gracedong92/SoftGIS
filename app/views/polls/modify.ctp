@@ -89,7 +89,7 @@ $( document ).ready(function() {
     locationPicker = $( "#loc-picker" ).locationpicker();
 
 
-    $( "#paths" ).tokenInput("/paths/search.json", {
+    $( "#paths" ).tokenInput(pathSearchUrl, {
         prePopulate: viewModel.paths(),
         preventDuplicates: true,
         onAdd: function(item) {
@@ -100,7 +100,7 @@ $( document ).ready(function() {
         }
     });
 
-    $( "#markers" ).tokenInput("/markers/search.json", {
+    $( "#markers" ).tokenInput(markerSearchUrl, {
         prePopulate: viewModel.markers(),
         preventDuplicates: true,
         onAdd: function(item) {
