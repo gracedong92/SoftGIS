@@ -178,6 +178,11 @@ class AnswersController extends AppController
             $this->Answer->save();
         }
 
+        $this->loadModel('Hash');
+        $hash = $this->Hash->findByHash($answerSession['hash']);
+        $hash['Hash']['used'] = 1;
+        $this->Hash->save($hash);
+
         $this->loadModel('Poll');
         $this->Poll->id = $answerSession['poll'];
         $answers = $this->Poll->field('answers');
