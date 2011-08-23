@@ -1,6 +1,14 @@
 <?php echo $this->Html->script('locationpicker'); ?>
 <script>
 
+var pathSearchUrl = "<?php echo $this->Html->url(
+        array('controller' => 'paths', 'action' => 'search.json')
+    ); ?>";
+
+var markerSearchUrl = "<?php echo $this->Html->url(
+        array('controller' => 'markers', 'action' => 'search.json')
+    ); ?>";
+
 var locationPicker;
 
 var viewModel = {
