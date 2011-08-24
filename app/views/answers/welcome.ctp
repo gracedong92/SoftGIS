@@ -4,8 +4,5 @@
 <div class="welcomeText">
     <?php echo $poll['Poll']['welcome_text']; ?>
 </div>
-<a href="<?php echo $this->Html->url(array('action'=>'answer')); ?>">
-<button>
-    Aloita kysely
-</button>
-</a>
+<a href="<?php echo $this->Html->url(array('action'=>'answer')); ?>"
+    class="button">Aloita kysely</a>

@@ -11,10 +11,34 @@ class PollsController extends AppController
     public function index()
     {
         $authorId = $this->Auth->user('id');
-        $this->Poll->recursive = -1;
+        $this->Poll->contain('Response');
         $polls = $this->Poll->findAllByAuthorId($authorId);
-
         $this->set('polls', $polls);
+    }
+
+    public function view($id = null)
+    {
+        $authorId = $this->Auth->user('id');
+        $this->Poll->id = $id;
+        if (!$this->Poll->exists() 
+            || $this->Poll->field('author_id') != $authorId) {
+            $this->cakeError('pollNotFound');
+        }
+        $this->Poll->contain('Question', 'Marker', 'Path');
+        $poll = $this->Poll->read();
+        $this->set('poll', $poll['Poll']);
+        $this->set('questions', $poll['Question']);
+        $this->set('markers', $poll['Marker']);
+        $this->set('paths', $poll['Path']);
+
+        $answers = array(
+            1 => 'Teksti',
+            2 => 'Kyllä, ei, en osaa sanoa',
+            3 => '1 - 5, en osaa sanoa',
+            4 => '1 - 7, en osaa sanoa'
+        );
+        $this->set('answers', $answers);
+        // debug($poll);die;
     }
 
     public function modify($id = null)
@@ -74,7 +98,7 @@ class PollsController extends AppController
             // debug($data);die;
             if ($this->Poll->saveAll($data, array('validate'=>'first'))){
                 $this->Session->setFlash('Kysely tallennettu');
-                $this->redirect(array('action' => 'index'));
+                $this->redirect(array('action' => 'view', $this->Poll->id));
             } else {
                 $this->Session->setFlash('Tallentaminen epäonnistui');
                 $poll = $data;
@@ -92,6 +116,14 @@ class PollsController extends AppController
         // debug($poll);die;
     }
 
+
+    /**
+     * Converts json string to array and then array to correct form for
+     * Poll model
+     *
+     * @param string $data Json string
+     * @return array
+     */
     public function _jsonToPollModel($data)
     {
         $json = json_decode($data, true);
@@ -130,93 +162,88 @@ class PollsController extends AppController
         return $data;
     }
 
-    public function _toViewModelArray($model)
-    {
-        // $
-    }
 
+    // public function edit($id = null)
+    // {
+    //     $authorId = $this->Auth->user('id');
 
-    public function edit($id = null)
-    {
-        $authorId = $this->Auth->user('id');
+    //     if (!empty($id)) {
+    //         $poll = $this->Poll->findById($id);
 
-        if (!empty($id)) {
-            $poll = $this->Poll->findById($id);
+    //         // Poll not found or someone elses
+    //         if (empty($poll) || $poll['Poll']['author_id'] != $authorId) {
+    //             $this->cakeError('pollNotFound');
+    //         }
 
-            // Poll not found or someone elses
-            if (empty($poll) || $poll['Poll']['author_id'] != $authorId) {
-                $this->cakeError('pollNotFound');
-            }
+    //         // Published poll shouldn't be edited anymore
+    //         if (!empty($poll['Poll']['published'])) {
+    //             $this->Session->setFlash('Julkaistua kyselyä ei voida enää muokata');
+    //             $this->redirect(array('action' => 'index'));
+    //         }
+    //     }
 
-            // Published poll shouldn't be edited anymore
-            if (!empty($poll['Poll']['published'])) {
-                $this->Session->setFlash('Julkaistua kyselyä ei voida enää muokata');
-                $this->redirect(array('action' => 'index'));
-            }
-        }
+    //     if (!empty($this->data)) {
+    //         $this->data['Poll']['author_id'] = $authorId;
 
-        if (!empty($this->data)) {
-            $this->data['Poll']['author_id'] = $authorId;
+    //         // Parse Path IDs
+    //         $this->data['Path'] = explode(',', $this->data['Poll']['paths']);
+    //         debug($this->data);die;
+    //         unset($this->data['Poll']['paths']);
+    //         // debug($this->data);die;
+    //         if ($this->Poll->saveAll($this->data, array('validate'=>'first'))){
 
-            // Parse Path IDs
-            $this->data['Path'] = explode(',', $this->data['Poll']['paths']);
-            debug($this->data);die;
-            unset($this->data['Poll']['paths']);
-            // debug($this->data);die;
-            if ($this->Poll->saveAll($this->data, array('validate'=>'first'))){
+    //             $this->Session->setFlash('Kysely tallennettu');
+    //             $this->redirect(array('action' => 'index'));
 
-                $this->Session->setFlash('Kysely tallennettu');
-                $this->redirect(array('action' => 'index'));
+    //         } else {
+    //             $this->Session->setFlash('Tallentaminen epäonnistui');
 
-            } else {
-                $this->Session->setFlash('Tallentaminen epäonnistui');
+    //             // Order questions
+    //             if (isset($this->data['Question'])) {
+    //                 usort(
+    //                     $this->data['Question'], 
+    //                     function($a, $b) {
+    //                         if ($a['num'] == $b['num']) {
+    //                             return 0;
+    //                         }
+    //                         return ($a < $b) ? -1 : 1;
+    //                     }
+    //                 );
+    //             }
 
-                // Order questions
-                if (isset($this->data['Question'])) {
-                    usort(
-                        $this->data['Question'], 
-                        function($a, $b) {
-                            if ($a['num'] == $b['num']) {
-                                return 0;
-                            }
-                            return ($a < $b) ? -1 : 1;
-                        }
-                    );
-                }
+    //             // Get path names
+    //             $paths = $this->Poll->Path->find(
+    //                 'list',
+    //                 array(
+    //                     'conditions' => array(
+    //                         'Path.id' => $this->data['Path']
+    //                     )
+    //                 )
+    //             );
+    //             $this->data['Path'] = array();
+    //             foreach ($paths as $id => $name) {
+    //                 $this->data['Path'][] = array(
+    //                     'id' => $id,
+    //                     'name' => $name
+    //                 );
+    //             }
+    //         }
 
-                // Get path names
-                $paths = $this->Poll->Path->find(
-                    'list',
-                    array(
-                        'conditions' => array(
-                            'Path.id' => $this->data['Path']
-                        )
-                    )
-                );
-                $this->data['Path'] = array();
-                foreach ($paths as $id => $name) {
-                    $this->data['Path'][] = array(
-                        'id' => $id,
-                        'name' => $name
-                    );
-                }
-            }
+    //     }
 
-        }
+    //     if (empty($this->data) && !empty($poll)) {
+    //         $this->data = $poll;
+    //         $this->data['Path'] = array();
+    //         foreach ($poll['Path'] as $p) {
+    //             $this->data['Path'][] = array(
+    //                 'id' => $p['id'],
+    //                 'name' => $p['name']
+    //             );
+    //         }
+    //     }
 
-        if (empty($this->data) && !empty($poll)) {
-            $this->data = $poll;
-            $this->data['Path'] = array();
-            foreach ($poll['Path'] as $p) {
-                $this->data['Path'][] = array(
-                    'id' => $p['id'],
-                    'name' => $p['name']
-                );
-            }
-        }
-
-        // debug($this->data);die;
-    }
+    //     // debug($this->data);die;
+    // }
 
     public function publish($pollId = null)
     {
@@ -282,18 +309,6 @@ class PollsController extends AppController
         $this->redirect(array('action' => 'hashes', $pollId));
     }
 
-    // protected function _toViewModel($data = array())
-    // {
-    //     $vm = array();
-    //     if (isset($data['Poll'])) {
-    //         $p = $data['Poll'];
-    //         if (isset($p['id']))
-    //             $vm['id'] = $p['id'];
-    //         if (isset($p['name']))
-    //             $vm['name'] = $p['name'];
-
-    //     }
-    // }
 }
 
 

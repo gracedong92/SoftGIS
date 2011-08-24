@@ -16,11 +16,12 @@ $( document ).ready(function() {
 
 </script>
 
-<h1>Omat kyselyt</h1>
+<h2>Omat kyselyt</h2>
 <table class="list">
     <thead>
         <tr>
             <th>Nimi</th>
+            <th>Testaa</th>
             <th>Julkaistu</th>
             <th>Julkinen</th>
             <th>Vastauksia</th>
@@ -34,8 +35,24 @@ $( document ).ready(function() {
                         $poll['Poll']['name'],
                         array(
                             'controller' => 'polls', 
-                            'action' => 'modify',
+                            'action' => 'view',
                             $poll['Poll']['id']
+                        ),
+                        array(
+                            'title' => 'Tarkastele kyselyä'
+                        )
+                    ); ?>
+                </td>
+                <td>
+                    <?php echo $this->Html->link(
+                        'Testaa',
+                        array(
+                            'controller' => 'answers', 
+                            'action' => 'test',
+                            $poll['Poll']['id']
+                        ),
+                        array(
+                            'title' => 'Testikäytä kyselyä'
                         )
                     ); ?>
                 </td>
@@ -64,7 +81,7 @@ $( document ).ready(function() {
                         ); 
                     } ?>
                 </td>
-                <td><?php echo $poll['Poll']['answers']; ?></td>
+                <td><?php echo count($poll['Response']); ?></td>
             </tr>
         <?php endforeach; ?>
     </tbody>

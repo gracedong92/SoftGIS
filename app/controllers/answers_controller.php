@@ -2,18 +2,49 @@
 
 class AnswersController extends AppController
 {
-    public $uses = array('Answer', 'Poll');
+    public $uses = array('Answer', 'Poll', 'Response', 'Hash');
 
     public function beforeFilter()
     {
         parent::beforeFilter();
         error_reporting(E_ALL);
-        $this->Auth->allow('*');
+        $this->Auth->allow('index', 'poll', 'welcome', 'answer');
     }
 
     public function index($pollId = null, $hash = null)
     {
         $this->redirect(array('action' => 'poll', $pollId, $hash));
+    }
+
+
+    /**
+     * Authed only action for testing polls
+     *
+     */
+    public function test($pollId = null)
+    {
+        $this->Session->write('answer', array()); // Clear session
+
+        $this->Poll->id = $pollId;
+
+        if ($this->Poll->exists()) {
+            $this->Session->write(
+                'answer', 
+                array(
+                    'poll' => $pollId,
+                    'hash' => $hash,
+                    'test' => true
+                )
+            );
+
+            $this->redirect(
+                array(
+                    'action' => 'welcome'
+                )
+            );
+        } else {
+            $this->cakeError('pollNotFound');
+        }
     }
 
     /**
@@ -37,11 +68,7 @@ class AnswersController extends AppController
                     if (!$this->Poll->validHash($hash)) {
                         $this->cakeError('invalidHash');
                     }
-                } else {
-                    // Use micro timestamp when public poll
-                    $hash = microtime();
-                    
-                }
+                } 
 
                 $this->Session->write(
                     'answer', 
@@ -167,31 +194,57 @@ class AnswersController extends AppController
 
 
     /**
-     * Saves answers and clears session data
+     * Saves answers if not test answer session. 
+     * 
+     * Also clears session data
      */
     protected function _finishAnswering()
     {
-        $answerSession = $this->Session->read('answer');
-        foreach ($answerSession['answers'] as $answer) {
-            $answer['hash'] = $answerSession['hash'];
-            $this->Answer->create(array('Answer' => $answer));
-            $this->Answer->save();
+        $pollId = $this->Session->read('answer.poll');
+        $isTest = $this->Session->read('answer.test');
+
+        $this->Poll->id = $pollId;
+        $poll = $this->Poll->read();
+
+        if (!$isTest) {
+            // Not test answer, update db
+
+            $pollId = $this->Session->read('answer.poll');
+            $hash = $this->Session->read('answer.hash');
+
+            // Create response entry
+            $this->Response->create(
+                array(
+                    'poll_id' => $pollId,
+                    'created' => date('Y-m-d H:i:s'),
+                    'hash' => $hash
+                )
+            );
+            $this->Response->save();
+            $responseId = $this->Response->id;
+
+
+            // Create answer entries
+            $answers = $this->Session->read('answer.answers');
+            foreach ($answers as $answer) {
+                $answer['response_id'] = $responseId;
+                $this->Answer->create($answer);
+                $this->Answer->save();
+            }
+
+            // Tag hash as used
+            if (!empty($hash)) {
+                $hashEntry = $this->Hash->findByHash($hash);
+                $hashEntry['Hash']['used'] = 1;
+                $this->Hash->save($hashEntry);
+            }
         }
 
-        $this->loadModel('Hash');
-        $hash = $this->Hash->findByHash($answerSession['hash']);
-        $hash['Hash']['used'] = 1;
-        $this->Hash->save($hash);
-
-        $this->loadModel('Poll');
-        $this->Poll->id = $answerSession['poll'];
-        $answers = $this->Poll->field('answers');
-        $answers++;
-        $this->Poll->saveField('answers', $answers);
-
-
+        // Clear answer session
         $this->Session->write('answer', array());
 
+        $this->set('poll', $poll);
+        $this->set('test', $isTest);
         $this->render('finish');
     }
 }

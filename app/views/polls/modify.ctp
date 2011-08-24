@@ -1,4 +1,5 @@
 <?php echo $this->Html->script('locationpicker'); ?>
+
 <script>
 
 var pathSearchUrl = "<?php echo $this->Html->url(
@@ -12,12 +13,18 @@ var markerSearchUrl = "<?php echo $this->Html->url(
 var locationPicker;
 
 var viewModel = {
+
     poll: new Poll(<?php echo json_encode($poll['Poll']); ?>),
+
     questions: ko.observableArray([
         <?php foreach ($poll['Question'] as $q): ?>
             new Question(<?php echo json_encode($q); ?>),
         <?php endforeach; ?>
     ]),
+    // .sort( function(l, r) {
+    //     return l.num() == r.num() ? 0 : (l.num() < r.num() ? -1 : 1)
+    // }),
+
     paths: ko.observableArray(<?php echo json_encode($poll['Path']); ?>),
     markers: ko.observableArray(<?php echo json_encode($poll['Marker']); ?>),
 
@@ -54,6 +61,7 @@ function Question(data, visible) {
     this.low_text = ko.observable( data.low_text ? data.low_text : null );
     this.high_text = ko.observable( data.high_text ? data.high_text : null );
     this.latlng = ko.observable( data.latlng ? data.latlng : null );
+    this.zoom = ko.observable( data.zoom ? data.zoom : null );
 
     // Pfft, Cake thinks 0 is false
     this.answer_location = ko.observable( 
@@ -78,17 +86,22 @@ Question.prototype.pickLocation = function() {
     locationPicker.locationpicker(
         "open",
         this.latlng(),
-        function(newPos) {
+        this.zoom(),
+        function(newPos, zoom ) {
             me.latlng( newPos );
+            me.zoom( zoom );
         }
     );
 }
 
 $( document ).ready(function() {
     ko.applyBindings( viewModel );
+
+    // Init lockation picker
     locationPicker = $( "#loc-picker" ).locationpicker();
 
 
+    // Path selector init
     $( "#paths" ).tokenInput(pathSearchUrl, {
         prePopulate: viewModel.paths(),
         preventDuplicates: true,
@@ -100,6 +113,7 @@ $( document ).ready(function() {
         }
     });
 
+    // Marker selector init
     $( "#markers" ).tokenInput(markerSearchUrl, {
         prePopulate: viewModel.markers(),
         preventDuplicates: true,
@@ -170,6 +184,18 @@ $( document ).ready(function() {
     <button type="submit" id="saveButton">
         Tallenna kysely
     </button>
+    <?php if (!empty($poll['Poll']['id'])) {
+        echo $this->Html->link(
+            'Peruuta',
+            array(
+                'action' => 'view',
+                $poll['Poll']['id']
+            ),
+            array(
+                'class' => 'button'
+            )
+        );
+    } ?>
 </form>
 
 
@@ -203,19 +229,40 @@ $( document ).ready(function() {
                 value: type" />
         </div>
 
-        <div class="input text" data-bind="visible: type != 1">
-            <label>Ääripäät</label>
-            <input type="text" class="small" data-bind="value: low_text"/>
-            Pienin<br />
-            <input type="text" class="small" data-bind="value: high_text" />
-            Suurin
+        <div class="input text" data-bind="visible: type() > 2">
+            <label>Ääripäiden tekstit</label>
+            <div>
+                <div class="inline">
+                    <label>Pienin</label>
+                    <input type="text" 
+                        class="small" 
+                        data-bind="value: low_text"/>
+                </div>
+                <div class="inline">
+                    <label>Suurin</label>
+                    <input type="text" 
+                        class="small" 
+                        data-bind="value: high_text" />
+                </div>
+            </div>
         </div>
 
         <div class="input text">
             <label>Sijainti</label>
-            <input type="text" 
-                class="latlng"
-                data-bind="value: latlng"/>
+            <div>
+                <div class="inline">
+                    <label>Koordinaatti</label>
+                    <input type="text" 
+                        class="latlng"
+                        data-bind="value: latlng"/>
+                </div>
+                <div class="inline">
+                    <label>Zoom-taso</label>
+                    <input type="text"
+                        class="zoom"
+                        data-bind="value: zoom"/>
+                </div>
+            </div>
             <button class="pick-location" 
                 type="button"
                 data-bind="click: pickLocation">

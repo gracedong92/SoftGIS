@@ -7,7 +7,8 @@ class Answer extends AppModel
     );
 
     public $belongsTo = array(
-        'Question'
+        'Question',
+        'Response'
     );
 
     public function afterFind($results, $primary)

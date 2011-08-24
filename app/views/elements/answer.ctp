@@ -6,7 +6,7 @@ $highText = $question['Question']['high_text'];
 
 ?>
 
-<div class="answer-field">
+<div class="answer-field" id="answerField">
 
 <?php if ($type == 1): ?>
     <textarea name="data[Answer][answer]"></textarea>

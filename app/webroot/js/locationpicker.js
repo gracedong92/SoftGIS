@@ -21,7 +21,7 @@
             settings.map = new google.maps.Map(
                 mapEl.get()[0],
                 {
-                    zoom: 6,
+                    zoom: settings.initialZoom,
                     // center: center,
                     mapTypeId: google.maps.MapTypeId.ROADMAP
                 }
@@ -54,7 +54,7 @@
 
         },
 
-        open: function(currentPos, selectCallback) {
+        open: function(currentPos, currentZoom, selectCallback) {
             var $this = $( this );
             var settings = $this.data( "locationpicker" );
             settings.selectCallback = selectCallback;
@@ -67,19 +67,39 @@
             }
 
             // Only accept valid strings
+            var latLng;
             if ( currentPos && currentPos.match(/^-?\d*\.\d*,-?\d*.\d*$/) ) {
+                // Use given pos if valid
                 var coords = currentPos.split(',', 2);
-                var latLng = new google.maps.LatLng(coords[0], coords[1]);
+                latLng = new google.maps.LatLng(coords[0], coords[1]);
+
+            } else if ( settings.lastLoc ) {
+                // Use latest position if set
+                latLng = settings.lastLoc;
+
             } else {
-                // Use default position
-                var latLng = new google.maps.LatLng(
+                // Use initial position
+                latLng = new google.maps.LatLng(
                     settings.center.lat,
                     settings.center.lng
                 );
-                
             }
+            var zoom;
+            if ( currentZoom ) {
+                zoom = parseInt( currentZoom );
+            } else if ( settings.lastZoom ) {
+                zoom = settings.lastZoom;
+            } else {
+                zoom = settings.initialZoom;
+            }
+            console.info('esa');
+            settings.map.setZoom( zoom );
+            console.info('asd');
             settings.map.setCenter( latLng );
             settings.marker.setPosition( latLng );
+
+            settings.lastZoom = zoom;
+            settings.lastLoc = latLng;
         },
 
         cancel :function() {
@@ -90,8 +110,9 @@
             var settings = this.data( "locationpicker" );
             var latLng = settings.marker.getPosition();
             var pos = latLng.lat() + "," + latLng.lng();
+            var zoom = settings.map.getZoom();
             if ( $.isFunction(settings.selectCallback) ) {
-                settings.selectCallback.call( this, pos );
+                settings.selectCallback.call( this, pos, zoom );
             }
             this.hide();
         }
@@ -103,7 +124,8 @@
             center: {
                 lat: "64.94216",
                 lng: "26.235352"
-            }
+            },
+            initialZoom: 6
         };
         var args = Array.prototype.slice.call( arguments, 1 );
         return this.each(function() {

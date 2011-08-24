@@ -6,11 +6,13 @@ class Poll extends AppModel
         'Question' => array(
             'foreign_key' => 'poll_id',
             'order' => 'Question.num ASC'
+        ),
+        'Response' => array(
+            'order' => 'Response.created ASC'
+        ),
+        'Hash' => array(
+            'order' => 'Hash.used ASC'
         )
-    );
-
-    public $hasOne = array(
-        'Hash'
     );
 
     public $hasAndBelongsToMany = array(

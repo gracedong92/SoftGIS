@@ -2,6 +2,8 @@
 
 var map;
 var questionMarker;
+var questionLocation;
+var questionZoom;
 
 function createMarker(data) {
     var marker = new google.maps.Marker({
@@ -41,15 +43,14 @@ $( document ).ready(function() {
 
 <?php if ($question['Question']['lat']): ?>
     // Question position
-    var questionLatLng = new google.maps.LatLng(
+    questionZoom = parseInt(<?php echo $question['Question']['zoom']; ?>);
+    questionLatLng = new google.maps.LatLng(
         "<?php echo $question['Question']['lat']; ?>",
         "<?php echo $question['Question']['lng']; ?>"
     );
 
-    map = new google.maps.Map(
-        $( "#map" ).get()[0],
-        {
-            zoom: 12,
+    map = new google.maps.Map( $( "#map" ).get()[0], {
+            zoom: questionZoom,
             center: questionLatLng,
             mapTypeId: google.maps.MapTypeId.ROADMAP
         }
@@ -69,7 +70,7 @@ $( document ).ready(function() {
         createPath(<?php echo json_encode($path); ?>);
     <?php endforeach; ?>
 
-
+    // Answer requires location
     <?php if ($question['Question']['answer_location']): ?>
     // Create answer marker on first map click
     var answerMarker;
@@ -104,6 +105,7 @@ $( document ).ready(function() {
 
     // Validate answer before submit
     $( "#answer-form" ).submit(function() {
+        var continueSubmit = true;
 
 <?php if ($question['Question']['answer_location']): ?>
         // Make sure user has selected location
@@ -111,11 +113,29 @@ $( document ).ready(function() {
         var lng = $( "#lng" ).val();
 
         if ( !lat || !lng ) {
-            $.meow({
-                icon: "/css/images/nyan-cat.gif",
-                message: "Et ole merkinnyt sijaintia kartalta"
-            });
-            return false;
+            $( "#map" ).qtip({
+                content: "Et ole valinnut sijaintia kartalta",
+                position: {
+                    my: "bottom center",
+                    at: "top center",
+                    adjust: {
+                        x: 200
+                    }
+                },
+                show: {
+                    ready: true,
+                    event: null
+                },
+                hide: {
+                    event: null
+                },
+                style: {
+                    classes: "ui-tooltip-shadow ui-tooltip-rounded ui-tooltip-red"
+                }
+            })
+            continueSubmit = false;
+        } else {
+            $( "#map" ).qtip( "destroy" );
         }
         
 <?php endif; ?>
@@ -123,15 +143,33 @@ $( document ).ready(function() {
         // Make sure user has answered something
         var val = $( this ).find( answerSelector ).val();
         if ( !val ) {
-            $.meow({
-                icon: "/css/images/nyan-cat.gif",
-                message: "Et ole vastannut kysymykseen mitään"
+            $( answerSelector ).focus();
+            $( "#answerField" ).qtip({
+                content: "Et ole vastannut kysymykseen",
+                position: {
+                    my: "top center",
+                    at: "bottom center",
+                    adjust: {
+                        x: -200
+                    }
+                },
+                show: {
+                    ready: true,
+                    event: "focus"
+                },
+                hide: {
+                    event: null
+                },
+                style: {
+                    classes: "ui-tooltip-shadow ui-tooltip-rounded ui-tooltip-red"
+                }
             });
-            return false;
+            continueSubmit = false;
+        } else {
+            $( answerSelector ).qtip( "destroy" );
         }
 
-        // All valid, submit form
-        return true;
+        return continueSubmit;
     });
 
 });

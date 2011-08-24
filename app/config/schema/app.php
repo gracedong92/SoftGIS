@@ -30,11 +30,6 @@ class AppSchema extends CakeSchema
             'null' => true,
             'default' => null
         ),
-        'answers' => array(
-            'type' => 'integer',
-            'null' => false,
-            'default' => 0
-        ),
         'welcome_text' => array(
             'type' => 'text',
             'null' => true,
@@ -112,6 +107,11 @@ class AppSchema extends CakeSchema
             'null' => true,
             'default' => null
         ),
+        'zoom' => array(
+            'type' => 'integer',
+            'null' => true,
+            'default' => 12
+        ),
         'answer_location' => array(
             'type' => 'boolean',
             'null' => false,
@@ -129,15 +129,36 @@ class AppSchema extends CakeSchema
         ),
     );
 
+    var $responses = array(
+        'id' => array(
+            'type' => 'integer', 
+            'null' => false, 
+            'key' => 'primary'
+        ),
+        'poll_id' => array(
+            'type' => 'integer', 
+            'null' => false 
+        ),
+        'created' => array(
+            'type' => 'datetime',
+            'null' => false
+        ),
+        'hash' => array(
+            'type' => 'string',
+            'null' => true,
+            'length' => '255'
+        )
+    );
+
     var $answers = array(
         'id' => array(
             'type' => 'integer', 
             'null' => false, 
             'key' => 'primary'
         ),
-        'hash' => array(
-            'type' => 'string',
-            'null' => false
+        'response_id' => array(
+            'type' => 'integer', 
+            'null' => false 
         ),
         'question_id' => array(
             'type' => 'integer', 
