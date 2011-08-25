@@ -156,6 +156,12 @@ class AnswersController extends AppController
                     'conditions' => array(
                         'Question.poll_id' => $answerSession['poll'],
                         'Question.num' => $answerSession['questionNum']
+                    ),
+                    'contain' => array(
+                        'Poll' => array(
+                            'Marker',
+                            'Path'
+                        )
                     )
                 )
             );
