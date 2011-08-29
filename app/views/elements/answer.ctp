@@ -1,8 +1,8 @@
 <?php
 
-$type = $question['Question']['type'];
-$lowText = $question['Question']['low_text'];
-$highText = $question['Question']['high_text'];
+$type = $question['type'];
+$lowText = $question['low_text'];
+$highText = $question['high_text'];
 
 ?>
 

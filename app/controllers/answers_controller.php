@@ -177,7 +177,8 @@ class AnswersController extends AppController
             return;
         }
 
-        $this->set('question', $question);
+        $this->set('question', $question['Question']);
+        $this->set('poll', $question['Poll']);
         // debug($question);die;
 
 

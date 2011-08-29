@@ -23,6 +23,17 @@
     )
 ); ?>
 
+<?php echo $this->Html->link(
+    'Vastaukset',
+    array(
+        'action' => 'answers',
+        $poll['id']
+    ),
+    array(
+        'class' => 'button'
+    )
+); ?>
+
 <br/><br/>
 <h3>Tiedot</h3>
 <dl class="details">
@@ -76,7 +87,7 @@
 
             <dt>Zoom-taso</dt>
             <dd> 
-                <?php echo empty($q['Zoom']) ? 'Ei' : $q['zoom']; ?>
+                <?php echo empty($q['zoom']) ? 'Ei' : $q['zoom']; ?>
             </dd>
 
             <dt>Sijainti vastaajalta</dt>

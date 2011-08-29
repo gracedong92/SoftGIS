@@ -270,7 +270,7 @@ $( document ).ready(function() {
             </button>
         </div>
 
-        <div class="input checkbox">
+        <div class="input checkbox" data-bind="visible: latlng()">
             <input type="checkbox"
                 data-bind="checked: answer_location" />
             <label>Sijainti vastaajalta</label>

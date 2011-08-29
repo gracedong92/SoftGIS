@@ -26,7 +26,10 @@ class LatLngBehavior extends ModelBehavior
             $model->data[$model->alias][$settings['lat']] = $coords['lat'];
             $model->data[$model->alias][$settings['lng']] = $coords['lng'];
             unset($model->data[$model->alias][$settings['field']]);
-        }        
+        } else {
+            $model->data[$model->alias][$settings['lat']] = null;
+            $model->data[$model->alias][$settings['lng']] = null;
+        }
         return true;
     }
 

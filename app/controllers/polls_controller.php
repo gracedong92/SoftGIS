@@ -117,6 +117,22 @@ class PollsController extends AppController
     }
 
 
+    public function answers($pollId)
+    {
+        $authorId = $this->Auth->user('id');
+        $this->Poll->id = $pollId;
+        if (!$this->Poll->exists() 
+            || $this->Poll->field('author_id') != $authorId) {
+            $this->cakeError('pollNotFound');
+        }
+
+        $this->loadModel('Response');
+        $this->Response->contain('Answer');
+        $responses = $this->Response->findAllByPollId($pollId);
+        debug($responses);die;
+    }
+
+
     /**
      * Converts json string to array and then array to correct form for
      * Poll model
@@ -137,7 +153,12 @@ class PollsController extends AppController
         $data['Poll']['public'] = empty($data['Poll']['public']) ? 0 : 1;
 
         foreach ($json['questions'] as $q) {
-            $q['answer_location'] = empty($q['answer_location']) ? 0 : 1;
+            if (empty($q['latlng'])) {
+                // Answer cant have location if quest dont have
+                $q['answer_location'] = 0;
+            } else {
+                $q['answer_location'] = empty($q['answer_location']) ? 0 : 1;
+            }
             $q['answer_visible'] = empty($q['answer_visible']) ? 0 : 1;
             $q['comments'] = empty($q['comments']) ? 0 : 1;
             unset($q['visible']);
@@ -162,88 +183,6 @@ class PollsController extends AppController
         return $data;
     }
 
-
-    // public function edit($id = null)
-    // {
-    //     $authorId = $this->Auth->user('id');
-
-    //     if (!empty($id)) {
-    //         $poll = $this->Poll->findById($id);
-
-    //         // Poll not found or someone elses
-    //         if (empty($poll) || $poll['Poll']['author_id'] != $authorId) {
-    //             $this->cakeError('pollNotFound');
-    //         }
-
-    //         // Published poll shouldn't be edited anymore
-    //         if (!empty($poll['Poll']['published'])) {
-    //             $this->Session->setFlash('Julkaistua kyselyä ei voida enää muokata');
-    //             $this->redirect(array('action' => 'index'));
-    //         }
-    //     }
-
-    //     if (!empty($this->data)) {
-    //         $this->data['Poll']['author_id'] = $authorId;
-
-    //         // Parse Path IDs
-    //         $this->data['Path'] = explode(',', $this->data['Poll']['paths']);
-    //         debug($this->data);die;
-    //         unset($this->data['Poll']['paths']);
-    //         // debug($this->data);die;
-    //         if ($this->Poll->saveAll($this->data, array('validate'=>'first'))){
-
-    //             $this->Session->setFlash('Kysely tallennettu');
-    //             $this->redirect(array('action' => 'index'));
-
-    //         } else {
-    //             $this->Session->setFlash('Tallentaminen epäonnistui');
-
-    //             // Order questions
-    //             if (isset($this->data['Question'])) {
-    //                 usort(
-    //                     $this->data['Question'], 
-    //                     function($a, $b) {
-    //                         if ($a['num'] == $b['num']) {
-    //                             return 0;
-    //                         }
-    //                         return ($a < $b) ? -1 : 1;
-    //                     }
-    //                 );
-    //             }
-
-    //             // Get path names
-    //             $paths = $this->Poll->Path->find(
-    //                 'list',
-    //                 array(
-    //                     'conditions' => array(
-    //                         'Path.id' => $this->data['Path']
-    //                     )
-    //                 )
-    //             );
-    //             $this->data['Path'] = array();
-    //             foreach ($paths as $id => $name) {
-    //                 $this->data['Path'][] = array(
-    //                     'id' => $id,
-    //                     'name' => $name
-    //                 );
-    //             }
-    //         }
-
-    //     }
-
-    //     if (empty($this->data) && !empty($poll)) {
-    //         $this->data = $poll;
-    //         $this->data['Path'] = array();
-    //         foreach ($poll['Path'] as $p) {
-    //             $this->data['Path'][] = array(
-    //                 'id' => $p['id'],
-    //                 'name' => $p['name']
-    //             );
-    //         }
-    //     }
-
-    //     // debug($this->data);die;
-    // }
 
     public function publish($pollId = null)
     {

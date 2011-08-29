@@ -41,12 +41,11 @@ function createPath(data) {
 
 $( document ).ready(function() {
 
-<?php if ($question['Question']['lat']): ?>
-    // Question position
-    questionZoom = parseInt(<?php echo $question['Question']['zoom']; ?>);
+<?php if ($question['lat']): // Question has position ?>
+    questionZoom = parseInt(<?php echo $question['zoom']; ?>);
     questionLatLng = new google.maps.LatLng(
-        "<?php echo $question['Question']['lat']; ?>",
-        "<?php echo $question['Question']['lng']; ?>"
+        "<?php echo $question['lat']; ?>",
+        "<?php echo $question['lng']; ?>"
     );
 
     map = new google.maps.Map( $( "#map" ).get()[0], {
@@ -60,18 +59,15 @@ $( document ).ready(function() {
         position: questionLatLng
     });
 
-    <?php /* Create Markers */ ?>
-    <?php foreach ($question['Poll']['Marker'] as $marker): ?>
+<?php foreach ($poll['Marker'] as $marker): // Create markers ?>
         createMarker(<?php echo json_encode($marker); ?>);
-    <?php endforeach; ?>
+<?php endforeach; ?>
 
-    <?php /* Create Paths */ ?>
-    <?php foreach ($question['Poll']['Path'] as $path): ?>
+<?php foreach ($poll['Path'] as $path): // Create paths ?>
         createPath(<?php echo json_encode($path); ?>);
-    <?php endforeach; ?>
+<?php endforeach; ?>
 
-    // Answer requires location
-    <?php if ($question['Question']['answer_location']): ?>
+<?php if ($question['answer_location']): // Answer reqs location ?>
     // Create answer marker on first map click
     var answerMarker;
     google.maps.event.addListenerOnce(map, "click", function(e) {
@@ -90,13 +86,12 @@ $( document ).ready(function() {
         // Store initial position
         google.maps.event.trigger( answerMarker, "dragend", e );
     });
-    <?php endif; // Question.answer_location ?>
-
+<?php endif; // Question.answer_location ?>
 <?php endif; // Question.lat ?>
 
 
 <?php /* Input jQ-selector depends on Question.type */ ?>
-<?php if ($question['Question']['type'] == 1): ?>
+<?php if ($question['type'] == 1): ?>
     var answerSelector = "textarea";
 <?php else: ?>
     var answerSelector = "input:checked";
@@ -107,7 +102,8 @@ $( document ).ready(function() {
     $( "#answer-form" ).submit(function() {
         var continueSubmit = true;
 
-<?php if ($question['Question']['answer_location']): ?>
+<?php if ($question['lat'] && $question['answer_location']): // Req location ?>
+
         // Make sure user has selected location
         var lat = $( "#lat" ).val();
         var lng = $( "#lng" ).val();
@@ -137,7 +133,7 @@ $( document ).ready(function() {
         } else {
             $( "#map" ).qtip( "destroy" );
         }
-        
+                
 <?php endif; ?>
 
         // Make sure user has answered something
@@ -166,7 +162,7 @@ $( document ).ready(function() {
             });
             continueSubmit = false;
         } else {
-            $( answerSelector ).qtip( "destroy" );
+            $( "#answerField" ).qtip( "destroy" );
         }
 
         return continueSubmit;
@@ -177,7 +173,7 @@ $( document ).ready(function() {
 </script>
 
 <div class="answer">
-    <h3><?php echo $question['Question']['text']; ?></h3>
+    <h3><?php echo $question['text']; ?></h3>
     <form method="POST" id="answer-form">
         <div class="input">
             <?php echo $this->element(
@@ -188,7 +184,7 @@ $( document ).ready(function() {
 
 
 <?php /* Answer requires location */ ?>
-<?php if ($question['Question']['answer_location']): ?>
+<?php if ($question['answer_location']): ?>
             <input type="hidden" value="" id="lat" 
                 name="data[Answer][lat]" />
             <input type="hidden" value="" id="lng" 
@@ -200,7 +196,7 @@ $( document ).ready(function() {
     </form>
 
 <?php /* Question has position */ ?>
-<?php if ($question['Question']['lat']): ?>
+<?php if ($question['lat']): ?>
     <div id="map" class="map"></div>
 <?php endif; ?>
 
