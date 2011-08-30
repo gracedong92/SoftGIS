@@ -1,5 +1,7 @@
 <script>
 
+var markerIconPath = "<?php echo $this->Html->url('/markericons/'); ?>";
+
 var map;
 var questionMarker;
 var questionLocation;
@@ -12,7 +14,9 @@ function createMarker(data) {
         position: new google.maps.LatLng(
             data.lat,
             data.lng
-        )
+        ),
+        // Use icon if set
+        icon: data.icon ? markerIconPath + data.icon : null
     });
     var infoWindow = new google.maps.InfoWindow({
         content: data.content
@@ -56,7 +60,8 @@ $( document ).ready(function() {
     );
     questionMarker = new google.maps.Marker({
         map: map,
-        position: questionLatLng
+        position: questionLatLng,
+        icon: "/img/question_icon.png"
     });
 
 <?php foreach ($poll['Marker'] as $marker): // Create markers ?>

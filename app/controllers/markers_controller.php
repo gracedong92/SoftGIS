@@ -18,6 +18,16 @@ class MarkersController extends AppController
                 );
             }
         }
+
+        $icons = array( 'default' => '' );
+        $iconDir = WWW_ROOT . 'markericons/';
+        $dh = opendir($iconDir);
+        while (($file = readdir($dh)) !== false) {
+            if (is_file($iconDir . $file)) {
+                $icons[$file] = $file;
+            }
+        }
+        $this->set('icons', $icons);
     }
 
     public function create()

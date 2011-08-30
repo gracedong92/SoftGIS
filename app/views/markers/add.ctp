@@ -1,5 +1,7 @@
 <script>
 
+var markerIconPath = "<?php echo $this->Html->url('/markericons/'); ?>";
+
 
 $( document ).ready(function() {
 
@@ -27,6 +29,15 @@ $( document ).ready(function() {
         $( "#MarkerLatlng" ).val( latLng.lat() + "," + latLng.lng() );
         
         // return false;
+    });
+
+    $( "#MarkerIcon" ).change(function() {
+        var icon = $( this ).val();
+        if ( icon == "default" ) {
+            marker.setIcon( null );
+        } else {
+            marker.setIcon( markerIconPath + icon );
+        }
     });
 
 });

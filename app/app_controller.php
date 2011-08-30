@@ -13,7 +13,10 @@ class AppController extends Controller
             'loginRedirect' => array(
                 'controller' => 'polls',
                 'action' => 'index'
-            )
+            ),
+            'authError' => 'Kirjaudu sisään',
+            'loginError' => 'Sisään kirjautuminen epäonnistui. 
+                Tarkista käyttäjänimi ja salasana'
         ),
         'Session',
         'RequestHandler'
