@@ -142,7 +142,7 @@ $( document ).ready(function() {
 </div>
 
 <div class="input textarea">
-    <label>Tervetuloateksti</label>
+    <label>Kyselyn kuvaus</label>
     <textarea data-bind="value: poll.welcome_text" rows="6"></textarea>
 </div>
 
@@ -273,13 +273,13 @@ $( document ).ready(function() {
         <div class="input checkbox" data-bind="visible: latlng()">
             <input type="checkbox"
                 data-bind="checked: answer_location" />
-            <label>Sijainti vastaajalta</label>
+            <label>Kohteen merkitseminen kartalle</label>
         </div>
 
         <div class="input checkbox">
             <input type="checkbox"
                 data-bind="checked: answer_visible" />
-            <label>Yleiset vastaukset</label>
+            <label>Vastaukset näkyvissä muille vastaajille</label>
         </div>
 
         <div class="input checkbox">

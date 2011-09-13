@@ -1845,8 +1845,9 @@ ko.exportSymbol('ko.templateRewriting.applyMemoizedBindingsToNextSibling', ko.te
                 unwrappedArray = [unwrappedArray];
 
             // Filter out any entries marked as destroyed
-            var filteredArray = ko.utils.arrayFilter(unwrappedArray, function(item) { 
-                return options['includeDestroyed'] || !item['_destroy'];
+            var filteredArray = ko.utils.arrayFilter(unwrappedArray, function(item) {
+                return true;
+                // return options['includeDestroyed'] || !item['_destroy'];
             });
 
             ko.utils.setDomNodeChildrenFromArrayMapping(targetNode, filteredArray, function (arrayValue) {

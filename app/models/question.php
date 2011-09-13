@@ -6,6 +6,10 @@ class Question extends AppModel
         'LatLng'
     );
 
+    public $hasMany = array(
+        'Answer'
+    );
+
     public $belongsTo = array(
         'Poll'
     );

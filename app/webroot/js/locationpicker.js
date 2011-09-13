@@ -1,7 +1,8 @@
-(function( $ ) {
 
+(function( $ ) {
+    // "use strict";
     var methods = {
-        _create: function( settings ) {
+        _create: function (settings) {
             var $this = $( this );
             $this.data( "locationpicker", settings );
 
@@ -60,11 +61,12 @@
             settings.selectCallback = selectCallback;
             $this.show();
 
-            if ( settings.firstOpen ) {
-                // Initial map size is calculated wrong because div is hidden
-                google.maps.event.trigger( settings.map, "resize" );
-                settings.firstOpen = false;
-            }
+            // if ( settings.firstOpen ) {
+            //     // Initial map size is calculated wrong because div is hidden
+            //     google.maps.event.trigger( settings.map, "resize" );
+            //     settings.firstOpen = false;
+            // }
+            google.maps.event.trigger( settings.map, "resize" );
 
             // Only accept valid strings
             var latLng;
@@ -86,15 +88,14 @@
             }
             var zoom;
             if ( currentZoom ) {
-                zoom = parseInt( currentZoom );
+                zoom = parseInt( currentZoom, 10 );
             } else if ( settings.lastZoom ) {
                 zoom = settings.lastZoom;
             } else {
                 zoom = settings.initialZoom;
             }
-            console.info('esa');
             settings.map.setZoom( zoom );
-            console.info('asd');
+            
             settings.map.setCenter( latLng );
             settings.marker.setPosition( latLng );
 
@@ -116,7 +117,7 @@
             }
             this.hide();
         }
-    }
+    };
     
     $.fn.locationpicker = function( method ) {
 
@@ -150,6 +151,7 @@
         });
 
 
-    }
+    };
 
 })( jQuery );
+

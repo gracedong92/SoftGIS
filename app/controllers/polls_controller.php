@@ -94,6 +94,7 @@ class PollsController extends AppController
 
         // Save
         if (!empty($this->data)) {
+            // debug($this->data);
             $data = $this->_jsonToPollModel($this->data);
             // debug($data);die;
             if ($this->Poll->saveAll($data, array('validate'=>'first'))){
@@ -153,6 +154,12 @@ class PollsController extends AppController
         $data['Poll']['public'] = empty($data['Poll']['public']) ? 0 : 1;
 
         foreach ($json['questions'] as $q) {
+            if (empty($q)) {
+                // Ignore NULL questions
+                // Somekind of IE js bug
+                continue;
+            }
+
             if (empty($q['latlng'])) {
                 // Answer cant have location if quest dont have
                 $q['answer_location'] = 0;

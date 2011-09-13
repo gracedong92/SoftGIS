@@ -241,6 +241,11 @@ class AppSchema extends CakeSchema
             'length' => '50',
             'null' => false
         ),
+        'type' => array(
+            'type' => 'integer',
+            'null' => false,
+            'default' => 1
+        ),
         'content' => array(
             'type' => 'text'
         ),

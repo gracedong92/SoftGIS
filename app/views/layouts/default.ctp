@@ -17,6 +17,7 @@
         echo $this->Html->css('smoke');
         
         echo $this->Html->script('http://maps.google.com/maps/api/js?libraries=geometry&sensor=false');
+        echo $this->Html->script('underscore-min');
         echo $this->Html->script('jquery-1.5.1.min');
         echo $this->Html->script('jquery.qtip.min');
         // echo $this->Html->script('jquery-ui-1.8.14.custom.min');

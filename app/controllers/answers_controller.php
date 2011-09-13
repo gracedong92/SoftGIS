@@ -117,7 +117,7 @@ class AnswersController extends AppController
             $answerSession['questionNum'] = 1;
         }
 
-        // Create empty answers holder
+        // Create empty answers array
         if (!isset($answerSession['answers'])) {
             $answerSession['answers'] = array();
         }
@@ -178,7 +178,7 @@ class AnswersController extends AppController
         }
 
         $this->set('question', $question['Question']);
-        $this->set('poll', $question['Poll']);
+        // $this->set('poll', $question['Poll']);
         // debug($question);die;
 
 
@@ -186,6 +186,7 @@ class AnswersController extends AppController
         
         if ($question['Question']['answer_visible']) {
             // Display other answers
+            $this->Answer->recursive = -1;
             $answers = $this->Answer->find(
                 'all',
                 array(
@@ -194,6 +195,7 @@ class AnswersController extends AppController
                     )
                 )
             );
+            // debug($answers);die;
             $this->set('answers', $answers);
         }
     
