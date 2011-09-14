@@ -14,7 +14,7 @@
         echo $this->Html->css('jquery.qtip.min');
         // echo $this->Html->css('jquery-ui-1.8.14.custom');
         // echo $this->Html->css('jquery.meow');
-        echo $this->Html->css('smoke');
+        // echo $this->Html->css('smoke');
         
         echo $this->Html->script('http://maps.google.com/maps/api/js?libraries=geometry&sensor=false');
         echo $this->Html->script('underscore-min');
@@ -25,7 +25,7 @@
         echo $this->Html->script('knockout-1.2.1.debug');
         // echo $this->Html->script('knockout-1.2.1');
         // echo $this->Html->script('jquery.meow');
-        echo $this->Html->script('smoke');
+        // echo $this->Html->script('smoke');
 
         echo $scripts_for_layout;
     ?>

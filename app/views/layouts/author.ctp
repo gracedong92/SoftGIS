@@ -13,8 +13,8 @@
         echo $this->Html->css('poll');
         echo $this->Html->css('jquery.qtip.min');
         echo $this->Html->css('jquery-ui-1.8.14.custom');
-        echo $this->Html->css('jquery.meow');
-        echo $this->Html->css('smoke');
+        // echo $this->Html->css('jquery.meow');
+        // echo $this->Html->css('smoke');
         echo $this->Html->css('token-input');
         echo $this->Html->css('ui.spinner');
         

@@ -65,7 +65,6 @@ $( document ).ready(function() {
 
     $( "#PathEditForm input" ).change(function() {
         var val = $(this).val();
-        console.info(val);
         _.each(elements, function(el) {
             el.setOptions({ 
                 strokeColor: "#" + $("#PathStrokeColor").val(),
