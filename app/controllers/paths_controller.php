@@ -42,7 +42,6 @@ class PathsController extends AppController
             $this->data = $this->Path->read();
             $this->set('data', $this->data);
         }
-
         // $this->set('coordinates', $path['Path']['coordinates']);
         // $this->set('type', $path['Path']['coordinates']);
     }

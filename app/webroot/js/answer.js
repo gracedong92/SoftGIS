@@ -21,8 +21,8 @@ function initQuestion(question) {
             position: questionLocation,
             icon: "/img/question_icon.png"
         });
-
-        if ( question.answer_location ) {
+        
+        if ( question.answer_location == 1 ) {
             locRequired = true;
 
             var answerMarker;
@@ -183,11 +183,13 @@ function createPath(data) {
     var infoWindow = new google.maps.InfoWindow({
         content: data.content
     });
-    console.info(data);
     var encodedPaths = data.coordinates.split( " " );
     for (var i in encodedPaths) {
+        var encodedPath = encodedPaths[i];
+        encodedPath = encodedPath.replace(/\\\\/g, "\\");
+
         var decodedPath = google.maps.geometry.encoding.decodePath(
-            encodedPaths[i]
+            encodedPath
         );
 
         if (data.type == 1) {

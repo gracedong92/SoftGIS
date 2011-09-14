@@ -5,6 +5,7 @@ $( document ).ready(function() {
     var question = <?php echo json_encode($question); ?>;
     var markers = <?php echo json_encode($markers); ?>;
     var paths = <?php echo json_encode($paths); ?>;
+    
     initQuestion(question);
     initMarkers(markers);
     initPaths(paths);

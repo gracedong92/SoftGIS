@@ -4,7 +4,7 @@ var encodedCoordinates = "<?php echo $data['Path']['coordinates']; ?>";
 var decodedCoordinates = new google.maps.MVCArray();
 var type = <?php echo $data['Path']['type']; ?>;
 var map;
-
+console.info(encodedCoordinates);
 encodedCoordinates = encodedCoordinates.split( " " );
 _.each(encodedCoordinates, function(i) {
     decodedCoordinates.push(google.maps.geometry.encoding.decodePath(i));
