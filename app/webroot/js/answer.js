@@ -22,18 +22,6 @@ function initQuestion(question) {
             icon: "/img/question_icon.png"
         });
 
-        if ( question.marker ) {
-            _.each( question.marker, function(marker) {
-                createMarker(marker);
-            });
-        }
-
-        if ( question.path ) {
-            _.each( question.path, function(path) {
-                createPath(path);
-            });
-        }
-
         if ( question.answer_location ) {
             locRequired = true;
 
@@ -138,6 +126,22 @@ function initQuestion(question) {
 
 }
 
+function initMarkers(markers) {
+    if ( markers ) {
+        _.each( markers, function(marker) {
+            createMarker(marker);
+        });
+    }
+}
+function initPaths(paths) {
+    if ( paths ) {
+        _.each( paths, function(path) {
+            createPath(path);
+        });
+    }
+
+}
+
 function initAnswers(answers) {
     if ( !map ) {
         return;
@@ -179,17 +183,32 @@ function createPath(data) {
     var infoWindow = new google.maps.InfoWindow({
         content: data.content
     });
-    var encodedPaths = data.polyline.split( " " );
+    console.info(data);
+    var encodedPaths = data.coordinates.split( " " );
     for (var i in encodedPaths) {
         var decodedPath = google.maps.geometry.encoding.decodePath(
             encodedPaths[i]
         );
-        var path = new google.maps.Polyline({
-        // var path = new google.maps.Polygon({
-            map: map,
-            strokeColor: "#333",
-            path: decodedPath
-        });
+
+        if (data.type == 1) {
+            var path = new google.maps.Polyline({
+                map: map,
+                strokeColor: data.stroke_color ? "#" + data.stroke_color : "#333",
+                strokeOpacity: data.stroke_opacity ? data.stroke_opacity : 1,
+                strokeWeight: data.stroke_weight ? data.stroke_weight : 1,
+                path: decodedPath
+            });
+        } else {
+            var path = new google.maps.Polygon({
+                map: map,
+                strokeColor: data.stroke_color ? "#" + data.stroke_color : "#333",
+                strokeOpacity: data.stroke_opacity ? data.stroke_opacity : 1,
+                strokeWeight: data.stroke_weight ? data.stroke_weight : 1,
+                fillColor: data.fill_color ? "#" + data.fill_color : "#333",
+                fillOpacity: data.fill_opacity ? data.fill_opacity : 0.5,
+                path: decodedPath
+            });
+        }
     }
 }
 

@@ -12,15 +12,22 @@ var markerSearchUrl = "<?php echo $this->Html->url(
 
 var locationPicker;
 
+var questionDatas = <?php echo json_encode($poll['Question']); ?>;
+var questions = [];
+_.each(questionDatas, function(data) {
+    questions.push(new Question(data));
+});
+
 var viewModel = {
 
     poll: new Poll(<?php echo json_encode($poll['Poll']); ?>),
 
-    questions: ko.observableArray([
-        <?php foreach ($poll['Question'] as $q): ?>
-            new Question(<?php echo json_encode($q); ?>),
-        <?php endforeach; ?>
-    ]),
+    questions: ko.observableArray(questions),
+    // questions: ko.observableArray([
+    //     <?php foreach ($poll['Question'] as $q): ?>
+    //         new Question(<?php echo json_encode($q); ?>),
+    //     <?php endforeach; ?>
+    // ]),
     // .sort( function(l, r) {
     //     return l.num() == r.num() ? 0 : (l.num() < r.num() ? -1 : 1)
     // }),

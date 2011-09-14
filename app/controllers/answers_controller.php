@@ -177,9 +177,11 @@ class AnswersController extends AppController
             return;
         }
 
-        $this->set('question', $question['Question']);
-        // $this->set('poll', $question['Poll']);
         // debug($question);die;
+        $this->set('question', $question['Question']);
+        $this->set('markers', $question['Poll']['Marker']);
+        $this->set('paths', $question['Poll']['Path']);
+        // $this->set('poll', $question['Poll']);
 
 
         // Display other answers

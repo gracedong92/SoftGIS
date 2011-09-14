@@ -4,13 +4,7 @@ var confirmPublish = "Haluatko varmasti julkaista kyselyn? Julkaisun jälkeen ky
 
 $( document ).ready(function() {
     $( "a.publish" ).click(function() {
-        var href = this.href;
-        smoke.confirm( confirmPublish, function(e) {
-            if ( e ) {
-                window.location = href;
-            }
-        });
-        return false;
+        return confirm( confirmPublish );
     });
 });
 

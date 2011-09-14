@@ -114,7 +114,6 @@ class PollsController extends AppController
 
 
         $this->set('poll', $poll);
-        // debug($poll);die;
     }
 
 
@@ -130,7 +129,17 @@ class PollsController extends AppController
         $this->loadModel('Response');
         $this->Response->contain('Answer');
         $responses = $this->Response->findAllByPollId($pollId);
-        debug($responses);die;
+
+        $lines = array();
+        foreach($responses as $response) {
+            $line = $response['Response']['created'];
+            foreach ($response['Answer'] as $answer)    {
+                $line .= ',"' . addslashes($answer['answer']) . '",'
+                    . $answer['lat'] . '",' . $answer['lng'];
+            }
+            $lines[] = $line;
+        }
+        echo implode('<br/>', $lines);die;
     }
 
 

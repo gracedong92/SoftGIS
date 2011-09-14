@@ -239,8 +239,16 @@ class AppSchema extends CakeSchema
         'name' => array(
             'type' => 'string',
             'length' => '50',
+            'null' => true
+        ),
+        'author_id' => array(
+            'type' => 'integer',
             'null' => false
         ),
+        /**
+         * 1 = Polyline
+         * 2 = Polygon
+         */
         'type' => array(
             'type' => 'integer',
             'null' => false,
@@ -249,12 +257,29 @@ class AppSchema extends CakeSchema
         'content' => array(
             'type' => 'text'
         ),
-        'color' => array(
+        'stroke_color' => array(
             'type' => 'string',
-            'length' => '6',
-            'null' => true
+            'length' => 6,
+            'default' => '333333'
         ),
-        'polyline' => array(
+        'stroke_opacity' => array(
+            'type' => 'float',
+            'default' => 0.8
+        ),
+        'stroke_weight' => array(
+            'type' => 'float',
+            'default' => 1.0
+        ),
+        'fill_color' => array(
+            'type' => 'string',
+            'length' => 6,
+            'default' => '333333'
+        ),
+        'fill_opacity' => array(
+            'type' => 'float',
+            'default' => 0.2
+        ),
+        'coordinates' => array(
             'type' => 'text',
             'null' => false
         )
