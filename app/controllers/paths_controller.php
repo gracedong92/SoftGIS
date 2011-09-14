@@ -13,6 +13,10 @@ class PathsController extends AppController
     {
         if (!empty($this->data)) {
             $this->data['Path']['author_id'] = $this->Auth->user('id');
+            $this->data['Path']['coordinates'] = addslashes(
+                $this->data['Path']['coordinates']
+            );
+
             if ($this->Path->save($this->data)) {
                 $this->redirect(array('action' => 'edit', $this->Path->id));
             } else {
