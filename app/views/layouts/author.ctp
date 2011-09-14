@@ -75,7 +75,7 @@ $( document ).ready(function() {
                 <li>
                     <?php echo $this->Html->link(
                         'Tuo reitti',
-                        array('controller' => 'paths', 'action' => 'add')
+                        array('controller' => 'paths', 'action' => 'import')
                     );?>
                 </li>
                 <li>
