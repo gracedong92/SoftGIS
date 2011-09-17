@@ -57,31 +57,36 @@ $( document ).ready(function() {
                 <li>
                     <?php echo $this->Html->link(
                         'Omat kyselyt',
-                        array('controller' => 'polls', 'action' => 'index')
+                        array('controller' => 'polls', 'action' => 'index'),
+                        array('class' => 'button')
                     );?>
                 </li>
                 <li>
                     <?php echo $this->Html->link(
                         'Luo uusi kysely',
-                        array('controller' => 'polls', 'action' => 'modify')
+                        array('controller' => 'polls', 'action' => 'modify'),
+                        array('class' => 'button')
                     );?>
                 </li>
                 <li>
                     <?php echo $this->Html->link(
                         'Luo karttamerkki',
-                        array('controller' => 'markers', 'action' => 'add')
+                        array('controller' => 'markers', 'action' => 'add'),
+                        array('class' => 'button')
                     );?>
                 </li>
                 <li>
                     <?php echo $this->Html->link(
                         'Tuo reitti',
-                        array('controller' => 'paths', 'action' => 'import')
+                        array('controller' => 'paths', 'action' => 'import'),
+                        array('class' => 'button')
                     );?>
                 </li>
                 <li>
                     <?php echo $this->Html->link(
                         'Kirjaudu ulos',
-                        array('controller' => 'authors', 'action' => 'logout')
+                        array('controller' => 'authors', 'action' => 'logout'),
+                        array('class' => 'button')
                     );?>
                 </li>
             </ul>

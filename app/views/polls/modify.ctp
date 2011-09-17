@@ -141,7 +141,7 @@ $( document ).ready(function() {
 </script>
 
 
-<h1>Kysely</h1>
+<h2>Kysely</h2>
 <!-- Form -->
 <div class="input text">
     <label>Nimi</label>

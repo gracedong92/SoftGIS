@@ -1,15 +1,21 @@
 $base: #4B8A79;
-$header: #D4421F;
+$header: #BB3B03;
+// $header: #3c3c3c;
+$background: #f9f9f9;
 
 $proceed: #088A29;
 $cancel: #FE2E2E;
 
 $notice: #c73e14;
 
-// $button: #82BEE8;
 $button: #D0EFA0;
 
-$border: #999;
+// $link1: #1240AB;
+$link1: #327CCB;
+// $link2: #06266F;
+$link2: #FF5300;
+$link3: #85AAFF;
+$border: #c9c9c9;
 
 * {
     margin: 0;
@@ -18,20 +24,42 @@ $border: #999;
 
 body {
     font-family:'lucida grande',verdana,helvetica,arial,sans-serif;
-    background: $base;
+    background: $background;
     font-size:90%;
     margin: 0;
 }
 
-
-h1, h2, h3, h4 {
+h1, h2 {
+    // color: $header;
+    font-weight: normal;
+    letter-spacing: 1px;
+    padding: 0.2em;
+    border-bottom: 1px solid $border;
     margin-bottom:0.7em;
-    color: $header;
 }
+
+h3, h4, h5, h6 {
+    // text-shadow: $border 1px 1px 2px;
+    color: $header;
+    font-weight: normal;
+    letter-spacing: 1px;
+    padding: 0.2em;
+}
+
 
 ul {
     list-style-type: none;
     font-size: 0.9em;
+}
+
+a {
+    color: $link1;
+    text-decoration: none;
+    -webkit-transition: all 0.2s ease-in-out;
+    &:hover {
+        // color: $link2;
+        text-decoration: underline;
+    }
 }
 
 
@@ -43,11 +71,13 @@ ul {
     padding: 10px 20px 0 20px;
 }
 #header h1 {
-    color: #fff;
-    text-shadow: $header 0 0 6px;
     padding: 0px 30px;
+    border: 0;
 }
 #content{
+    box-shadow: 0px 0px 6px $border;
+    border: 1px solid $border;
+    border-radius: 3px;
     background: #fff;
     clear: both;
     padding: 2em;
@@ -69,18 +99,8 @@ ul {
         margin: 0;
         li {
             display: inline-block;
-            margin: 0;
-            background-color: $button;
-            border-top: 1px solid;
-            border-left: 1px solid;
-            border-right: 1px solid;
-            border-color: darken($button, 20%);
             a {
-                color: #000;
-                // font-weight: bold;
-                display: inline-block;
-                padding: 5px 10px;
-                text-decoration: none;
+                font-size: 1.1em;
             }
         }
     }
@@ -137,19 +157,24 @@ p.error em {
 div.input {
     margin-bottom: 1em;
 
+    &.checkbox, &.radio {
+        > label {
+            display: inline-block;
+        }
+    }
+
     > label {
-        font-weight: bold;
-        color: #333;
-        // font-size: 1em;
-        display: inline-block;
+        color: $header;
+        font-size: 15px;
+        display: block;
         padding: 0 0 0.2em 0.3em;
         letter-spacing: 1px;
     }
 
     div {
-        // margin-left: 0.5em;
         label {
-            color: #333;
+            // color: $header;
+            // display: block;
             letter-spacing: 1px;
         }
         &.inline {
@@ -161,7 +186,6 @@ div.input {
         font-family: Verdana;
         line-height: 16px;
         font-size: 12px;
-        display: block;
         border: 1px solid $border;
         padding: 0.3em;
         box-sizing: border-box;
@@ -185,9 +209,6 @@ div.input {
         line-height: 20px;
         font-size: 12px;
         border: 1px solid $border;
-        // border-radius: 3px;
-        // padding: 0.3em;
-        // margin: 0 0.3em;
         display: block;
         box-sizing: border-box;
     }
@@ -195,7 +216,6 @@ div.input {
 
 div.map-container {
     div.map {
-        // width: 800px;
         width: 100%;
         box-sizing: border-box;
         border: 1px solid $border;
@@ -250,11 +270,12 @@ dl.details {
     li.question {
         margin: 0;
         padding: 0;
-        background: -webkit-gradient(linear, left top, left bottom, from(#F3F3F3), to(#E4E4E4));
-        background: -moz-linear-gradient(#F3F3F3, #E4E4E4);
-        // border-radius: 4px;
+        background-color: $background;
+        background-image: -webkit-linear-gradient(top, $background, darken($background, 5%));
+        background-image: -moz-linear-gradient(top, $background, darken($background, 5%));
         border: 1px solid $border;
-        margin-bottom: 1px;
+        margin-bottom: 3px;
+
         table.header {
             width: 100%;
             border-collapse: collapse;
@@ -278,9 +299,10 @@ dl.details {
                 &.button {
                     width: 1.4em;
                     div {
-                        // width: 1.4em;
+                        color: $link1;
+                        // color: #fff;
+                        // background-color: $link1;
                         line-height: 24px;
-                        background-color: $button;
                         cursor: pointer;
                         height: 100%;
                         padding: 0 1em;
@@ -326,22 +348,29 @@ dl.details {
 }
 
 button, a.button {
-    color: #333;
-    font-size: 13px;
-    font-weight: bold;
-    // letter-spacing: 1px;
-    padding: 0.3em 0.6em;
+    // font-size: 13px;
+    padding: 0.4em 0.7em;
     border: 1px solid;
     margin: 0.3em 0;
     text-decoration: none;
-    border-radius: 2px;
-    border-color: #c9c9c9;
+    border-radius: 1px;
     display: inline-block;
     cursor: pointer;
-    background-color: $button;
-    border-color: darken($button, 20%);
-    background: -webkit-gradient(linear, left top, left bottom, from(lighten($button, 10%)), to($button));
-    background: -moz-linear-gradient(lighten($button, 10%), $button);
+    color: #fff;
+    background-color: $link1;
+    border-color: darken($link1, 20%);
+
+    -webkit-transition: all 0.2s ease-in-out;
+
+    background-image: -webkit-linear-gradient(top, $link1, darken($link1, 5%));
+    background: -moz-linear-gradient(top, $link1, darken($link1, 5%));
+
+    &:hover {
+        background-image: -webkit-linear-gradient(top, $link1, darken($link1, 10%));
+        background-image: -moz-linear-gradient(top, $link1, darken($link1, 10%));
+        // background-color: $link2;
+        // border-color: $link2;
+    }
 
     &.proceed {
         background-color: $proceed;

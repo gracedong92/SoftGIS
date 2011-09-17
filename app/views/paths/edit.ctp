@@ -94,24 +94,24 @@ $( document ).ready(function() {
 ); ?>
 <?php echo $this->Form->input(
     'stroke_color', 
-    array('label' => 'Viivan väri', 'class' => 'color')
+    array('label' => 'Viivan väri', 'class' => 'color small')
 ); ?>
 <?php echo $this->Form->input(
     'stroke_opacity', 
-    array('label' => 'Viivan opasitetti')
+    array('label' => 'Viivan opasitetti', 'class' => 'small')
 ); ?>
 <?php echo $this->Form->input(
     'stroke_weight', 
-    array('label' => 'Viivan paksuus')
+    array('label' => 'Viivan paksuus', 'class' => 'small')
 ); ?>
 <?php if ($this->data['Path']['type'] == 2) {
     echo $this->Form->input(
         'fill_color', 
-        array('label' => 'Täytön väri', 'class' => 'color')
+        array('label' => 'Täytön väri', 'class' => 'color small')
     );
     echo $this->Form->input(
         'fill_opacity', 
-        array('label' => 'Täytön opasitetti')
+        array('label' => 'Täytön opasitetti', 'class' => 'small')
     ); 
 } ?>
 <div class="input map-container">
