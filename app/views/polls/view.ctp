@@ -1,5 +1,16 @@
+<script>
+
+var confirmPublish = "Haluatko varmasti julkaista kyselyn? Julkaisun jälkeen kyselyä ei voida enää muokata";
+
+$( document ).ready(function() {
+    $( "#publish" ).click(function() {
+        return confirm( confirmPublish );
+    });
+});
+</script>
+
 <?php echo $this->Html->link(
-    'Muokkaa kyselyä',
+    'Muokkaa',
     array(
         'action' => 'modify',
         $poll['id']
@@ -10,13 +21,25 @@
 ); ?>
 
 <?php echo $this->Html->link(
-    'Testaa kyselyä',
+    'Kokeile',
     array(
         'controller' => 'answers',
         'action' => 'test',
         $poll['id']
     ),
     array(
+        'class' => 'button'
+    )
+); ?>
+
+<?php echo $this->Html->link(
+    'Julkaise',
+    array(
+        'action' => 'publish',
+        $poll['id']
+    ),
+    array(
+        'id' => 'publish',
         'class' => 'button'
     )
 ); ?>
@@ -63,6 +86,19 @@
                     <li><?php echo $marker['name']; ?></li>
                 <?php endforeach; ?>
             </ul>
+        </td>
+    </tr>
+    <tr>
+        <th>Julkaistu</th>
+        <td>
+            <?php if (empty($poll['published'])) {
+                echo 'Ei';
+            } else {
+                echo date(
+                    'd.m.Y H:i:s', 
+                    strtotime($poll['published'])
+                );
+            }; ?>
         </td>
     </tr>
 </table>

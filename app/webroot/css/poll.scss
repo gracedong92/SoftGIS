@@ -155,12 +155,6 @@ p.error em {
     color: #fff;
 }
 
-div.answer-nav {
-    margin-top: 2em;
-    text-align: center;
-}
-
-
 div.input {
     margin-bottom: 1em;
 
@@ -324,7 +318,7 @@ hr {
             }
         }
         .details {
-            font-size: 0.8em;
+            font-size: 0.7em;
             padding: 1em;
             border-top: 1px solid $border;
             
@@ -341,14 +335,36 @@ hr {
     }
 }
 
+.answerMenu {
+    float: right;
+    font-size: 0.7em;
+}
+
+.answerNav {
+    margin-top: 2em;
+    text-align: center;
+}
+
+.help {
+    margin-bottom: 1em;
+    padding: 0.8em;
+    clear: both;
+    display: none;
+    float: right;
+    background-color: #FFFFA3;
+    border: 1px solid #F1D031;
+}
 
 .answer {
-    max-width: 800px;
+    h3 {
+        clear: both;
+    }
+    max-width: 860px;
     margin: 0 auto;
     text-align: center;
     .map {
+        border: 1px solid $border;
         width: 100%;
-        // width: 400px;
         height: 600px;
         position: relative;
         z-index: 0;
@@ -361,7 +377,7 @@ hr {
 }
 
 button, a.button {
-    // font-size: 13px;
+    font-size: 13px;
     padding: 0.4em 0.7em;
     border: 1px solid;
     margin: 0.3em 0;
@@ -376,13 +392,11 @@ button, a.button {
     -webkit-transition: all 0.2s ease-in-out;
 
     background-image: -webkit-linear-gradient(top, $link1, darken($link1, 5%));
-    background: -moz-linear-gradient(top, $link1, darken($link1, 5%));
+    background-image: -moz-linear-gradient(top, $link1, darken($link1, 5%));
 
     &:hover {
         background-image: -webkit-linear-gradient(top, $link1, darken($link1, 10%));
         background-image: -moz-linear-gradient(top, $link1, darken($link1, 10%));
-        // background-color: $link2;
-        // border-color: $link2;
     }
 
     &.proceed {
@@ -398,15 +412,21 @@ button, a.button {
     }
 
     &.cancel {
-        background-color: $cancel;
-        border-color: darken($cancel, 10%);
-        background: -webkit-gradient(linear, left top, left bottom, from(lighten($cancel, 10%)), to($cancel));
-        background: -moz-linear-gradient(lighten($cancel, 10%), $cancel);
+        background-color: $bad;
+        border-color: darken($bad, 20%);
+
+        background-image: -webkit-linear-gradient(top, $bad, darken($bad, 5%));
+        background-image: -moz-linear-gradient(top, $bad, darken($bad, 5%));
+
 
         &:hover {
-            background: -webkit-gradient(linear, left top, left bottom, from($cancel), to(lighten($cancel, 10%)));
-            background: -moz-linear-gradient($cancel, lighten($cancel, 10%));
+            background-image: -webkit-linear-gradient(top, $bad, darken($bad, 10%));
+            background-image: -moz-linear-gradient(top, $bad, darken($bad, 10%));
         }
+    }
+
+    &.small {
+        font-size: 0.7em;
     }
 
     &.big {
@@ -420,7 +440,8 @@ table.list {
     width: 100%;
     th {
         padding: 0.3em 3em;
-        border-bottom: 2px solid #c9c9c9;
+        // border-bottom: 1px solid #c9c9c9;
+        color: $darkGrey;
     }
     tbody {
         tr {

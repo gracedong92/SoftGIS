@@ -112,10 +112,6 @@ p.error em {
   background: green;
   color: #fff; }
 
-div.answer-nav {
-  margin-top: 2em;
-  text-align: center; }
-
 div.input {
   margin-bottom: 1em; }
   div.input.checkbox > label, div.input.radio > label {
@@ -231,7 +227,7 @@ hr {
             height: 100%;
             padding: 0 1em; }
     #questions li.question .details {
-      font-size: 0.8em;
+      font-size: 0.7em;
       padding: 1em;
       border-top: 1px solid #c9c9c9; }
       #questions li.question .details td {
@@ -241,11 +237,31 @@ hr {
         padding: 0.3em;
         font-weight: bold; }
 
+.answerMenu {
+  float: right;
+  font-size: 0.7em; }
+
+.answerNav {
+  margin-top: 2em;
+  text-align: center; }
+
+.help {
+  margin-bottom: 1em;
+  padding: 0.8em;
+  clear: both;
+  display: none;
+  float: right;
+  background-color: #FFFFA3;
+  border: 1px solid #F1D031; }
+
 .answer {
-  max-width: 800px;
+  max-width: 860px;
   margin: 0 auto;
   text-align: center; }
+  .answer h3 {
+    clear: both; }
   .answer .map {
+    border: 1px solid #c9c9c9;
     width: 100%;
     height: 600px;
     position: relative;
@@ -255,6 +271,7 @@ hr {
     margin: 0 0.5em; }
 
 button, a.button {
+  font-size: 13px;
   padding: 0.4em 0.7em;
   border: 1px solid;
   margin: 0.3em 0;
@@ -267,7 +284,7 @@ button, a.button {
   border-color: #1e4a79;
   -webkit-transition: all 0.2s ease-in-out;
   background-image: -webkit-linear-gradient(top, #327ccb, #2d70b7);
-  background: -moz-linear-gradient(top, #327ccb, #2d70b7); }
+  background-image: -moz-linear-gradient(top, #327ccb, #2d70b7); }
   button:hover, a.button:hover {
     background-image: -webkit-linear-gradient(top, #327ccb, #2863a2);
     background-image: -moz-linear-gradient(top, #327ccb, #2863a2); }
@@ -281,12 +298,14 @@ button, a.button {
       background: -moz-linear-gradient(#088a29, #0bba37); }
   button.cancel, a.button.cancel {
     background-color: #fe2e2e;
-    border-color: #f80101;
-    background: -webkit-gradient(linear, left top, left bottom, from(#fe6161), to(#fe2e2e));
-    background: -moz-linear-gradient(#fe6161, #fe2e2e); }
+    border-color: #c50101;
+    background-image: -webkit-linear-gradient(top, #fe2e2e, #fe1515);
+    background-image: -moz-linear-gradient(top, #fe2e2e, #fe1515); }
     button.cancel:hover, a.button.cancel:hover {
-      background: -webkit-gradient(linear, left top, left bottom, from(#fe2e2e), to(#fe6161));
-      background: -moz-linear-gradient(#fe2e2e, #fe6161); }
+      background-image: -webkit-linear-gradient(top, #fe2e2e, #f80101);
+      background-image: -moz-linear-gradient(top, #fe2e2e, #f80101); }
+  button.small, a.button.small {
+    font-size: 0.7em; }
   button.big, a.button.big {
     font-size: 1.5em;
     padding: 0.6em; }
@@ -296,7 +315,7 @@ table.list {
   width: 100%; }
   table.list th {
     padding: 0.3em 3em;
-    border-bottom: 2px solid #c9c9c9; }
+    color: #3c3c3c; }
   table.list tbody tr.red {
     background-color: lighen(#fe2e2e, 40%);
     color: #fe2e2e; }

@@ -56,5 +56,5 @@ $( document ).ready(function() {
     <div id="map" class="map">
     </div>
 </div>
-
-<?php echo $this->Form->end('Luo'); ?>
+<button type="submit">Luo karttamerkki</button>
+<?php echo $this->Form->end(); ?>

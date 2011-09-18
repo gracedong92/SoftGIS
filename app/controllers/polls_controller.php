@@ -73,7 +73,7 @@ class PollsController extends AppController
             // Published poll shouldn't be edited anymore
             if (!empty($poll['Poll']['published'])) {
                 $this->Session->setFlash('Julkaistua kyselyä ei voida enää muokata');
-                $this->redirect(array('action' => 'index'));
+                $this->redirect(array('action' => 'view', $id));
             }
 
         } else {
@@ -217,7 +217,7 @@ class PollsController extends AppController
             $this->Session->setFlash('Kysely on jo julkaistu');
         }
 
-        $this->redirect(array('action' => 'index'));
+        $this->redirect(array('action' => 'view', $pollId));
     }
 
 

@@ -4,7 +4,7 @@
 <div class="welcomeText">
     <?php echo $poll['Poll']['welcome_text']; ?>
 </div>
-<div class="answer-nav">
+<div class="answerNav">
     <a href="<?php echo $this->Html->url(array('action'=>'answer')); ?>"
         class="button">
         Aloita kysely

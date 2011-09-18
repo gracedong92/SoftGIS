@@ -191,18 +191,20 @@ $( document ).ready(function() {
     <button type="submit" id="saveButton">
         Tallenna kysely
     </button>
-    <?php if (!empty($poll['Poll']['id'])) {
-        echo $this->Html->link(
-            'Peruuta',
-            array(
-                'action' => 'view',
-                $poll['Poll']['id']
-            ),
-            array(
-                'class' => 'button'
-            )
-        );
-    } ?>
+    <?php 
+    if (!empty($poll['Poll']['id'])) {
+        $url = array('action' => 'view', $poll['Poll']['id']);
+    } else {
+        $url = array('action' => 'index');
+    }
+    echo $this->Html->link(
+        'Peruuta',
+        $url,
+        array(
+            'class' => 'button cancel small'
+        )
+    ); 
+    ?>
 </form>
 
 
