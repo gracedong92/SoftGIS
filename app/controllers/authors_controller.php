@@ -23,11 +23,20 @@ class AuthorsController extends AppController
 
     public function register()
     {
+        $secret = 'kalapuikko';
+
         if (!empty($this->data)) {
-            if ($this->Author->save($this->data)) {
-                $this->Session->setFlash('Rekisteröinti onnistui');
-                $this->Session->setFlash('Voit nyt kirjautua sisään');
-                $this->redirect(array('action' => 'login'));
+            if ($this->data['secret'] == $secret) {
+                if ($this->Author->save($this->data)) {
+                    $this->Session->setFlash('Rekisteröinti onnistui');
+                    $this->Session->setFlash('Voit nyt kirjautua sisään');
+                    $this->redirect(array('action' => 'login'));
+                } else {
+                    $this->data['Author']['password'] = '';
+                }
+            } else {
+                $this->data['Author']['password'] = '';
+                $this->set('secretWrong', true);
             }
         }
     }

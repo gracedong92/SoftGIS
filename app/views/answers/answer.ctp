@@ -35,8 +35,9 @@ $( document ).ready(function() {
                 name="data[Answer][lng]" />
 <?php endif; ?>
 
-
-        <button type="submit">Seuraava kysymys</button>
+        <div class="answer-nav">
+            <button type="submit">Seuraava kysymys</button>
+        </div>
     </form>
 
 <?php /* Question has position */ ?>

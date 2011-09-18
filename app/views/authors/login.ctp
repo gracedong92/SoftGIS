@@ -9,5 +9,6 @@
         'password',
         array('label' => 'Salasana')
     );
-    echo $this->Form->end('Kirjaudu');
 ?>
+<button type="submit">Kirjaudu</button>
+<?php echo $this->Form->end(); ?>

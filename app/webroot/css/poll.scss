@@ -5,10 +5,13 @@ $background: #f9f9f9;
 
 $proceed: #088A29;
 $cancel: #FE2E2E;
+$bad: #FE2E2E;
 
 $notice: #c73e14;
 
 $button: #D0EFA0;
+
+$darkGrey: #3c3c3c;
 
 // $link1: #1240AB;
 $link1: #327CCB;
@@ -80,7 +83,7 @@ a {
     border-radius: 3px;
     background: #fff;
     clear: both;
-    padding: 2em;
+    padding: 1em 2em;
     overflow: auto;
     max-width: 860px;
     margin: 0 auto;
@@ -118,11 +121,10 @@ div.message {
 }
 div.error-message {
     clear: both;
-    // color: #fff;
-    color: $cancel;
+    color: $bad;
     font-weight: bold;
-    padding: 0.4em;
-    // background: #c73e14;
+    font-size: 0.75em;
+    padding: 0.3em;
 }
 p.error {
     background-color: #e32;
@@ -151,6 +153,11 @@ p.error em {
 .success {
     background: green;
     color: #fff;
+}
+
+div.answer-nav {
+    margin-top: 2em;
+    text-align: center;
 }
 
 
@@ -242,25 +249,31 @@ div.map-container {
     }
 }
 
-dl.details {
-    line-height: 1.1em;
-    margin: 0 0 1.5em 0.3em;
-    > dt {
-        color: #333;
-        letter-spacing: 1px;
-        display: inline-block;
-        font-weight: bold;
-        padding-left: 4px;
-        vertical-align: top;
+table.details {
+    border-collapse: collapse;
+    width: 100%;
+    tr:nth-child(odd) {
+        background-color: $background;
     }
-    > dd {
-        margin-left: 2em;
-        margin-bottom: 0.5em;
-        // margin-top: -2em;
+    th {
+        padding: 0.5em;
+        font-size: 0.8em;
+        width: 16em;
         vertical-align: top;
+        font-weight: bold;
+        color: $darkGrey;
+        text-align: right;
+    }
+    td {
+        padding: 0.3em;
     }
 }
 
+hr {
+    color: $border;
+    border: 1px solid $border;
+    margin: 0.5em;
+}
 
 #questions {
     list-style-type: none;

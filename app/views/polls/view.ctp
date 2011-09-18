@@ -1,5 +1,3 @@
-<h2><?php echo $poll['name']; ?></h2>
-
 <?php echo $this->Html->link(
     'Muokkaa kyselyä',
     array(
@@ -33,79 +31,88 @@
         'class' => 'button'
     )
 ); ?>
+<h2>Perustiedot</h2>
+<table class="details">
+    <tr>
+        <th>Kyselyn kuvaus</th>
+        <td><?php echo $poll['welcome_text']; ?></td>
+    </tr>
+    <tr>
+        <th>Kiitosteksti</th>
+        <td><?php echo $poll['thanks_text']; ?></td>
+    </tr>
+    <tr>
+        <th>Kaikille avoin</th>
+        <td><?php echo $poll['public'] ? 'Kyllä' : 'Ei'; ?></td>
+    </tr>
+    <tr>
+        <th>Reitit/Alueet</th>
+        <td>
+            <ul>
+                <?php foreach ($paths as $path): ?>
+                    <li><?php echo $path['name']; ?></li>
+                <?php endforeach; ?>
+            </ul>
+        </td>
+    </tr>
+    <tr>
+        <th>Karttamerkit</th>
+        <td>
+            <ul>
+                <?php foreach ($markers as $marker): ?>
+                    <li><?php echo $marker['name']; ?></li>
+                <?php endforeach; ?>
+            </ul>
+        </td>
+    </tr>
+</table>
 
-<br/><br/>
-<h3>Tiedot</h3>
-<dl class="details">
-    <dt>Tervetuloateksti</dt>
-    <dd><?php echo $poll['welcome_text']; ?></dd>
+<h2>Kysymykset</h2>
 
-    <dt>Kiitosteksi</dt>
-    <dd><?php echo $poll['thanks_text']; ?></dd>
-
-    <dt>Kaikille avoin</dt>
-    <dd><?php echo $poll['public'] ? 'Kyllä' : 'Ei'; ?></dd>
-</dl>
-
-<h3>Reitit</h3>
-<dl class="details">
-    <?php foreach ($paths as $path): ?>
-        <dt>
-            <?php echo $path['name']; ?>
-        </dt>
-        <dd>
-            <?php echo $path['content']; ?>
-        </dd>
-    <?php endforeach; ?>
-</dl>
-
-<h3>Merkit</h3>
-<dl class="details">
-    <?php foreach ($markers as $marker): ?>
-        <dt>
-            <?php echo $marker['name']; ?>
-        </dt>
-        <dd>
-            <?php echo $marker['content']; ?>
-        </dd>
-    <?php endforeach; ?>
-</dl>
-
-<h3>Kysymykset</h3>
-<ol style="margin-left: 2em;">
-<?php foreach ($questions as $q): ?>
-    <li>
-        <h4><?php echo $q['text']; ?></h4>
-        <dl class="details">
-            <dt>Vastaus</dt>
-            <dd><?php echo $answers[$q['type']]; ?></dd>
-
-            <dt>Sijainti</dt>
-            <dd> 
+<table class="details">
+    <?php foreach ($questions as $q): ?>
+        <tr>
+            <td colspan="2"><h3><?php echo $q['num']; ?></h3></td>
+        </tr>
+        <tr>
+            <th>Kysymys</th>
+            <td><?php echo $q['text']; ?></td>
+        </tr>
+        <tr>
+            <th>Vastaus</th>
+            <td><?php echo $answers[$q['type']]; ?></td>
+        </tr>
+        <tr>
+            <th>Sijainti</th>
+            <td> 
                 <?php echo empty($q['latlng']) ? 'Ei' : $q['latlng']; ?>
-            </dd>
-
-            <dt>Zoom-taso</dt>
-            <dd> 
+            </td>
+        </td>
+        <tr>
+            <th>Zoom-taso</th>
+            <td> 
                 <?php echo empty($q['zoom']) ? 'Ei' : $q['zoom']; ?>
-            </dd>
-
-            <dt>Sijainti vastaajalta</dt>
-            <dd> 
+            </td>
+        </tr>
+        <tr>
+            <th>Kohteen merkitseminen kartalle</th>
+            <td> 
                 <?php echo $q['answer_location'] ? 'Kyllä' : 'Ei'; ?>
-            </dd>
-
-            <dt>Yleiset vastaukset</dt>
-            <dd> 
+            </td>
+        </tr>
+        <tr>
+            <th>Vastaukset näkyvissä muille vastaajille</th>
+            <td> 
                 <?php echo $q['answer_visible'] ? 'Kyllä' : 'Ei'; ?>
-            </dd>
-
-            <dt>Vastausten kommentointi</dt>
-            <dd> 
+            </td>
+        </tr>
+        <tr>
+            <th>Vastausten kommentointi</th>
+            <td> 
                 <?php echo $q['comments'] ? 'Kyllä' : 'Ei'; ?>
-            </dd>
-        </dl>
-    </li>
-<?php endforeach; ?>
-</ol>
+            </td>
+        </tr>
+    <?php endforeach; ?>
+</table>
+
 

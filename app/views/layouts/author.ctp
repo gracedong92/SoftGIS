@@ -37,10 +37,13 @@
     ?>
     <script>
 
-$.fn.qtip.defaults.style.classes = "ui-tooltip-shadow ui-tooltip-rounded";
-
 $( document ).ready(function() {
-    $('a[title]').qtip();
+    $('a[title]').qtip({
+        position: {
+            my: "right center",
+            at: "left center"
+        }
+    });
 });
 
     </script>

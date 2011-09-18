@@ -48,7 +48,7 @@ a {
   border-radius: 3px;
   background: #fff;
   clear: both;
-  padding: 2em;
+  padding: 1em 2em;
   overflow: auto;
   max-width: 860px;
   margin: 0 auto; }
@@ -81,7 +81,8 @@ div.error-message {
   clear: both;
   color: #fe2e2e;
   font-weight: bold;
-  padding: 0.4em; }
+  font-size: 0.75em;
+  padding: 0.3em; }
 
 p.error {
   background-color: #e32;
@@ -110,6 +111,10 @@ p.error em {
 .success {
   background: green;
   color: #fff; }
+
+div.answer-nav {
+  margin-top: 2em;
+  text-align: center; }
 
 div.input {
   margin-bottom: 1em; }
@@ -167,20 +172,26 @@ div.map-container div.coords {
       div.map-container div.coords ul > li:last-child {
         border-bottom: 1px solid #c9c9c9; }
 
-dl.details {
-  line-height: 1.1em;
-  margin: 0 0 1.5em 0.3em; }
-  dl.details > dt {
-    color: #333;
-    letter-spacing: 1px;
-    display: inline-block;
+table.details {
+  border-collapse: collapse;
+  width: 100%; }
+  table.details tr:nth-child(odd) {
+    background-color: #f9f9f9; }
+  table.details th {
+    padding: 0.5em;
+    font-size: 0.8em;
+    width: 16em;
+    vertical-align: top;
     font-weight: bold;
-    padding-left: 4px;
-    vertical-align: top; }
-  dl.details > dd {
-    margin-left: 2em;
-    margin-bottom: 0.5em;
-    vertical-align: top; }
+    color: #3c3c3c;
+    text-align: right; }
+  table.details td {
+    padding: 0.3em; }
+
+hr {
+  color: #c9c9c9;
+  border: 1px solid #c9c9c9;
+  margin: 0.5em; }
 
 #questions {
   list-style-type: none;
