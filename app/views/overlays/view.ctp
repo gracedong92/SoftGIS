@@ -44,7 +44,7 @@ $(document).ready(function() {
             map: map
         }
     );
-        console.info(overlayData.image_url);
+    
 });
 
 </script>
