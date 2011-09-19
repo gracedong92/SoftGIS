@@ -1,93 +1,50 @@
-<?php echo $this->Html->script('locationpicker'); ?>
-<?php echo $this->Html->script('create_poll'); ?>
+<?php echo $this->Html->script('backbone'); ?>
+<?php echo $this->Html->script('pollEditApp'); ?>
+<?php //echo $this->Html->script('liveController'); ?>
+<?php echo $this->Html->script('models/poll'); ?>
+<?php echo $this->Html->script('models/question'); ?>
 
 <script>
 
-<?php if (!empty($this->data['Path'])): ?>
-    var paths = <?php echo json_encode($this->data['Path']); ?>
-<?php else: ?>
-    var paths = null;
-<?php endif; ?>
-
-$( document ).ready(function() {
-    $( "#PollPaths" ).tokenInput("/paths/search.json", {
-        prePopulate: paths
-    });
-});
+var data = <?php echo json_encode($poll); ?>
 
 </script>
 
-
-<h1>Kysely</h1>
-<!-- Form -->
-<?php echo $this->Form->create('Poll'); ?>
-
-<?php echo $this->Form->input(
-    'id'
-); ?>
-
-<?php echo $this->Form->input(
-    'name',
-    array('label' => 'Nimi')
-); ?>
-
-<?php echo $this->Form->input(
-    'welcome_text',
-    array('label' => 'Tervetuloateksti')
-); ?>
-
-<?php echo $this->Form->input(
-    'thanks_text',
-    array('label' => 'Kiitosteksti')
-); ?>
-
-<?php echo $this->Form->input(
-    'public',
-    array('label' => 'Kaikille avoin')
-); ?>
-
-<?php echo $this->Form->input(
-    'paths',
-    array('label' => 'Reitit')
-); ?>
-
-<div class="input">
-    <label>Kysymykset</label>
-    <ul id="questions">
-    <?php 
-        $index = 0;
-        if (isset($this->data['Question'])) {
-            foreach ($this->data['Question'] as $q){
-               echo $this->element(
-                    'question_edit', 
-                    array_merge($q, array('i' => $index))
-                );
-                $index++;
-            }
-        }
-    ?>
-    </ul>
-    <button type="button" id="create-question">Luo uusi kysymys</button>
-</div>
-<?php echo $this->Form->end('Tallenna'); ?>
-
-<script>
-
-var questionIndex = <?php echo $index; ?>
-
-</script>
-
-
-<div id="loc-picker">
+<div id="poll">
+    
 </div>
 
+<script type="text/x-jquery-tmpl" id="pollTmpl">
+    <div class="input text">
+        <label>Nimi</label>
+        <input type="text" name="name" value="${name}" />
+    </div>
 
-<!-- Question Template -->
-<script type="text/x-jquery-tmpl" id="question-tmpl">
+    <div class="input textarea">
+        <label>Kyselyn kuvaus</label>
+        <textarea name="welcome_text" rows="6">${welcome_text}</textarea>
+    </div>
 
-<?php echo $this->element(
-    'question_edit',
-    array('template' => true)
-); ?>
+    <div class="input textarea">
+        <label>Kiitosteksti</label>
+        <textarea name="thanks_text" rows="6">${thanks_text}</textarea>
+    </div>
 
+    <div class="input checkbox">
+        <input type="checkbox" name="public"
+            {{if public }}
+                checked="checked"
+            {{/if}}/>
+        <label>Kaikille avoin</label>
+    </div>
+
+    <div class="input text">
+        <label>Reitit</label>
+        <input type="text" id="paths" />
+    </div>
+
+    <div class="input text">
+        <label>Merkit</label>
+        <input type="text" id="markers" />
+    </div>
 </script>

@@ -41,6 +41,61 @@ class PollsController extends AppController
         // debug($poll);die;
     }
 
+    public function edit($id = null)
+    {
+        $authorId = $this->Auth->user('id');
+
+        if (!empty($id)) {
+            $poll = $this->Poll->find(
+                'first',
+                array(
+                    'conditions' => array(
+                        'Poll.id' => $id
+                    ),
+                    'contain' => array(
+                        'Question',
+                        'Path' => array(
+                            'id',
+                            'name'
+                        ),
+                        'Marker' => array(
+                            'id',
+                            'name'
+                        )
+                    )
+                )
+            );
+            // Poll not found or someone elses
+            if (empty($poll) || $poll['Poll']['author_id'] != $authorId) {
+                $this->cakeError('pollNotFound');
+            }
+
+            // Published poll shouldn't be edited anymore
+            if (!empty($poll['Poll']['published'])) {
+                $this->Session->setFlash('Julkaistua kyselyä ei voida enää muokata');
+                $this->redirect(array('action' => 'view', $id));
+            }
+
+        } else {
+            // Empty poll
+            $poll = array(
+                'Poll' => array(
+                    'name' => null,
+                    'public' => null,
+                    'published' => null,
+                    'welcome_text' => null,
+                    'thanks_text' => null
+                ),
+                'Question' => array(),
+                'Path' => array(),
+                'Marker' => array()
+            );
+        }
+
+        // debug($poll);die;
+        $this->set('poll', $poll);
+    }
+
     public function modify($id = null)
     {
         $authorId = $this->Auth->user('id');
