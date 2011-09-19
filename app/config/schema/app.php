@@ -230,6 +230,22 @@ class AppSchema extends CakeSchema
         )
     );
 
+    var $polls_overlays = array(
+        'id' => array(
+            'type'=>'integer', 
+            'null' => false, 
+            'key' => 'primary'
+        ),
+        'poll_id' => array(
+            'type'=>'integer', 
+            'null' => false
+        ),
+        'overlay_id' => array(
+            'type'=>'integer', 
+            'null' => false
+        )
+    );
+
     var $paths = array(
         'id' => array(
             'type'=>'integer', 
@@ -313,6 +329,40 @@ class AppSchema extends CakeSchema
             'type' => 'float',
             'null' => false
         ),
+    );
+
+    var $overlays = array(
+        'id' => array(
+            'type'=>'integer', 
+            'null' => false, 
+            'key' => 'primary'
+        ),
+        'name' => array(
+            'type' => 'string',
+            'length' => '50',
+            'null' => false
+        ),
+        'image' => array(
+            'type' => 'string',
+            'length' => '50',
+            'null' => false
+        ),
+        'ne_lat' => array(
+            'type' => 'float',
+            'null' => false
+        ),
+        'ne_lng' => array(
+            'type' => 'float',
+            'null' => false
+        ),
+        'sw_lat' => array(
+            'type' => 'float',
+            'null' => false
+        ),
+        'sw_lng' => array(
+            'type' => 'float',
+            'null' => false
+        )
     );
 
 }
