@@ -175,7 +175,7 @@ class AnswersController extends AppController
                     array(
                         'response_id' => $responseId,
                         'question_id' => $question['id'],
-                        'answer' => $a->text,
+                        'answer' => strip_tags(trim($a->text)),
                         'lat' => $lat,
                         'lng' => $lng
                     )

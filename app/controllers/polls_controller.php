@@ -172,7 +172,7 @@ class PollsController extends AppController
     }
 
 
-    public function answers($pollId)
+    public function answers($pollId = null)
     {
         $authorId = $this->Auth->user('id');
         $this->Poll->id = $pollId;
@@ -187,14 +187,23 @@ class PollsController extends AppController
 
         $lines = array();
         foreach($responses as $response) {
-            $line = $response['Response']['created'];
-            foreach ($response['Answer'] as $answer)    {
-                $line .= ',"' . addslashes($answer['answer']) . '",'
-                    . $answer['lat'] . '",' . $answer['lng'];
+            $line = array();
+            $line[] = $response['Response']['created'];
+            foreach ($response['Answer'] as $answer) {
+                $text = str_replace(
+                    array("\r\n", "\r", "\n", "\t"),
+                    " ",
+                    $answer['answer']
+                );
+                $text = addslashes($text);
+                $line[] = '"' . $text . '"';
+                $line[] = $answer['lat'];
+                $line[] = $answer['lng'];
             }
-            $lines[] = $line;
+            $lines[] = implode(',', $line);
         }
-        echo implode('<br/>', $lines);die;
+        $this->set('pollId', $pollId);
+        $this->set('answers', $lines);
     }
 
 

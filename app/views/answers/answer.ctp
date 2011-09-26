@@ -101,20 +101,3 @@ $( document ).ready(function() {
     id="postForm">
     <input type="hidden" id="dataField" name="data"/>
 </form>
-    <? /*
-<?php if ($question['answer_location']): ?>
-            <input type="hidden" value="" id="lat" 
-                name="data[Answer][lat]" />
-            <input type="hidden" value="" id="lng" 
-                name="data[Answer][lng]" />
-<?php endif; ?>
-
-        <div class="answerNav">
-            <button type="submit">Seuraava kysymys</button>
-        </div>
-    </form>
-?>
-<?php if ($question['lat']): ?>
-    <div id="map" class="map"></div>
-<?php endif; ?>
-*/ ?>
