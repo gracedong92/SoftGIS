@@ -96,7 +96,9 @@ $( document ).ready(function() {
 <div class="answer">
     <div id="map" class="map"></div>
 </div>
-<form method="POST" action="/answers/finish" id="postForm">
+<form method="POST" 
+    action="<?php echo $this->Html->url(array('action' => 'finish')); ?>" 
+    id="postForm">
     <input type="hidden" id="dataField" name="data"/>
 </form>
     <? /*
