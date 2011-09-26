@@ -17,11 +17,7 @@ $( document ).ready(function() {
     answerApp = AnswerApp.init({
         el: $("body"),
         data: data
-    });
-
-    // $(window).bind("beforeunload", function() {
-    //     return "Haluatko varmasti jatkaa?";
-    // });
+    });  
 
     // Help toggle
     $( "#toggleHelp" ).click(function() {

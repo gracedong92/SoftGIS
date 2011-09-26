@@ -9,6 +9,7 @@ var AnswerApp = Spine.Controller.create({
     },
     proxied: ["initNextQuestion", "answer", "finish"],
     init: function() {
+        var me = this;
         // Create map controller
         this.map = Map.init({ 
             el: this.mapEl,
@@ -29,6 +30,14 @@ var AnswerApp = Spine.Controller.create({
         // Show welcome text
         this.questionEl.html($.tmpl("welcomeTmpl", this.data.Poll));
         this.map.hide();
+
+        // Confirms leaving the page
+        this.promptBeforeUnload = true;
+        $(window).bind("beforeunload", function() {
+            if (me.promptBeforeUnload) {
+                return "Vastauksiasi ei tallenneta, jos poistut sivulta. Haluatko varmasti jatkaa?";
+            }
+        });
     },
     initNextQuestion: function() {
         this.questionNum++;
@@ -64,6 +73,7 @@ var AnswerApp = Spine.Controller.create({
     finish: function() {
         var answers = JSON.stringify(this.answers);
         this.el.find( "#dataField" ).val(answers);
+        this.promptBeforeUnload = false;
         this.el.find( "#postForm" ).submit();
     },
     answer: function() {
