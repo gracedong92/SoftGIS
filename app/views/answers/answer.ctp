@@ -1,19 +1,29 @@
-<?php echo $this->Html->script('answer'); ?>
+<?php echo $this->Html->script('json2'); ?>
+<?php echo $this->Html->script('spine'); ?>
+<?php echo $this->Html->script('controllers/map'); ?>
+<?php echo $this->Html->script('models/poll'); ?>
+<?php echo $this->Html->script('models/question'); ?>
+<?php echo $this->Html->script('answerApp'); ?>
 
 <script>
+var markerIconPath = "/markericons/";
+var answerApp;
 $( document ).ready(function() {
-    var question = <?php echo json_encode($question); ?>;
-    var markers = <?php echo json_encode($markers); ?>;
-    var paths = <?php echo json_encode($paths); ?>;
-    
-    initQuestion(question);
-    initMarkers(markers);
-    initPaths(paths);
+    var data = <?php echo json_encode($poll); ?>;
 
-    <?php if (!empty($answers)) {
-        echo 'initAnswers(' . json_encode($answers) . ');';
-    } ?>
+    $.template("questionTmpl", $("#questionTmpl"));
+    $.template("welcomeTmpl", $("#welcomeTmpl"));
 
+    answerApp = AnswerApp.init({
+        el: $("body"),
+        data: data
+    });
+
+    // $(window).bind("beforeunload", function() {
+    //     return "Haluatko varmasti jatkaa?";
+    // });
+
+    // Help toggle
     $( "#toggleHelp" ).click(function() {
         $( ".help" ).fadeToggle();
         return false;
@@ -35,18 +45,65 @@ $( document ).ready(function() {
     <p>It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
 </div>
 
-<div class="answer">
-    <h3><?php echo $question['text']; ?></h3>
-    <form method="POST" id="answer-form">
+<script id="welcomeTmpl" type="text/x-jquery-tmpl">
+    <h3>
+        ${name}
+    </h3>
+    <div class="welcomeText">
+        ${welcome_text}
+    </div>
+    <div class="answerNav">
+        <button type="button" class="start">
+            Aloita kysely
+        </button>
+    </div>
+</script>
+
+<script id="questionTmpl" type="text/x-jquery-tmpl">
+    <h3>${text}</h3>
+    <div class="answer-field">
         <div class="input">
-            <?php echo $this->element(
-                'answer', 
-                array('question' => $question)
-            ); ?>
+            {{if type == 1}}
+                <textarea name="text"></textarea>
+            {{else type == 2}}
+                <input type="radio" name="text" value="Kyllä"/>Kyllä
+                <input type="radio" name="text" value="Ei"/>Ei
+                <input type="radio" name="text" value="En osaa sanoa"/>En osaa sanoa
+            {{else type == 3}}
+                ${low_text}
+                <input type="radio" name="text" value="1"/>
+                <input type="radio" name="text" value="2"/>
+                <input type="radio" name="text" value="3"/>
+                <input type="radio" name="text" value="4"/>
+                <input type="radio" name="text" value="5"/>
+                ${high_text}
+                <input type="radio" name="text" value="En osaa sanoa"/>En osaa sanoa
+            {{else type == 4}}
+                ${low_text}
+                <input type="radio" name="text" value="1"/>
+                <input type="radio" name="text" value="2"/>
+                <input type="radio" name="text" value="3"/>
+                <input type="radio" name="text" value="4"/>
+                <input type="radio" name="text" value="5"/>
+                <input type="radio" name="text" value="6"/>
+                <input type="radio" name="text" value="7"/>
+                ${high_text}
+                <input type="radio" name="text" value="En osaa sanoa"/>En osaa sanoa
+            {{/if}}
         </div>
-
-
-<?php /* Answer requires location */ ?>
+    </div>
+    <div class="answerNav">
+        <button type="button" class="submit">Seuraava kysymys</button>
+    </div>
+</script>
+<div id="question" class="answer"></div>
+<div class="answer">
+    <div id="map" class="map"></div>
+</div>
+<form method="POST" action="/answers/finish" id="postForm">
+    <input type="hidden" id="dataField" name="data"/>
+</form>
+    <? /*
 <?php if ($question['answer_location']): ?>
             <input type="hidden" value="" id="lat" 
                 name="data[Answer][lat]" />
@@ -58,10 +115,8 @@ $( document ).ready(function() {
             <button type="submit">Seuraava kysymys</button>
         </div>
     </form>
-
-<?php /* Question has position */ ?>
+?>
 <?php if ($question['lat']): ?>
     <div id="map" class="map"></div>
 <?php endif; ?>
-
-</div>
+*/ ?>
