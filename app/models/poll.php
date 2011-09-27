@@ -30,9 +30,8 @@ class Poll extends AppModel
         'name' => array(
             'rule' => 'notEmpty',
             'message' => 'Anna kyselylle nimi'
-        )
+        ),
     );
-
 
     public function validHash($hashStr)
     {
@@ -70,5 +69,20 @@ class Poll extends AppModel
             $hash->save();
         }
 
+    }
+
+    public function beforeSave($options = array())
+    {
+        if (isset($this->data['Poll']['launch'])) {
+            if (empty($this->data['Poll']['launch'])) {
+                $this->data['Poll']['launch'] = null;
+            }
+        }
+        if (isset($this->data['Poll']['end'])) {
+            if (empty($this->data['Poll']['end'])) {
+                $this->data['Poll']['end'] = null;
+            }
+        }
+        return true;
     }
 }

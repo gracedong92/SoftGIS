@@ -25,8 +25,13 @@ class AppSchema extends CakeSchema
             'null' => false,
             'default' => 0
         ),
-        'published' => array(
-            'type' => 'datetime',
+        'launch' => array(
+            'type' => 'date',
+            'null' => true,
+            'default' => null
+        ),
+        'end' => array(
+            'type' => 'date',
             'null' => true,
             'default' => null
         ),

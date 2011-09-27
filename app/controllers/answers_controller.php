@@ -16,9 +16,14 @@ class AnswersController extends AppController
         $this->Poll->id = $pollId;
         if ($this->Poll->exists()) {
 
-            // Make sure poll is already published
-            if (!$this->Poll->field('published')) {
+            // Make sure poll is active
+            $launch = $this->Poll->field('launch');
+            $end = $this->Poll->field('end');
+
+            if (!$launch || strtotime($launch) > time()) {
                 $this->cakeError('pollNotPublished');
+            } else if($end && strtotime('+1 day', strtotime($end)) < time()) {
+                $this->cakeError('pollClosed');
             }
 
             if (!$this->Poll->field('public')) {

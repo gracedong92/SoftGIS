@@ -16,7 +16,6 @@ $( document ).ready(function() {
         <tr>
             <th>Nimi</th>
             <th>Testaa</th>
-            <th>Julkaistu</th>
             <th>Julkinen</th>
             <th>Vastauksia</th>
         </tr>
@@ -49,20 +48,6 @@ $( document ).ready(function() {
                             'title' => 'Testikäytä kyselyä'
                         )
                     ); ?>
-                </td>
-                <td>
-                    <?php if (empty($poll['Poll']['published'])) {
-                        echo $this->Html->link(
-                            'Julkaise', 
-                            array('action' => 'publish', $poll['Poll']['id']),
-                            array('class' => 'publish')
-                        );
-                    } else {
-                        echo date(
-                            'd.m.Y H:i:s', 
-                            strtotime($poll['Poll']['published'])
-                        );
-                    }; ?>
                 </td>
                 <td>
                     <?php if ($poll['Poll']['public']) {

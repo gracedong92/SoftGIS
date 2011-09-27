@@ -41,6 +41,55 @@ class PollsController extends AppController
         // debug($poll);die;
     }
 
+    public function launch($id = null)
+    {
+        $authorId = $this->Auth->user('id');
+        $this->Poll->id = $id;
+        if (!$this->Poll->exists() 
+            || $this->Poll->field('author_id') != $authorId) {
+            $this->cakeError('pollNotFound');
+        }
+
+        $this->Poll->recursive = -1;
+        $poll = $this->Poll->read();
+        // debug($poll);die;
+
+        $launch = $poll['Poll']['launch'];
+        $end = $poll['Poll']['end'];
+
+        // if (empty($launch) || strtotime($launch) > time()) {
+        //     // Poll not launched yet
+        //     $editable = array('launch', 'end');
+        // } else if (empty($end) || strtotime($end) > time()) {
+        //     // Poll currently active
+        //     $editable = array('end');
+        // } else {
+        //     // Poll has ended
+        //     $editable = array('end');
+        // }
+        $editable = array('launch', 'end');
+
+        if (!empty($this->data)) {
+            if ($this->Poll->save($this->data, null, $editable)) {
+                $this->Session->setFlash('Muutokset tallennettu');
+                $this->redirect(array('action' => 'view', $id));
+            }
+        } else {
+            $this->data = $poll;
+        }
+
+
+        $this->set('poll', $poll);
+
+        $times = array();
+        foreach (range(0,23) as $hour) {
+            $hour = str_pad($hour, 2, "0", STR_PAD_LEFT);
+            $time = $hour . ':00';
+            $times[$time] = $time;
+        }
+        $this->set('times', $times);
+    }
+
     public function edit($id = null)
     {
         $authorId = $this->Auth->user('id');

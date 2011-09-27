@@ -1,12 +1,12 @@
 <script>
 
-var confirmPublish = "Haluatko varmasti julkaista kyselyn? Julkaisun jälkeen kyselyä ei voida enää muokata";
+// var confirmPublish = "Haluatko varmasti julkaista kyselyn? Julkaisun jälkeen kyselyä ei voida enää muokata";
 
-$( document ).ready(function() {
-    $( "#publish" ).click(function() {
-        return confirm( confirmPublish );
-    });
-});
+// $( document ).ready(function() {
+//     $( "#publish" ).click(function() {
+//         return confirm( confirmPublish );
+//     });
+// });
 </script>
 
 <?php echo $this->Html->link(
@@ -33,9 +33,9 @@ $( document ).ready(function() {
 ); ?>
 
 <?php echo $this->Html->link(
-    'Julkaise',
+    'Julkaisutiedot',
     array(
-        'action' => 'publish',
+        'action' => 'launch',
         $poll['id']
     ),
     array(
@@ -57,7 +57,15 @@ $( document ).ready(function() {
 <h2>Perustiedot</h2>
 <table class="details">
     <tr>
-        <th>Kyselyn kuvaus</th>
+        <th>Nimi</th>
+        <td><?php echo $poll['name']; ?></td>
+    </tr>
+    <tr>
+        <th>Vastattavissa</th>
+        <td><?php echo $poll['launch'] . ' - ' . $poll['end']; ?></td>
+    </tr>
+    <tr>
+        <th>Kuvaus</th>
         <td><?php echo $poll['welcome_text']; ?></td>
     </tr>
     <tr>
@@ -86,19 +94,6 @@ $( document ).ready(function() {
                     <li><?php echo $marker['name']; ?></li>
                 <?php endforeach; ?>
             </ul>
-        </td>
-    </tr>
-    <tr>
-        <th>Julkaistu</th>
-        <td>
-            <?php if (empty($poll['published'])) {
-                echo 'Ei';
-            } else {
-                echo date(
-                    'd.m.Y H:i:s', 
-                    strtotime($poll['published'])
-                );
-            }; ?>
         </td>
     </tr>
 </table>

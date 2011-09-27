@@ -3,7 +3,7 @@
     echo $this->Form->create('Author');
     echo $this->Form->input(
         'username', 
-        array('label' => 'Käyttäjänimi')
+        array('label' => 'Käyttäjänimi', 'autofocus' => 'autofocus')
     );
     echo $this->Form->input(
         'password',

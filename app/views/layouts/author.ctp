@@ -22,6 +22,7 @@
         echo $this->Html->script('underscore-min');
         echo $this->Html->script('jquery-1.5.1.min');
         echo $this->Html->script('jquery-ui-1.8.14.custom.min');
+        echo $this->Html->script('jquery.ui.datepicker-fi') ;
         echo $this->Html->script('ui.spinner.min');
         echo $this->Html->script('jquery.qtip.min');
         echo $this->Html->script('jquery.tmpl.min');

@@ -12,8 +12,14 @@ class AppError extends ErrorHandler
         $this->_outputMessage('poll_not_published');
     }
 
+    public function pollClosed()
+    {
+        $this->_outputMessage('poll_closed');
+    }
+
     public function invalidHash()
     {
         $this->_outputMessage('invalid_hash');
     }
+
 }
