@@ -20,8 +20,6 @@ $(document).ready(function() {
     ); ?>
 </div>
 
-<h2>Mistä mihin kysely on käyttäjien vastattavissa</h2>
-
 <?php echo $this->Form->create('Poll'); ?>
 
 <div class="input text">
@@ -49,18 +47,19 @@ $(document).ready(function() {
 <button type="submit" id="saveButton">
     Tallenna muutokset
 </button>
-<?php 
-if (!empty($poll['Poll']['id'])) {
-    $url = array('action' => 'view', $poll['Poll']['id']);
-} else {
-    $url = array('action' => 'index');
-}
-echo $this->Html->link(
+<?php echo $this->Html->link(
     'Peruuta',
-    $url,
+    array(
+        'action' => 'view',
+        $poll['Poll']['id']
+    ),
     array(
         'class' => 'button cancel small'
     )
-); 
-?>
+); ?>
 <?php echo $this->Form->end(); ?>
+
+<div class="help">
+    <p>Kyselyn aukioloaikana käyttäjät voivat vastata kyselyyn.</p>
+    <p>Alkamis- ja päättymispäivä sisältyvät aukioloaikaan.</p>
+</div>

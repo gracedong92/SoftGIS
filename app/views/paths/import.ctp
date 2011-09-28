@@ -97,7 +97,7 @@ $( document ).ready(function() {
 </script>
 
 
-<h1>Tuo reittidata</h1>
+<h2>Tuo reittidata</h2>
 
 <form method="post" id="import">
     <div class="input textarea">
