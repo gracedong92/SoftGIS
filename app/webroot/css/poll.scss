@@ -4,8 +4,8 @@ $header: #BB3B03;
 $background: #f9f9f9;
 
 $proceed: #088A29;
-$cancel: #FE2E2E;
-$bad: #FE2E2E;
+// $bad: #FE2E2E;
+$bad: #FE2F34;
 
 $notice: #c73e14;
 
@@ -297,27 +297,25 @@ hr {
     margin: 0.5em 0;
 }
 
-div.question-details {
-    > .question {
-        border: 1px solid $border;
-        border-bottom: 0;
-        &:last-child {
-            border-bottom: 1px solid $border;
+.detailed {
+    border: 1px solid $border;
+    border-bottom: 0;
+    &:last-child {
+        border-bottom: 1px solid $border;
+    }
+    > .header {
+        cursor: pointer;
+        padding: 0.5em 0.8em;
+        &:hover {
+            background-color: $link1;
+            color: #fff;
+            background-image: -webkit-linear-gradient(top, $link1, darken($link1, 10%));
+            background-image: -moz-linear-gradient(top, $link1, darken($link1, 10%));
         }
-        > .header {
-            cursor: pointer;
-            padding: 0.5em 0.8em;
-            &:hover {
-                background-color: $link1;
-                color: #fff;
-                background-image: -webkit-linear-gradient(top, $link1, darken($link1, 10%));
-                background-image: -moz-linear-gradient(top, $link1, darken($link1, 10%));
-            }
-            > .num {
-                // color: $header;
-                padding: 0 0.5em;
-                font-weight: bold;
-            }
+        > .num {
+            // color: $header;
+            padding: 0 0.5em;
+            font-weight: bold;
         }
     }
 }
@@ -505,8 +503,8 @@ table.list {
     tbody {
         tr {
             &.red {
-                background-color: lighen($cancel, 40%);
-                color: $cancel;
+                background-color: lighen($bad, 40%);
+                color: $bad;
             }
             &.green {
                 background-color: lighen($proceed, 40%);

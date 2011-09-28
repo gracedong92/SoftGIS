@@ -1,9 +1,9 @@
 <script>
 
 $(document).ready(function() {
-    $(".question > .details").hide();
+    $(".detailed > .details").hide();
     var current = null;
-    $(".question > .header").click(function() {
+    $(".detailed > .header").click(function() {
         var thisDetails = $(this).next();
 
         thisDetails.slideToggle();
@@ -159,9 +159,9 @@ $(document).ready(function() {
 
 <h3>Kysymykset</h3>
 
-<div class="question-details">
+<div>
 <?php foreach ($questions as $q): ?>
-    <div class="question">
+    <div class="detailed">
         <div class="header">
             <span class="num"><?php echo $q['num']; ?></span>
             <span class="text"><?php echo $q['text']; ?></span>
