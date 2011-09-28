@@ -1,48 +1,15 @@
-<?php echo $this->Html->link(
-    'Muokkaa',
-    array(
-        'action' => 'modify',
-        $pollId
-    ),
-    array(
-        'class' => 'button'
-    )
-); ?>
-
-<?php echo $this->Html->link(
-    'Kokeile',
-    array(
-        'controller' => 'answers',
-        'action' => 'test',
-        $pollId
-    ),
-    array(
-        'class' => 'button'
-    )
-); ?>
-
-<?php echo $this->Html->link(
-    'Julkaise',
-    array(
-        'action' => 'publish',
-        $pollId
-    ),
-    array(
-        'id' => 'publish',
-        'class' => 'button'
-    )
-); ?>
-
-<?php echo $this->Html->link(
-    'Vastaukset',
-    array(
-        'action' => 'answers',
-        $pollId
-    ),
-    array(
-        'class' => 'button'
-    )
-); ?>
+<div class="subnav">
+    <?php echo $this->Html->link(
+        'Takaisin',
+        array(
+            'action' => 'view',
+            $pollId
+        ),
+        array(
+            'class' => 'button'
+        )
+    ); ?>
+</div>
 
 <div class="input textarea">
     <label>Vastaukset</label>
@@ -52,4 +19,9 @@
 
 <?php endforeach; ?>
     </textarea>
+</div>
+
+<div class="help">
+    <p>Vastaukset on esitetty CSV muodossa siten että käyttäjän vastaukset ovat yhdellä rivillä pilkulla erotettuina.</p>
+    <p>Rivin ensimmäinen arvo on vastausaika. Sen jälkeen arvot noudattavat seuraavaa sarjaa jokaiselle vastaukselle: vastaus, leveyspiiri, pituuspiiri.</p>
 </div>

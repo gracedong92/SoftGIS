@@ -9,51 +9,69 @@
 // });
 </script>
 
-<?php echo $this->Html->link(
-    'Muokkaa',
-    array(
-        'action' => 'modify',
-        $poll['id']
-    ),
-    array(
-        'class' => 'button'
-    )
-); ?>
+<div class="subnav">
+    <?php
+    echo $this->Html->link(
+        'Muokkaa',
+        array(
+            'action' => 'modify',
+            $poll['id']
+        ),
+        array(
+            'class' => 'button',
+            'title' => 'Muokkaa kyselyä'
+        )
+    );
+    echo $this->Html->link(
+        'Kokeile',
+        array(
+            'controller' => 'answers',
+            'action' => 'test',
+            $poll['id']
+        ),
+        array(
+            'class' => 'button',
+            'title' => 'Voit kokeilla kyselyyn vastaamista ennen sen julkaisua. Kokeiluvastauksia ei tallenneta.'
+        )
+    );
+    echo $this->Html->link(
+        'Aukioloaika',
+        array(
+            'action' => 'launch',
+            $poll['id']
+        ),
+        array(
+            'class' => 'button',
+            'title' => 'Määrittele mistä mihin kysely on vastattavissa.'
+        )
+    );
+    if ($poll['public'] == 0) {
+        echo $this->Html->link(
+            'Varmenteet',
+            array(
+                'action' => 'hashes',
+                $poll['id']
+            ),
+            array(
+                'class' => 'button',
+                'title' => 'Luo ja tarkastele varmenteita, joiden avulla kyselyyn vastaajat todennetaan.'
+            )
+        );
+    };
+    echo $this->Html->link(
+        'Vastaukset',
+        array(
+            'action' => 'answers',
+            $poll['id']
+        ),
+        array(
+            'class' => 'button',
+            'title' => 'Tarkastele kyselyn vastauksia'
+        )
+    );
+    ?>
+</div>
 
-<?php echo $this->Html->link(
-    'Kokeile',
-    array(
-        'controller' => 'answers',
-        'action' => 'test',
-        $poll['id']
-    ),
-    array(
-        'class' => 'button'
-    )
-); ?>
-
-<?php echo $this->Html->link(
-    'Julkaisutiedot',
-    array(
-        'action' => 'launch',
-        $poll['id']
-    ),
-    array(
-        'id' => 'publish',
-        'class' => 'button'
-    )
-); ?>
-
-<?php echo $this->Html->link(
-    'Vastaukset',
-    array(
-        'action' => 'answers',
-        $poll['id']
-    ),
-    array(
-        'class' => 'button'
-    )
-); ?>
 <h2>Perustiedot</h2>
 <table class="details">
     <tr>

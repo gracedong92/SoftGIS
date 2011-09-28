@@ -9,7 +9,7 @@
     <br/><br/><br/><br/>
     <h3>Huom. Testivastaus, vastauksia ei tallennettu</h3>
     <?php echo $this->Html->link(
-        'Takaisin omiin kyselyihin',
+        'Takaisin kyselynäkymään',
         array(
             'controller' => 'polls',
             'action' => 'view',

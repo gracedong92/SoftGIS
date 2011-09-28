@@ -7,6 +7,18 @@ $(document).ready(function() {
 
 </script>
 
+<div class="subnav">
+    <?php echo $this->Html->link(
+        'Takaisin',
+        array(
+            'action' => 'view',
+            $poll['Poll']['id']
+        ),
+        array(
+            'class' => 'button'
+        )
+    ); ?>
+</div>
 
 <h2>Mistä mihin kysely on käyttäjien vastattavissa</h2>
 

@@ -20,6 +20,7 @@ $( document ).ready(function() {
     });  
 
     // Help toggle
+    $( ".help" ).hide();
     $( "#toggleHelp" ).click(function() {
         $( ".help" ).fadeToggle();
         return false;

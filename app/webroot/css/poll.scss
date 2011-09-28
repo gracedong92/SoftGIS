@@ -37,6 +37,7 @@ h1, h2 {
     font-weight: normal;
     letter-spacing: 1px;
     padding: 0.2em;
+    // font-size: 0.8em;
     border-bottom: 1px solid $border;
     margin-bottom:0.7em;
 }
@@ -62,6 +63,14 @@ a {
     &:hover {
         // color: $link2;
         text-decoration: underline;
+    }
+}
+
+.ui-tooltip-help {
+
+    .ui-tooltip-content {
+        
+        font-size: 0.7em;
     }
 }
 
@@ -107,6 +116,11 @@ a {
             }
         }
     }
+}
+
+div.subnav {
+    font-size:0.95em;
+    margin-bottom: 1em;
 }
 
 
@@ -265,8 +279,9 @@ table.details {
 
 hr {
     color: $border;
-    border: 1px solid $border;
-    margin: 0.5em;
+    border: 0;
+    border-top: 1px solid $border;
+    margin: 0.5em 0;
 }
 
 #questions {
@@ -346,11 +361,10 @@ hr {
 }
 
 .help {
-    margin-bottom: 1em;
+    margin: 1em 0;
     padding: 0.8em;
     clear: both;
-    display: none;
-    float: right;
+    font-size: 0.9em;
     background-color: #FFFFA3;
     border: 1px solid #F1D031;
 }
@@ -438,6 +452,9 @@ button, a.button {
 table.list {
     border-collapse: collapse;
     width: 100%;
+    &.small {
+        font-size: 0.8em;
+    }
     th {
         padding: 0.3em 3em;
         // border-bottom: 1px solid #c9c9c9;

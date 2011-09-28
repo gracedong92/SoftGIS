@@ -32,6 +32,9 @@ a {
   a:hover {
     text-decoration: underline; }
 
+.ui-tooltip-help .ui-tooltip-content {
+  font-size: 0.7em; }
+
 .cake-sql-log {
   display: none; }
 
@@ -67,6 +70,10 @@ a {
       display: inline-block; }
       #navbar ul li a {
         font-size: 1.1em; }
+
+div.subnav {
+  font-size: 0.95em;
+  margin-bottom: 1em; }
 
 /** Notices and Errors **/
 div.message {
@@ -186,8 +193,9 @@ table.details {
 
 hr {
   color: #c9c9c9;
-  border: 1px solid #c9c9c9;
-  margin: 0.5em; }
+  border: 0;
+  border-top: 1px solid #c9c9c9;
+  margin: 0.5em 0; }
 
 #questions {
   list-style-type: none;
@@ -246,11 +254,10 @@ hr {
   text-align: center; }
 
 .help {
-  margin-bottom: 1em;
+  margin: 1em 0;
   padding: 0.8em;
   clear: both;
-  display: none;
-  float: right;
+  font-size: 0.9em;
   background-color: #FFFFA3;
   border: 1px solid #F1D031; }
 
@@ -313,6 +320,8 @@ button, a.button {
 table.list {
   border-collapse: collapse;
   width: 100%; }
+  table.list.small {
+    font-size: 0.8em; }
   table.list th {
     padding: 0.3em 3em;
     color: #3c3c3c; }

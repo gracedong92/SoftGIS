@@ -1,5 +1,18 @@
-<h1>Hashit</h1>
-<h2>Luo uusia</h2>
+<div class="subnav">
+    <?php echo $this->Html->link(
+        'Takaisin',
+        array(
+            'action' => 'view',
+            $pollId
+        ),
+        array(
+            'class' => 'button'
+        )
+    ); ?>
+</div>
+
+<h2>Varmenteet</h2>
+<h3>Luo uusia varmenteita, kpl.</h3>
 <form method="POST" 
     action="<?php echo $this->Html->url(
             array('action' => 'generatehashes', $pollId)
@@ -8,12 +21,14 @@
     <button type="submit">Luo</button>
 </form>
 
-<h2>Luodut</h2>
-<table class="list">
+<hr />
+
+<h3>Varmenteet</h3>
+<table class="list small">
     <thead>
         <tr>
-            <th>Hash</th>
-            <th>Url</th>
+            <th>Varmenne</th>
+            <th>Vastausosoite varmenteen kanssa</th>
         </tr>
     </thead>
     <tbody>
@@ -21,10 +36,10 @@
             <tr class="<?php echo $hash['Hash']['used'] ? 'red' : 'green'; ?>">
                 <td><?php echo $hash['Hash']['hash']; ?></td>
                 <td>
-                    <?php echo SERVER . $this->Html->url(
+                    <?php echo FULL_BASE_URL . $this->Html->url(
                         array(
                             'controller' => 'answers',
-                            'action' => 'poll',
+                            'action' => 'index',
                             $hash['Hash']['poll_id'],
                             $hash['Hash']['hash']
                         )
@@ -34,3 +49,6 @@
         <?php endforeach; ?>
     </tbody>
 </table>
+<div class="help">
+    <p>Vihrellä merkatut varmenteet ovat käyttämättömiä ja punaisella merkatut käytettyjä</p>
+</div>

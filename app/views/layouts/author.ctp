@@ -40,9 +40,17 @@
 
 $( document ).ready(function() {
     $('a[title]').qtip({
+        show: {
+            delay: 300
+        },
         position: {
-            my: "right center",
-            at: "left center"
+            my: "bottom center",
+            at: "top center"
+            // my: "right center",
+            // at: "left center"
+        },
+        style: {
+            classes: "ui-tooltip-help"
         }
     });
 });
