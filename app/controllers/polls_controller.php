@@ -31,6 +31,17 @@ class PollsController extends AppController
         $this->set('markers', $poll['Marker']);
         $this->set('paths', $poll['Path']);
 
+        // Set response count
+        $responseCount = $this->Poll->Response->find(
+            'count', 
+            array(
+                'conditions' => array('Response.poll_id' => $poll['Poll']['id'])
+            )
+        );
+        $this->set('responseCount', $responseCount);
+
+        
+
         $answers = array(
             1 => 'Teksti',
             2 => 'Kyllä, ei, en osaa sanoa',

@@ -6,7 +6,7 @@
 <?php echo $this->Html->script('answerApp'); ?>
 
 <script>
-var markerIconPath = "/markericons/";
+var markerIconPath = "<?php echo $this->Html->url('/markericons/'); ?>";
 var answerApp;
 $( document ).ready(function() {
     var data = <?php echo json_encode($poll); ?>;

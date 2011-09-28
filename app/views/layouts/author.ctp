@@ -50,7 +50,7 @@ $( document ).ready(function() {
             // at: "left center"
         },
         style: {
-            classes: "ui-tooltip-help"
+            classes: "ui-tooltip-help ui-tooltip-shadow"
         }
     });
 });
@@ -58,7 +58,6 @@ $( document ).ready(function() {
     </script>
 </head>
 <body>
-    <div id="meows"></div>
     <div id="container">
         <div id="header">
             <h1>Soft-GIS</h1>
