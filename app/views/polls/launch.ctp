@@ -60,6 +60,6 @@ $(document).ready(function() {
 <?php echo $this->Form->end(); ?>
 
 <div class="help">
-    <p>Kyselyn aukioloaikana käyttäjät voivat vastata kyselyyn.</p>
-    <p>Alkamis- ja päättymispäivä sisältyvät aukioloaikaan.</p>
+    <p>Kyselyn aukioloaikana käyttäjät voivat vastata kyselyyn. Alkamis- ja päättymispäivä sisältyvät aukioloaikaan.</p>
+    <p>Kysely on suljettu, jos alkamispäivämäärää ei ole asettetu.</p>
 </div>

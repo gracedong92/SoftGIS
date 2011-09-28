@@ -189,6 +189,8 @@ table.details {
     text-align: right; }
     table.details th.fixed {
       width: 10em; }
+    table.details th.mediumfixed {
+      width: 15em; }
     table.details th.longfixed {
       width: 25em; }
   table.details td {
@@ -278,11 +280,14 @@ div.question-details > .question {
 
 .help {
   margin: 1em 0;
-  padding: 0.8em;
+  padding: 16px 16px 16px 64px;
   clear: both;
-  font-size: 0.9em;
-  background-color: #FFFFA3;
+  font-size: 12px;
+  min-height: 32px;
+  background: #ffffa3 url(images/helpsmall.png) no-repeat 16px 16px;
   border: 1px solid #F1D031; }
+  .help p {
+    margin-bottom: 0.5em; }
 
 .answer {
   max-width: 860px;

@@ -107,3 +107,7 @@ $( document ).ready(function() {
     <input type="hidden" name="data[Path][type]" id="type" />
     <button type="submit" class="button">Jatka</button>
 </form>
+
+<div class="help">
+    <p>Kopioi mif-päätteisen <strong>MapInfo Interchange Format</strong> tiedoston sisältö sellaisenaan tekstikenttään. Ohjelma muuntaa sen automaattisesti Google Mapsin ymmärtämään muotoon.</p>
+</div>

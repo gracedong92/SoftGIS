@@ -274,6 +274,9 @@ table.details {
         &.fixed {
             width: 10em;
         }
+        &.mediumfixed {
+            width: 15em;
+        }
         &.longfixed {
             width: 25em;
         }
@@ -397,11 +400,15 @@ div.question-details {
 
 .help {
     margin: 1em 0;
-    padding: 0.8em;
+    padding: 16px 16px 16px 64px;
     clear: both;
-    font-size: 0.9em;
-    background-color: #FFFFA3;
+    font-size: 12px;
+    min-height: 32px;
+    background: #FFFFA3 url(images/helpsmall.png) no-repeat 16px 16px;
     border: 1px solid #F1D031;
+    p {
+        margin-bottom: 0.5em;
+    }
 }
 
 .answer {

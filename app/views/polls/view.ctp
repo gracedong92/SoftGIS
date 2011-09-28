@@ -2,9 +2,21 @@
 
 $(document).ready(function() {
     $(".question > .details").hide();
+    var current = null;
     $(".question > .header").click(function() {
         var thisDetails = $(this).next();
+
         thisDetails.slideToggle();
+        if (current) {
+            if (current.get(0) == thisDetails.get(0)) {
+                current = null;
+            } else {
+                current.slideToggle();
+                current = thisDetails;
+            }
+        } else {
+            current = thisDetails;
+        }
         return false;
     });
 });
@@ -98,7 +110,7 @@ $(document).ready(function() {
                         echo 'ei päättymispäivää';
                     }
                 } else {
-                    echo 'Ei julkaisupäivää';
+                    echo 'Ei aukioloaikaa';
                 }
             ?>
         </td>
@@ -122,7 +134,7 @@ $(document).ready(function() {
     <?php if (!empty($paths)): ?>
         <?php foreach ($paths as $path): ?>
             <tr>
-                <th><?php echo $path['name']; ?></th>
+                <th class="mediumfixed"><?php echo $path['name']; ?></th>
                 <td><?php echo $path['content']; ?></td>
             </tr>
         <?php endforeach; ?>
@@ -136,7 +148,7 @@ $(document).ready(function() {
     <?php if (!empty($markers)): ?>
         <?php foreach ($markers as $marker): ?>
             <tr>
-                <th><?php echo $marker['name']; ?></th>
+                <th class="mediumfixed"><?php echo $marker['name']; ?></th>
                 <td><?php echo $marker['content']; ?></td>
             </tr>
         <?php endforeach; ?>

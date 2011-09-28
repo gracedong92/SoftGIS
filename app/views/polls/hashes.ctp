@@ -50,5 +50,6 @@
     </tbody>
 </table>
 <div class="help">
-    <p>Vihrellä merkatut varmenteet ovat käyttämättömiä ja punaisella merkatut käytettyjä</p>
+    <p>Vihrellä merkatut varmenteet ovat käyttämättömiä ja punaisella merkatut käytettyjä.</p>
+    <p>Jokainen varmenne voidaan käyttää vain kerran. Varmenne muutetaan käytetyksi vasta kun vastausprosessi saadaan päätökseen ja vastaukset tallennetaan tietokantaan.</p>
 </div>
