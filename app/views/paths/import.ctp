@@ -79,12 +79,17 @@ $( document ).ready(function() {
         var type = detectType( gis );
         $( "#type" ).val( type );
         var coordinates;
-        if ( type == 1 ) {
-            coordinates = gisPathToArray( gis );
-        } else if ( type == 2 ) {
-            coordinates = gisRegionToArray( gis );
-        } else {
-            alert("Reittidatan muunto epäonnistui.");
+        try {
+            if ( type == 1 ) {
+                coordinates = gisPathToArray( gis );
+            } else if ( type == 2 ) {
+                coordinates = gisRegionToArray( gis );
+            } else {
+                alert("Reittidatan muunto epäonnistui.");
+                return false;
+            }
+        } catch (err) {
+            alert("Reittidatan muunto epäonnistui");
             return false;
         }
         var encodedPaths = [];
