@@ -64,9 +64,9 @@ function gisRegionToArray(gis) {
 }
 
 function detectType(gis) {
-    if (gis.match(/PLINE \d*/m)) {
+    if (gis.match(/PLINE \d*/im)) {
         return 1;
-    } else if (gis.match(/REGION \d*/m)) {
+    } else if (gis.match(/REGION \d*/im)) {
         return 2;
     } else {
         return 0;
@@ -78,12 +78,14 @@ $( document ).ready(function() {
         var gis = $( "#coordinates" ).val();
         var type = detectType( gis );
         $( "#type" ).val( type );
-
         var coordinates;
         if ( type == 1 ) {
             coordinates = gisPathToArray( gis );
-        } else {
+        } else if ( type == 2 ) {
             coordinates = gisRegionToArray( gis );
+        } else {
+            alert("Reittidatan muunto epäonnistui.");
+            return false;
         }
         var encodedPaths = [];
         coordinates.forEach(function(path) {
