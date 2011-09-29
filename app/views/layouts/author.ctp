@@ -75,8 +75,8 @@ $( document ).ready(function() {
                 array('class' => 'button')
             );?>
             <?php echo $this->Html->link(
-                'Luo karttamerkki',
-                array('controller' => 'markers', 'action' => 'add'),
+                'Karttamerkit',
+                array('controller' => 'markers', 'action' => 'index'),
                 array('class' => 'button')
             );?>
             <?php echo $this->Html->link(

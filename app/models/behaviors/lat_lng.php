@@ -18,7 +18,6 @@ class LatLngBehavior extends ModelBehavior
     public function beforeSave(&$model)
     {
         $settings = $this->settings[$model->alias];
-
         if (!empty($model->data[$model->alias][$settings['field']])) {
             $coords = $this->_split(
                 $model->data[$model->alias][$settings['field']]

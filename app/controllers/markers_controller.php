@@ -8,15 +8,32 @@ class MarkersController extends AppController
         $this->layout = 'author';
     }
 
-    public function add()
+    public function index()
+    {
+        $this->Marker->recursive = -1;
+        $markers = $this->Marker->find('all');
+        $this->set('markers', $markers);
+    }
+
+    public function edit($id = null)
     {
         if (!empty($this->data)) {
+            // debug($this->data);die;
+            if ($id != null) {
+                $this->Marker->id = $id;
+            } else {
+                $this->Marker->create();
+            }
             if ($this->Marker->save($this->data)) {
                 $this->Session->setFlash('Karttamerkki tallennettu');
                 $this->redirect(
                     array('controller' => 'polls', 'action' => 'index')
                 );
             }
+        } else {
+            $this->Marker->recursive = -1;
+            $this->Marker->id = $id;
+            $this->data = $this->Marker->read();
         }
 
         $icons = array( 'default' => '' );
@@ -28,20 +45,6 @@ class MarkersController extends AppController
             }
         }
         $this->set('icons', $icons);
-    }
-
-    public function create()
-    {
-        $authorId = $this->Auth->user('id');
-
-        if (!empty($this->data)) {
-            if ($this->Object->save($this->data)) {
-                $this->data = null;
-                $this->Session->setFlash('Merkki luotu');
-            } else {
-                // debug($this->Entry->invalidFields());die;
-            }
-        }
     }
 
     public function search()

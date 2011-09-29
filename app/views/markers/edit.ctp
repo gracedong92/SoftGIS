@@ -5,30 +5,33 @@ var markerIconPath = "<?php echo $this->Html->url('/markericons/'); ?>";
 
 $( document ).ready(function() {
 
-    var defaultPos = new google.maps.LatLng( "64.94216", "26.235352" );
+    var initialPos, coords;
+    if ($("#MarkerLatlng").val()) {
+        coords = $("#MarkerLatlng").val().split(",", 2);
+    } else {
+        coords = ["64.94216", "26.235352"];
+    }
+    initialPos = new google.maps.LatLng( coords[0], coords[1] );
 
     var map = new google.maps.Map(
         $( "#map" ).get()[0],
         {
             disableDoubleClickZoom: true,
-            zoom: 3,
-            center: defaultPos,
+            zoom: 6,
+            center: initialPos,
             mapTypeId: google.maps.MapTypeId.ROADMAP
         }
     );
-
     var marker = new google.maps.Marker({
         map: map,
         draggable: true,
-        position: defaultPos
+        position: initialPos,
+        icon: $("#MarkerIcon").val() != "default" ? (markerIconPath + $("#MarkerIcon").val()) : null
     });
 
-    $( "#MarkerAddForm" ).submit(function() {
+    $( "#MarkerEditForm" ).submit(function() {
         var latLng = marker.getPosition();
-
         $( "#MarkerLatlng" ).val( latLng.lat() + "," + latLng.lng() );
-        
-        // return false;
     });
 
     $( "#MarkerIcon" ).change(function() {
@@ -44,7 +47,7 @@ $( document ).ready(function() {
 
 </script>
 
-<h1>Luo uusi karttamerkki</h1>
+<h2>Karttamerkki</h2>
 
 <?php echo $this->Form->create('Marker'); ?>
 <?php echo $this->Form->input('name', array('label' => 'Nimi')); ?>
@@ -56,5 +59,10 @@ $( document ).ready(function() {
     <div id="map" class="map">
     </div>
 </div>
-<button type="submit">Luo karttamerkki</button>
+<button type="submit">Tallenna karttamerkki</button>
+<?php echo $this->Html->link(
+    'Peruuta',
+    array('action' => 'index'),
+    array('class' => 'button cancel small')
+); ?>
 <?php echo $this->Form->end(); ?>
