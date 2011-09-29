@@ -5,7 +5,7 @@ var AnswerApp = Spine.Controller.create({
     },
     elements: {
         "#map":         "mapEl", 
-        "#question":    "questionEl", 
+        "#question":    "questionEl"
     },
     proxied: ["initNextQuestion", "answer", "finish"],
     init: function() {
@@ -58,8 +58,7 @@ var AnswerApp = Spine.Controller.create({
             this.map.setCenter(
                 this.activeQuestion.lat, 
                 this.activeQuestion.lng,
-                this.activeQuestion.zoom
-            );
+                this.activeQuestion.zoom);
             if (this.activeQuestion.answer_location == "1") {
                 this.map.setSelectable(true);
             } else {
@@ -111,7 +110,7 @@ var AnswerApp = Spine.Controller.create({
                     style: {
                         classes: "ui-tooltip-shadow ui-tooltip-rounded ui-tooltip-red"
                     }
-                })
+                });
                 continueSubmit = false;
             } else {
                 this.mapEl.qtip( "destroy" );
@@ -158,49 +157,3 @@ var AnswerApp = Spine.Controller.create({
         return false;
     }
 });
-
-
-
-
-// jQuery(function($){
-//     var app = new App({
-//         el: $("#poll"),
-//         poll: new Poll(data.Poll)
-//     });
-
-// LiveController.create({
-//     el: $("#poll"),
-
-//     elements: {
-//         "#questions": "questionsEl"
-//     },
-
-//     events: {
-//         "change input, textarea": "changed"
-//     },
-
-//     proxied: ["render", "changed"],
-
-//     init: function(data) {
-//         this.initLive();
-//         console.info("app init");
-//         $.template("pollTmpl", $("#pollTmpl"));
-//         this.poll = Poll.init(data.Poll);
-//         this.poll.bind("refresh change", this.render);
-//         this.render();
-//         // this.sidebar = Sidebar.init({el: this.sidebarEl});
-//         // this.contact = Contacts.init({el: this.contactsEl});
-//     },
-//     render: function() {
-//         this.el.html($.tmpl("pollTmpl", this.poll));
-//         return this;
-//     },
-//     changed: function(e) {
-//         var target = e.currentTarget,
-//             value = $(target).val();
-//         console.info({target: value});
-//     }
-// }).init(data);
-
-
-// });

@@ -31,10 +31,7 @@ var Map = Spine.Controller.create({
                 var marker = new google.maps.Marker({
                     map: map,
                     title: data.name,
-                    position: new google.maps.LatLng(
-                        data.lat,
-                        data.lng
-                    ),
+                    position: new google.maps.LatLng(data.lat,data.lng),
                     // Use icon if set
                     icon: data.icon ? markerIconPath + data.icon : null
                 });
@@ -58,11 +55,11 @@ var Map = Spine.Controller.create({
                     encodedPath = encodedPath.replace(/\\\\/g, "\\");
 
                     var decodedPath = google.maps.geometry.encoding.decodePath(
-                        encodedPath
-                    );
+                        encodedPath);
 
+                    var path;
                     if (data.type == 1) {
-                        var path = new google.maps.Polyline({
+                        path = new google.maps.Polyline({
                             map: map,
                             strokeColor: data.stroke_color ? "#" + data.stroke_color : "#333",
                             strokeOpacity: data.stroke_opacity ? data.stroke_opacity : 1,
@@ -70,7 +67,7 @@ var Map = Spine.Controller.create({
                             path: decodedPath
                         });
                     } else {
-                        var path = new google.maps.Polygon({
+                        path = new google.maps.Polygon({
                             map: map,
                             strokeColor: data.stroke_color ? "#" + data.stroke_color : "#333",
                             strokeOpacity: data.stroke_opacity ? data.stroke_opacity : 1,
