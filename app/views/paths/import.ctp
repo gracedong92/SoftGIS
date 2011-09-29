@@ -10,7 +10,7 @@ function gisPathToArray(gis) {
    for ( var i in lines ) {
 
         var line = lines[i];
-        if ( line.match(/PLINE \d*/) ) {
+        if ( line.match(/PLINE \d*/i) ) {
             if ( currentPath ) {
                 paths.push(currentPath);
             } 
@@ -41,7 +41,7 @@ function gisRegionToArray(gis) {
    for ( var i in lines ) {
 
        var line = lines[i];
-        if ( line.match(/REGION \d*/) ) {
+        if ( line.match(/REGION \d*/i) ) {
             if ( currentRegion ) {
                 regions.push(currentRegion);
             } 
