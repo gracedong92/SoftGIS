@@ -64,43 +64,31 @@ $( document ).ready(function() {
         </div>
         <?php echo $this->Session->flash(); ?>
         <div id="navbar">
-            <ul>
-                <li>
-                    <?php echo $this->Html->link(
-                        'Omat kyselyt',
-                        array('controller' => 'polls', 'action' => 'index'),
-                        array('class' => 'button')
-                    );?>
-                </li>
-                <li>
-                    <?php echo $this->Html->link(
-                        'Luo uusi kysely',
-                        array('controller' => 'polls', 'action' => 'modify'),
-                        array('class' => 'button')
-                    );?>
-                </li>
-                <li>
-                    <?php echo $this->Html->link(
-                        'Luo karttamerkki',
-                        array('controller' => 'markers', 'action' => 'add'),
-                        array('class' => 'button')
-                    );?>
-                </li>
-                <li>
-                    <?php echo $this->Html->link(
-                        'Tuo reitti',
-                        array('controller' => 'paths', 'action' => 'import'),
-                        array('class' => 'button')
-                    );?>
-                </li>
-                <li>
-                    <?php echo $this->Html->link(
-                        'Kirjaudu ulos',
-                        array('controller' => 'authors', 'action' => 'logout'),
-                        array('class' => 'button')
-                    );?>
-                </li>
-            </ul>
+            <?php echo $this->Html->link(
+                'Omat kyselyt',
+                array('controller' => 'polls', 'action' => 'index'),
+                array('class' => 'button')
+            );?>
+            <?php echo $this->Html->link(
+                'Luo uusi kysely',
+                array('controller' => 'polls', 'action' => 'modify'),
+                array('class' => 'button')
+            );?>
+            <?php echo $this->Html->link(
+                'Luo karttamerkki',
+                array('controller' => 'markers', 'action' => 'add'),
+                array('class' => 'button')
+            );?>
+            <?php echo $this->Html->link(
+                'Tuo reitti',
+                array('controller' => 'paths', 'action' => 'import'),
+                array('class' => 'button')
+            );?>
+            <?php echo $this->Html->link(
+                'Kirjaudu ulos',
+                array('controller' => 'authors', 'action' => 'logout'),
+                array('class' => 'button')
+            );?>
         </div>
         <div id="content">
 

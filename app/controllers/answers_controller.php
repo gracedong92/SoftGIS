@@ -8,7 +8,7 @@ class AnswersController extends AppController
     {
         parent::beforeFilter();
         // error_reporting(E_ALL);
-        $this->Auth->allow('index', 'poll', 'welcome', 'answer');
+        $this->Auth->allow('index', 'poll', 'welcome', 'answer', 'finish');
     }
 
     public function index($pollId = null, $hash = null)
@@ -72,47 +72,6 @@ class AnswersController extends AppController
             $this->cakeError('pollNotFound');
         }
     }
-
-    // /**
-    //  * Starts answering process
-    //  */
-    // public function poll($pollId = null, $hash = null)
-    // {
-    //     $this->Session->write('answer', array()); // Clear session
-    
-    //     if ($pollId != null) {
-    //         $this->Poll->id = $pollId;
-    //         if ($this->Poll->exists()) {
-
-    //             // Make sure poll is already published
-    //             if (!$this->Poll->field('published')) {
-    //                 $this->cakeError('pollNotPublished');
-    //             }
-
-    //             if (!$this->Poll->field('public')) {
-    //                 // Validate hash if poll is not public
-    //                 if (!$this->Poll->validHash($hash)) {
-    //                     $this->cakeError('invalidHash');
-    //                 }
-    //             } 
-
-    //             $this->Session->write(
-    //                 'answer', 
-    //                 array(
-    //                     'poll' => $pollId,
-    //                     'hash' => $hash
-    //                 )
-    //             );
-
-    //             $this->redirect(
-    //                 array(
-    //                     'action' => 'welcome'
-    //                 )
-    //             );
-    //         }
-    //     }
-    //     $this->cakeError('pollNotFound');
-    // }
 
     public function answer()
     {

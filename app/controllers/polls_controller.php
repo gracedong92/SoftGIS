@@ -40,8 +40,6 @@ class PollsController extends AppController
         );
         $this->set('responseCount', $responseCount);
 
-        
-
         $answers = array(
             1 => 'Teksti',
             2 => 'Kyllä, ei, en osaa sanoa',
@@ -185,9 +183,16 @@ class PollsController extends AppController
                 $this->cakeError('pollNotFound');
             }
 
-            // Published poll shouldn't be edited anymore
-            if (!empty($poll['Poll']['published'])) {
-                $this->Session->setFlash('Julkaistua kyselyä ei voida enää muokata');
+            // Polls that have reseponses shouldn't be edited anymore
+            $responseCount = $this->Poll->Response->find(
+                'count', 
+                array(
+                    'conditions' => array('Response.poll_id' => $poll['Poll']['id'])
+                )
+            );
+
+            if ($responseCount > 0) {
+                $this->Session->setFlash('Kyselyyn on vastattu, joten sitä ei voida enään muokata');
                 $this->redirect(array('action' => 'view', $id));
             }
 
@@ -212,6 +217,15 @@ class PollsController extends AppController
             // debug($this->data);
             $data = $this->_jsonToPollModel($this->data);
             // debug($data);die;
+
+            // Make sure questions have correct num
+            $num = 1;
+            foreach ($data['Question'] as $i => $q) {
+                $q['num'] = $num;
+                $data['Question'][$i] = $q;
+                $num++;
+            }
+
             if ($this->Poll->saveAll($data, array('validate'=>'first'))){
                 $this->Session->setFlash('Kysely tallennettu');
                 $this->redirect(array('action' => 'view', $this->Poll->id));

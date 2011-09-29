@@ -54,7 +54,8 @@ a {
   padding: 1em 2em;
   overflow: auto;
   max-width: 860px;
-  margin: 0 auto; }
+  margin: 0 auto;
+  overflow: hidden; }
 
 #footer {
   clear: both;
