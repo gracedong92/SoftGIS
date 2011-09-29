@@ -37,9 +37,12 @@ $( document ).ready(function() {
 </div>
 
 <div class="help">
-    <p>Tähän ohjeet vastaamiseen</p>
-    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. </p>
-    <p>It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+    <h2>Vastausohjeet</h2>
+    <p>Kyselyyn vastataan joko tekstikenttään tai monivalintaan.</p>
+    <p>Lisäksi kysymykseen voi liittyä paikanmääritys. Paikka määritetään kartan kohtaa klikkaamalla. Tällöin kartalle ilmestyy punainen karttamerkki merkitsemään valittua sijaintia. Jos valittua sijaintia haluaa muuttaa, voi karttamerkkiä raahata hiirellä.</p>
+    <h2>Kartta</h2>
+    <p>Joidenkin kysymysten yhteydessä voi näkyä kartta kysymykseen liittyvältä alueelta. Karttaa voi liikuttaa ja zoomata, mutta oletusarvoisesti se on kyselyn laatijan määräämässä sijannissa.</p>
+    <p>Kartalla voi näkyä kyselyyn liittyviä karttamerkkejä, kuvia sekä reittejä.</p>
 </div>
 
 <script id="welcomeTmpl" type="text/x-jquery-tmpl">

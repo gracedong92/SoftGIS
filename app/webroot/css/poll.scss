@@ -68,7 +68,6 @@ a {
 }
 
 .ui-tooltip-help {
-
     .ui-tooltip-content {
         
         font-size: 0.7em;
@@ -404,6 +403,9 @@ hr {
     min-height: 32px;
     background: #FFFFA3 url(images/helpsmall.png) no-repeat 16px 16px;
     border: 1px solid #F1D031;
+    h2 {
+        border-color: #F1D031;
+    }
     p {
         margin-bottom: 0.5em;
     }

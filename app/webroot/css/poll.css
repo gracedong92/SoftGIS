@@ -286,6 +286,8 @@ hr {
   min-height: 32px;
   background: #ffffa3 url(images/helpsmall.png) no-repeat 16px 16px;
   border: 1px solid #F1D031; }
+  .help h2 {
+    border-color: #F1D031; }
   .help p {
     margin-bottom: 0.5em; }
 

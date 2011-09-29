@@ -35,7 +35,7 @@ var AnswerApp = Spine.Controller.create({
         this.promptBeforeUnload = true;
         $(window).bind("beforeunload", function() {
             if (me.promptBeforeUnload) {
-                return "Vastauksiasi ei tallenneta, jos poistut sivulta. Haluatko varmasti jatkaa?";
+                return "Vastauksiasi ei tallenneta, kun poistut sivulta. Haluatko varmasti poistua sivulta?";
             }
         });
     },
