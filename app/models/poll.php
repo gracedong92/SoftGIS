@@ -23,6 +23,10 @@ class Poll extends AppModel
         'Marker' => array(
             'joinTable' => 'polls_markers',
             'unique' => true
+        ),
+        'Overlay' => array(
+            'joinTable' => 'polls_overlays',
+            'unique' => true
         )
     );
 

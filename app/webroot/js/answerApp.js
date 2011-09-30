@@ -14,7 +14,8 @@ var AnswerApp = Spine.Controller.create({
         this.map = Map.init({ 
             el: this.mapEl,
             paths: this.data.Path,
-            markers: this.data.Marker
+            markers: this.data.Marker,
+            overlays: this.data.Overlay
         });
 
         // Create question models

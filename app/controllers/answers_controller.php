@@ -80,10 +80,9 @@ class AnswersController extends AppController
             $this->cakeError('pollNotFound');
         }
 
-        $this->Poll->contain('Marker', 'Path', 'Question', 'Response');
+        $this->Poll->contain('Marker', 'Path', 'Question', 'Response', 'Overlay');
         $this->Poll->id = $session['poll'];
         $poll = $this->Poll->read();
-        // debug($poll);die;
         $this->set('poll', $poll);
         
     }

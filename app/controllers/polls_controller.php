@@ -174,6 +174,10 @@ class PollsController extends AppController
                         'Marker' => array(
                             'id',
                             'name'
+                        ),
+                        'Overlay' => array(
+                            'id',
+                            'name'
                         )
                     )
                 )
@@ -295,7 +299,8 @@ class PollsController extends AppController
             'Poll' => $json['poll'],
             'Question' => array(),
             'Path' => array(),
-            'Marker' => array()
+            'Marker' => array(),
+            'Overlay' => array()
         );
         $data['Poll']['author_id'] = $this->Auth->user('id');
         $data['Poll']['public'] = empty($data['Poll']['public']) ? 0 : 1;
@@ -328,11 +333,19 @@ class PollsController extends AppController
         if (empty($data['Path'])) {
             $data['Path'][] = null;
         }
+
         foreach ($json['markers'] as $m) {
             $data['Marker'][] = $m['id'];
         }
         if (empty($data['Marker'])) {
             $data['Marker'][] = null;
+        }
+
+        foreach ($json['overlays'] as $m) {
+            $data['Overlay'][] = $m['id'];
+        }
+        if (empty($data['Overlay'])) {
+            $data['Overlay'][] = null;
         }
         return $data;
     }

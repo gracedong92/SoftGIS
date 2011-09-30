@@ -10,6 +10,10 @@ var markerSearchUrl = "<?php echo $this->Html->url(
         array('controller' => 'markers', 'action' => 'search.json')
     ); ?>";
 
+var overlaySearchUrl = "<?php echo $this->Html->url(
+        array('controller' => 'overlays', 'action' => 'search.json')
+    ); ?>";
+
 var locationPicker;
 
 var questionDatas = <?php echo json_encode($poll['Question']); ?>;
@@ -23,17 +27,10 @@ var viewModel = {
     poll: new Poll(<?php echo json_encode($poll['Poll']); ?>),
 
     questions: ko.observableArray(questions),
-    // questions: ko.observableArray([
-    //     <?php foreach ($poll['Question'] as $q): ?>
-    //         new Question(<?php echo json_encode($q); ?>),
-    //     <?php endforeach; ?>
-    // ]),
-    // .sort( function(l, r) {
-    //     return l.num() == r.num() ? 0 : (l.num() < r.num() ? -1 : 1)
-    // }),
 
     paths: ko.observableArray(<?php echo json_encode($poll['Path']); ?>),
     markers: ko.observableArray(<?php echo json_encode($poll['Marker']); ?>),
+    overlays: ko.observableArray(<?php echo json_encode($poll['Overlay']); ?>),
 
     // List of question types
     types: [
@@ -132,6 +129,17 @@ $( document ).ready(function() {
         }
     });
 
+    $( "#overlays" ).tokenInput(overlaySearchUrl, {
+        prePopulate: viewModel.overlays(),
+        preventDuplicates: true,
+        onAdd: function(item) {
+            viewModel.overlays.push( item );
+        },
+        onDelete: function(item) {
+            viewModel.overlays.remove( item );
+        }
+    });
+
     $( "#saveButton" ).click(function() {
         var data = ko.toJSON(viewModel);
         $( "#data" ).val( data );
@@ -172,6 +180,12 @@ $( document ).ready(function() {
     <label>Merkit</label>
     <input type="text" id="markers" />
 </div>
+
+<div class="input text">
+    <label>Kuvat</label>
+    <input type="text" id="overlays" />
+</div>
+
 
 <div class="input">
     <label>Kysymykset</label>

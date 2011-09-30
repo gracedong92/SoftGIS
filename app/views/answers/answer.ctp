@@ -7,6 +7,7 @@
 
 <script>
 var markerIconPath = "<?php echo $this->Html->url('/markericons/'); ?>";
+var overlayPath = "<?php echo $this->Html->url('/overlays/'); ?>";
 var answerApp;
 $( document ).ready(function() {
     var data = <?php echo json_encode($poll); ?>;
@@ -22,7 +23,10 @@ $( document ).ready(function() {
     // Help toggle
     $( ".help" ).hide();
     $( "#toggleHelp" ).click(function() {
-        $( ".help" ).fadeToggle();
+        $( ".help" ).fadeToggle(400, "swing", function() {
+            $( "#map" ).qtip("reposition");
+            $( ".answer-field" ).qtip("reposition");
+        });
         return false;
     });
 });
