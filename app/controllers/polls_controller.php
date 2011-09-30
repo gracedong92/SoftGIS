@@ -212,7 +212,8 @@ class PollsController extends AppController
                 ),
                 'Question' => array(),
                 'Path' => array(),
-                'Marker' => array()
+                'Marker' => array(),
+                'Overlay' => array()
             );
         }
 
