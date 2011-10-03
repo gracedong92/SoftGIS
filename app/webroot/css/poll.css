@@ -308,6 +308,14 @@ hr {
     display: inline-block;
     margin: 0 0.5em; }
 
+.publicAnswers {
+  margin-top: 2em;
+  font-size: 0.8em; }
+  .publicAnswers .publicAnswer {
+    margin-bottom: 5px;
+    padding: 0.8em 1em;
+    background-color: #f9f9f9; }
+
 button, a.button {
   font-size: 13px;
   padding: 0.4em 0.7em;

@@ -41,6 +41,7 @@ var AnswerApp = Spine.Controller.create({
                 return "Vastauksiasi ei tallenneta, kun poistut sivulta. Haluatko varmasti poistua sivulta?";
             }
         });
+        this.publicsEl.hide();
     },
     initNextQuestion: function() {
         this.questionNum++;
@@ -84,11 +85,13 @@ var AnswerApp = Spine.Controller.create({
         });
     },
     clearPublicAnswers: function() {
-        this.publicsEl.html("");
+        this.publicsEl.hide().find(".answers").html("");
     },
     createPublicAnswers: function(answers) {
+        this.publicsEl.show();
+        var answersEl = this.publicsEl.find(".answers");
         _.each(answers, function(answer) {
-            this.publicsEl.append($.tmpl("publicAnswerTmpl", answer));
+            answersEl.append($.tmpl("publicAnswerTmpl", answer));
         }, this);
     },
     finish: function() {

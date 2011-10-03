@@ -433,6 +433,16 @@ hr {
     }
 }
 
+.publicAnswers {
+    margin-top: 2em;
+    font-size: 0.8em;
+    .publicAnswer {
+        margin-bottom: 5px;
+        padding: 0.8em 1em;
+        background-color: $background;
+    }
+}
+
 button, a.button {
     font-size: 13px;
     padding: 0.4em 0.7em;

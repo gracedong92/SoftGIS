@@ -122,4 +122,9 @@ $( document ).ready(function() {
     id="postForm">
     <input type="hidden" id="dataField" name="data"/>
 </form>
-<div id="publicAnswers"></div>
+
+<div id="publicAnswers" class="publicAnswers">
+    <h3>Aiemmat vastaukset</h3>
+    <div class="answers">
+    </div>
+</div>
