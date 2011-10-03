@@ -8,12 +8,18 @@
 <script>
 var markerIconPath = "<?php echo $this->Html->url('/markericons/'); ?>";
 var overlayPath = "<?php echo $this->Html->url('/overlays/'); ?>";
+var publicAnswersPath = "<?php echo $this->Html->url('/answers/publicanswers.json'); ?>";
+var publicAnswerIcon = "<?php echo $this->Html->url('/img/public_answer.png'); ?>";
+var answerIcon = "<?php echo $this->Html->url('/img/answer.png'); ?>";
+
+
 var answerApp;
 $( document ).ready(function() {
     var data = <?php echo json_encode($poll); ?>;
 
     $.template("questionTmpl", $("#questionTmpl"));
     $.template("welcomeTmpl", $("#welcomeTmpl"));
+    $.template("publicAnswerTmpl", $("#publicAnswerTmpl"));
 
     answerApp = AnswerApp.init({
         el: $("body"),
@@ -100,6 +106,13 @@ $( document ).ready(function() {
         <button type="button" class="submit">Seuraava kysymys</button>
     </div>
 </script>
+
+<script id="publicAnswerTmpl" type="text/x-jquery-tmpl">
+    <div class="publicAnswer">
+        ${answer}
+    </div>
+</script>
+
 <div id="question" class="answer"></div>
 <div class="answer">
     <div id="map" class="map"></div>
@@ -109,3 +122,4 @@ $( document ).ready(function() {
     id="postForm">
     <input type="hidden" id="dataField" name="data"/>
 </form>
+<div id="publicAnswers"></div>

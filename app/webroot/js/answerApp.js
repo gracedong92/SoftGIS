@@ -4,10 +4,12 @@ var AnswerApp = Spine.Controller.create({
         "click .start" : "initNextQuestion" 
     },
     elements: {
-        "#map":         "mapEl", 
-        "#question":    "questionEl"
+        "#map":             "mapEl", 
+        "#question":        "questionEl",
+        "#publicAnswers":   "publicsEl", 
     },
-    proxied: ["initNextQuestion", "answer", "finish"],
+    proxied: ["initNextQuestion", "answer", "finish", "clearPublicAnswers",
+        "createPublicAnswers"],
     init: function() {
         var me = this;
         // Create map controller
@@ -69,6 +71,25 @@ var AnswerApp = Spine.Controller.create({
             this.map.hide();
         }
         this.questionEl.html($.tmpl("questionTmpl", this.activeQuestion));
+        this.map.clearPublicAnswers();
+        this.clearPublicAnswers();
+
+        var me = this;
+        $.getJSON(publicAnswersPath, {question: this.activeQuestion.id}, function(data) {
+            if (me.activeQuestion.answer_location == "1") {
+                me.map.createPublicAnswers(data.answers);
+            } else {
+                me.createPublicAnswers(data.answers);
+            }
+        });
+    },
+    clearPublicAnswers: function() {
+        this.publicsEl.html("");
+    },
+    createPublicAnswers: function(answers) {
+        _.each(answers, function(answer) {
+            this.publicsEl.append($.tmpl("publicAnswerTmpl", answer));
+        }, this);
     },
     finish: function() {
         var answers = JSON.stringify(this.answers);

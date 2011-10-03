@@ -1,5 +1,6 @@
 var Map = Spine.Controller.create({
-    proxied: ["setCenter", "setSelectable", "hide", "initMap", "getAnswerLoc"],
+    proxied: ["setCenter", "setSelectable", "hide", "initMap", "getAnswerLoc",
+        "clearPublicAnswers", "createPublicAnswers"],
     init: function() {
     },
     initMap: function(pos, zoom) {
@@ -13,7 +14,8 @@ var Map = Spine.Controller.create({
         this.marker = new google.maps.Marker({
             position: pos,
             map: null,
-            draggable: true
+            draggable: true,
+            icon: answerIcon
         });
 
         var me = this;
@@ -133,5 +135,32 @@ var Map = Spine.Controller.create({
     },
     hide: function() {
         this.el.hide();
+    },
+    createPublicAnswers: function(answers) {
+        this.publicAnswers = [];
+        _.each(answers, function(answer){
+            var infoWindow = new google.maps.InfoWindow({
+                content: answer.answer
+            });
+            var marker = new google.maps.Marker({
+                map: this.map,
+                title: answer.answer,
+                icon: publicAnswerIcon,
+                position: new google.maps.LatLng(answer.lat, answer.lng)
+            });
+            google.maps.event.addListener(marker, "click", function() {
+                infoWindow.open(this.map, marker);
+            });
+            this.publicAnswers.push(marker);
+        }, this);
+    },
+    clearPublicAnswers: function() {
+        if (this.publicAnswers) {
+            _.each(this.publicAnswers, function(answer) {
+                answer.setMap(null);
+                delete answer;
+            });
+            this.publicAnswers = null;
+        }
     }
 });
