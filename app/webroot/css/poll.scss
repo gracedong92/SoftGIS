@@ -433,6 +433,15 @@ hr {
     }
 }
 
+#noLocationCont {
+    float: left;
+    padding: 1em 0;
+    font-size: 0.75em;
+    input {
+        vertical-align: bottom;
+    }
+}
+
 .publicAnswers {
     margin-top: 2em;
     font-size: 0.8em;

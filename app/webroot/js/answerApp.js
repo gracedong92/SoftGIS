@@ -6,7 +6,9 @@ var AnswerApp = Spine.Controller.create({
     elements: {
         "#map":             "mapEl", 
         "#question":        "questionEl",
-        "#publicAnswers":   "publicsEl", 
+        "#publicAnswers":   "publicsEl",
+        "#noLocationCont":  "noLocContEl",
+        "#noLocation":      "noLocCheckbox"
     },
     proxied: ["initNextQuestion", "answer", "finish", "clearPublicAnswers",
         "createPublicAnswers"],
@@ -32,7 +34,8 @@ var AnswerApp = Spine.Controller.create({
 
         // Show welcome text
         this.questionEl.html($.tmpl("welcomeTmpl", this.data.Poll));
-        this.map.hide();
+        this.map.hide(); // Hide map
+        this.noLocContEl.hide(); // Hide no location checkbox
 
         // Confirms leaving the page
         this.promptBeforeUnload = true;
@@ -58,6 +61,7 @@ var AnswerApp = Spine.Controller.create({
             return;
         }
 
+        // Update map location or hide it if not needed
         if ( this.activeQuestion.lat && this.activeQuestion.lng ) {
             this.map.setCenter(
                 this.activeQuestion.lat, 
@@ -71,9 +75,22 @@ var AnswerApp = Spine.Controller.create({
         } else {
             this.map.hide();
         }
+        // Form new question
         this.questionEl.html($.tmpl("questionTmpl", this.activeQuestion));
+
+        // Remove public answers from map and dom
         this.map.clearPublicAnswers();
         this.clearPublicAnswers();
+
+
+        if (this.activeQuestion.answer_location == "1") {
+            // Display and reset no location checkbox
+            this.noLocCheckbox.removeAttr('checked');
+            this.noLocContEl.show();
+        } else {
+            // Hide checkbox
+            this.noLocContEl.hide();
+        }
 
         var me = this;
         $.getJSON(publicAnswersPath, {question: this.activeQuestion.id}, function(data) {
@@ -111,7 +128,10 @@ var AnswerApp = Spine.Controller.create({
         var continueSubmit = true;
 
         var answerLoc = "";
-        if ( this.activeQuestion.answer_location == "1" ) {
+
+        if ( this.activeQuestion.answer_location == "1" 
+            && !this.noLocCheckbox.is(':checked')) {
+            
             // Make sure user has selected location
             answerLoc = this.map.getAnswerLoc();
 
@@ -140,6 +160,8 @@ var AnswerApp = Spine.Controller.create({
             } else {
                 this.mapEl.qtip( "destroy" );
             }
+        } else {
+            this.mapEl.qtip( "destroy" );
         }
 
         // Make sure user has answered something

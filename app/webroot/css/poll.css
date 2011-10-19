@@ -308,6 +308,13 @@ hr {
     display: inline-block;
     margin: 0 0.5em; }
 
+#noLocationCont {
+  float: left;
+  padding: 1em 0;
+  font-size: 0.75em; }
+  #noLocationCont input {
+    vertical-align: bottom; }
+
 .publicAnswers {
   margin-top: 2em;
   font-size: 0.8em; }
