@@ -45,7 +45,6 @@ class MarkersController extends AppController
             }
         }
         asort($icons);
-        debug($icons);die;
         $this->set('icons', $icons);
     }
 
