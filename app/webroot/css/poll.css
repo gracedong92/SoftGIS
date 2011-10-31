@@ -299,6 +299,7 @@ hr {
   .answer h3 {
     clear: both; }
   .answer .map {
+    clear: both;
     border: 1px solid #c9c9c9;
     width: 100%;
     height: 600px;
