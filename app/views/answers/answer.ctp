@@ -115,9 +115,9 @@ $( document ).ready(function() {
 
 <div id="question" class="answer"></div>
 <div class="answer">
-    <div id="noLocationCont">
-        <input type="checkbox" id="noLocation" />
-        <label>En halua asettaa sijaintia kartalle</label>
+    <div id="noAnswerCont">
+        <input type="checkbox" id="noAnswer" />
+        <label>En halua vastata kysymykseen</label>
     </div>
     <div id="map" class="map">
     </div>

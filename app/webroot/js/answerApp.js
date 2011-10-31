@@ -7,8 +7,8 @@ var AnswerApp = Spine.Controller.create({
         "#map":             "mapEl", 
         "#question":        "questionEl",
         "#publicAnswers":   "publicsEl",
-        "#noLocationCont":  "noLocContEl",
-        "#noLocation":      "noLocCheckbox"
+        "#noAnswerCont":  "noAnswerContEl",
+        "#noAnswer":      "noAnswerCheckbox"
     },
     proxied: ["initNextQuestion", "answer", "finish", "clearPublicAnswers",
         "createPublicAnswers"],
@@ -35,7 +35,7 @@ var AnswerApp = Spine.Controller.create({
         // Show welcome text
         this.questionEl.html($.tmpl("welcomeTmpl", this.data.Poll));
         this.map.hide(); // Hide map
-        this.noLocContEl.hide(); // Hide no location checkbox
+        this.noAnswerContEl.hide(); // Hide no location checkbox
 
         // Confirms leaving the page
         this.promptBeforeUnload = true;
@@ -83,14 +83,14 @@ var AnswerApp = Spine.Controller.create({
         this.clearPublicAnswers();
 
 
-        if (this.activeQuestion.answer_location == "1") {
-            // Display and reset no location checkbox
-            this.noLocCheckbox.removeAttr('checked');
-            this.noLocContEl.show();
-        } else {
-            // Hide checkbox
-            this.noLocContEl.hide();
-        }
+        // if (this.activeQuestion.answer_location == "1") {
+        //     // Display and reset no location checkbox
+        this.noAnswerCheckbox.removeAttr('checked');
+        this.noAnswerContEl.show();
+        // } else {
+        //     // Hide checkbox
+        //     this.noAnswerContEl.hide();
+        // }
 
         var me = this;
         $.getJSON(publicAnswersPath, {question: this.activeQuestion.id}, function(data) {
@@ -125,13 +125,25 @@ var AnswerApp = Spine.Controller.create({
             answerSelector = "input:checked";
         }
 
+        
+        // User dosn't want to answer
+        if (this.noAnswerCheckbox.is(':checked')) {
+            this.answers.push({
+                text: '',
+                loc: ''
+            });
+            this.mapEl.qtip( "destroy" );
+            $( ".answer-field", this.el ).qtip( "destroy" );
+            this.initNextQuestion();
+            return false;
+        }
+
+
         var continueSubmit = true;
 
         var answerLoc = "";
 
-        if ( this.activeQuestion.answer_location == "1" 
-            && !this.noLocCheckbox.is(':checked')) {
-            
+        if ( this.activeQuestion.answer_location == "1" ) {
             // Make sure user has selected location
             answerLoc = this.map.getAnswerLoc();
 

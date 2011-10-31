@@ -127,8 +127,8 @@ class AnswersController extends AppController
 
                 if ($question['answer_location'] == 1) {
                     $latLng = explode(',', $a->loc);
-                    $lat = isset($latLng[0]) ? (float)$latLng[0] : "";
-                    $lng = isset($latLng[1]) ? (float)$latLng[1] : "";
+                    $lat = !empty($latLng[0]) ? (float)$latLng[0] : "";
+                    $lng = !empty($latLng[1]) ? (float)$latLng[1] : "";
                 } else {
                     $lat = '';
                     $lng = '';

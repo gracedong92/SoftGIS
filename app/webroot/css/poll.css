@@ -309,11 +309,11 @@ hr {
     display: inline-block;
     margin: 0 0.5em; }
 
-#noLocationCont {
+#noAnswerCont {
   float: left;
   padding: 1em 0;
   font-size: 0.75em; }
-  #noLocationCont input {
+  #noAnswerCont input {
     vertical-align: bottom; }
 
 .publicAnswers {
