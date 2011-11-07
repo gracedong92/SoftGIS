@@ -92,12 +92,12 @@ var Map = Spine.Controller.create({
                 neLatLng = new google.maps.LatLng(data.ne_lat, data.ne_lng);
                 swLatLng = new google.maps.LatLng(data.sw_lat, data.sw_lng);
                 overlayBounds = new google.maps.LatLngBounds(swLatLng, neLatLng);
-
                 overlay = new google.maps.GroundOverlay(
                     overlayPath + data.image,
                     overlayBounds,
                     {
-                        map: map
+                        map: map,
+                        clickable: false
                     }
                 );
             });
