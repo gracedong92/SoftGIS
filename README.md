@@ -1,3 +1,7 @@
+This SoftGIS project is an open source effort, initiated by geography researchers in Oulu, Finland and developed for them by Playsign. It is currently in use, but there is no public demo. We may set up one later.
+
+Installation instructions, in Finnish:
+
 ## Vaatimukset
 
 - HTTP-palvelin
